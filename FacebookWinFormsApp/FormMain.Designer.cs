@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.listBoxGroups = new System.Windows.Forms.ListBox();
+            this.buttonGroups = new System.Windows.Forms.Button();
+            this.labelWelcome = new System.Windows.Forms.Label();
             this.buttonGuessingGame = new System.Windows.Forms.Button();
             this.labelSingleOrTaken = new System.Windows.Forms.Label();
             this.pictureBoxAlbum = new System.Windows.Forms.PictureBox();
@@ -42,16 +45,20 @@
             this.buttonLogout = new System.Windows.Forms.Button();
             this.buttonLogin = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.labelWelcome = new System.Windows.Forms.Label();
+            this.pictureBoxGroups = new System.Windows.Forms.PictureBox();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAlbum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLikedPages)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
             this.tabControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGroups)).BeginInit();
             this.SuspendLayout();
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.pictureBoxGroups);
+            this.tabPage1.Controls.Add(this.listBoxGroups);
+            this.tabPage1.Controls.Add(this.buttonGroups);
             this.tabPage1.Controls.Add(this.labelWelcome);
             this.tabPage1.Controls.Add(this.buttonGuessingGame);
             this.tabPage1.Controls.Add(this.labelSingleOrTaken);
@@ -72,6 +79,37 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // listBoxGroups
+            // 
+            this.listBoxGroups.FormattingEnabled = true;
+            this.listBoxGroups.ItemHeight = 18;
+            this.listBoxGroups.Location = new System.Drawing.Point(454, 266);
+            this.listBoxGroups.Name = "listBoxGroups";
+            this.listBoxGroups.Size = new System.Drawing.Size(187, 148);
+            this.listBoxGroups.TabIndex = 67;
+            this.listBoxGroups.Visible = false;
+            this.listBoxGroups.SelectedIndexChanged += new System.EventHandler(this.listBoxGroups_SelectedIndexChanged);
+            // 
+            // buttonGroups
+            // 
+            this.buttonGroups.Location = new System.Drawing.Point(442, 202);
+            this.buttonGroups.Name = "buttonGroups";
+            this.buttonGroups.Size = new System.Drawing.Size(224, 58);
+            this.buttonGroups.TabIndex = 66;
+            this.buttonGroups.Text = "Click to view all groups your\'e  partcipatng in";
+            this.buttonGroups.UseVisualStyleBackColor = true;
+            this.buttonGroups.Visible = false;
+            this.buttonGroups.Click += new System.EventHandler(this.buttonGroups_Click);
+            // 
+            // labelWelcome
+            // 
+            this.labelWelcome.AutoSize = true;
+            this.labelWelcome.Location = new System.Drawing.Point(426, 38);
+            this.labelWelcome.Name = "labelWelcome";
+            this.labelWelcome.Size = new System.Drawing.Size(240, 18);
+            this.labelWelcome.TabIndex = 65;
+            this.labelWelcome.Text = "Welcome to our Facebook API app";
             // 
             // buttonGuessingGame
             // 
@@ -208,14 +246,14 @@
             this.tabControl1.Size = new System.Drawing.Size(1243, 697);
             this.tabControl1.TabIndex = 54;
             // 
-            // labelWelcome
+            // pictureBoxGroups
             // 
-            this.labelWelcome.AutoSize = true;
-            this.labelWelcome.Location = new System.Drawing.Point(426, 38);
-            this.labelWelcome.Name = "labelWelcome";
-            this.labelWelcome.Size = new System.Drawing.Size(240, 18);
-            this.labelWelcome.TabIndex = 65;
-            this.labelWelcome.Text = "Welcome to our Facebook API app";
+            this.pictureBoxGroups.Location = new System.Drawing.Point(647, 266);
+            this.pictureBoxGroups.Name = "pictureBoxGroups";
+            this.pictureBoxGroups.Size = new System.Drawing.Size(140, 118);
+            this.pictureBoxGroups.TabIndex = 68;
+            this.pictureBoxGroups.TabStop = false;
+            this.pictureBoxGroups.Visible = false;
             // 
             // FormMain
             // 
@@ -234,6 +272,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLikedPages)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).EndInit();
             this.tabControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGroups)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -255,6 +294,9 @@
         private System.Windows.Forms.Button buttonLogin;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.Label labelWelcome;
+        private System.Windows.Forms.ListBox listBoxGroups;
+        private System.Windows.Forms.Button buttonGroups;
+        private System.Windows.Forms.PictureBox pictureBoxGroups;
     }
 }
 
