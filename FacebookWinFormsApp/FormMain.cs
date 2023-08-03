@@ -180,6 +180,7 @@ namespace BasicFacebookFeatures
             labelSingleOrTaken.Visible = true;
             buttonGuessingGame.Visible = true;
             buttonGuessingGame.Enabled = true;
+            labelWelcome.Visible = false;
             labelBirthday.Text = $"Your birthday is on: {m_LoggedInUser.Birthday}";
 
             if (m_LoggedInUser.RelationshipStatus == User.eRelationshipStatus.None)
@@ -213,6 +214,7 @@ namespace BasicFacebookFeatures
             labelSingleOrTaken.Visible = false;
             buttonGuessingGame.Visible = false;
             buttonGuessingGame.Enabled = false;
+            labelWelcome.Visible = true;
         }
 
         private void buttonGuessingGame_Click(object sender, EventArgs e)

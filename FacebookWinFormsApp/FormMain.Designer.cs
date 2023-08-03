@@ -42,6 +42,7 @@
             this.buttonLogout = new System.Windows.Forms.Button();
             this.buttonLogin = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.labelWelcome = new System.Windows.Forms.Label();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAlbum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLikedPages)).BeginInit();
@@ -51,6 +52,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.labelWelcome);
             this.tabPage1.Controls.Add(this.buttonGuessingGame);
             this.tabPage1.Controls.Add(this.labelSingleOrTaken);
             this.tabPage1.Controls.Add(this.pictureBoxAlbum);
@@ -85,7 +87,7 @@
             // labelSingleOrTaken
             // 
             this.labelSingleOrTaken.AutoSize = true;
-            this.labelSingleOrTaken.Location = new System.Drawing.Point(25, 143);
+            this.labelSingleOrTaken.Location = new System.Drawing.Point(451, 56);
             this.labelSingleOrTaken.Name = "labelSingleOrTaken";
             this.labelSingleOrTaken.Size = new System.Drawing.Size(123, 18);
             this.labelSingleOrTaken.TabIndex = 63;
@@ -104,7 +106,7 @@
             // labelBirthday
             // 
             this.labelBirthday.AutoSize = true;
-            this.labelBirthday.Location = new System.Drawing.Point(25, 113);
+            this.labelBirthday.Location = new System.Drawing.Point(451, 17);
             this.labelBirthday.Name = "labelBirthday";
             this.labelBirthday.Size = new System.Drawing.Size(140, 18);
             this.labelBirthday.TabIndex = 61;
@@ -166,9 +168,9 @@
             // 
             // pictureBoxProfile
             // 
-            this.pictureBoxProfile.Location = new System.Drawing.Point(325, 11);
+            this.pictureBoxProfile.Location = new System.Drawing.Point(36, 34);
             this.pictureBoxProfile.Name = "pictureBoxProfile";
-            this.pictureBoxProfile.Size = new System.Drawing.Size(79, 78);
+            this.pictureBoxProfile.Size = new System.Drawing.Size(206, 141);
             this.pictureBoxProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxProfile.TabIndex = 55;
             this.pictureBoxProfile.TabStop = false;
@@ -176,7 +178,7 @@
             // buttonLogout
             // 
             this.buttonLogout.Enabled = false;
-            this.buttonLogout.Location = new System.Drawing.Point(18, 57);
+            this.buttonLogout.Location = new System.Drawing.Point(410, 143);
             this.buttonLogout.Margin = new System.Windows.Forms.Padding(4);
             this.buttonLogout.Name = "buttonLogout";
             this.buttonLogout.Size = new System.Drawing.Size(268, 32);
@@ -187,7 +189,7 @@
             // 
             // buttonLogin
             // 
-            this.buttonLogin.Location = new System.Drawing.Point(18, 17);
+            this.buttonLogin.Location = new System.Drawing.Point(410, 99);
             this.buttonLogin.Margin = new System.Windows.Forms.Padding(4);
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Size = new System.Drawing.Size(268, 32);
@@ -205,6 +207,15 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1243, 697);
             this.tabControl1.TabIndex = 54;
+            // 
+            // labelWelcome
+            // 
+            this.labelWelcome.AutoSize = true;
+            this.labelWelcome.Location = new System.Drawing.Point(426, 38);
+            this.labelWelcome.Name = "labelWelcome";
+            this.labelWelcome.Size = new System.Drawing.Size(239, 18);
+            this.labelWelcome.TabIndex = 65;
+            this.labelWelcome.Text = "Welcome to out Facebook API app";
             // 
             // FormMain
             // 
@@ -243,6 +254,7 @@
         private System.Windows.Forms.Button buttonLogout;
         private System.Windows.Forms.Button buttonLogin;
         private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.Label labelWelcome;
     }
 }
 
