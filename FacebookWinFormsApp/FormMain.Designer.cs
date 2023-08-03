@@ -213,9 +213,9 @@
             this.labelWelcome.AutoSize = true;
             this.labelWelcome.Location = new System.Drawing.Point(426, 38);
             this.labelWelcome.Name = "labelWelcome";
-            this.labelWelcome.Size = new System.Drawing.Size(239, 18);
+            this.labelWelcome.Size = new System.Drawing.Size(240, 18);
             this.labelWelcome.TabIndex = 65;
-            this.labelWelcome.Text = "Welcome to out Facebook API app";
+            this.labelWelcome.Text = "Welcome to our Facebook API app";
             // 
             // FormMain
             // 
