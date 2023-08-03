@@ -181,6 +181,10 @@ namespace BasicFacebookFeatures
             buttonGuessingGame.Visible = true;
             buttonGuessingGame.Enabled = true;
             labelWelcome.Visible = false;
+            listBoxGroups.Visible = true;
+            pictureBoxGroups.Visible = true;
+            buttonGroups.Visible = true;
+            buttonGroups.Enabled = true;
             labelBirthday.Text = $"Your birthday is on: {m_LoggedInUser.Birthday}";
 
             if (m_LoggedInUser.RelationshipStatus == User.eRelationshipStatus.None)
@@ -215,6 +219,10 @@ namespace BasicFacebookFeatures
             buttonGuessingGame.Visible = false;
             buttonGuessingGame.Enabled = false;
             labelWelcome.Visible = true;
+            listBoxGroups.Visible = false;
+            pictureBoxGroups.Visible = false;
+            buttonGroups.Visible = false;
+            buttonGroups.Enabled = false;
         }
 
         private void buttonGuessingGame_Click(object sender, EventArgs e)
@@ -230,6 +238,44 @@ namespace BasicFacebookFeatures
             }
         }
 
-       
+        private void buttonGroups_Click(object sender, EventArgs e)
+        {
+            presentAllGroups();
+        }
+
+        private void presentAllGroups()
+        {
+            try
+            {
+                List<Group> allGroups = m_LoggedInUser.Groups.ToList();
+                if (allGroups.Count == 0)
+                {
+                    MessageBox.Show("User has no albums.");
+                }
+                else
+                {
+                    foreach (Group currentGroup in allGroups)
+                    {
+                        listBoxGroups.Items.Add(currentGroup);
+                        listBoxGroups.DisplayMember = "Name";
+                    }
+                }
+            }
+            catch (Exception generalException)
+            {
+                MessageBox.Show("Error trying to fetch groups.");
+            }
+        }
+
+        private void listBoxGroups_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            presentSingleGroup();
+        }
+
+        private void presentSingleGroup()
+        {
+            Group selectedGroup = listBoxGroups.SelectedItem as Group;
+            pictureBoxGroups.LoadAsync(selectedGroup.PictureNormalURL);
+        }
     }
 }
