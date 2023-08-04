@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.listBoxPosts = new System.Windows.Forms.ListBox();
+            this.buttonPosts = new System.Windows.Forms.Button();
             this.pictureBoxGroups = new System.Windows.Forms.PictureBox();
             this.listBoxGroups = new System.Windows.Forms.ListBox();
             this.buttonGroups = new System.Windows.Forms.Button();
@@ -56,6 +58,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.listBoxPosts);
+            this.tabPage1.Controls.Add(this.buttonPosts);
             this.tabPage1.Controls.Add(this.pictureBoxGroups);
             this.tabPage1.Controls.Add(this.listBoxGroups);
             this.tabPage1.Controls.Add(this.buttonGroups);
@@ -79,6 +83,27 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // listBoxPosts
+            // 
+            this.listBoxPosts.FormattingEnabled = true;
+            this.listBoxPosts.ItemHeight = 18;
+            this.listBoxPosts.Location = new System.Drawing.Point(793, 137);
+            this.listBoxPosts.Name = "listBoxPosts";
+            this.listBoxPosts.Size = new System.Drawing.Size(406, 166);
+            this.listBoxPosts.TabIndex = 70;
+            this.listBoxPosts.Visible = false;
+            // 
+            // buttonPosts
+            // 
+            this.buttonPosts.Location = new System.Drawing.Point(827, 86);
+            this.buttonPosts.Name = "buttonPosts";
+            this.buttonPosts.Size = new System.Drawing.Size(121, 45);
+            this.buttonPosts.TabIndex = 69;
+            this.buttonPosts.Text = "Click to view your posts";
+            this.buttonPosts.UseVisualStyleBackColor = true;
+            this.buttonPosts.Visible = false;
+            this.buttonPosts.Click += new System.EventHandler(this.buttonPosts_Click);
             // 
             // pictureBoxGroups
             // 
@@ -297,6 +322,8 @@
         private System.Windows.Forms.ListBox listBoxGroups;
         private System.Windows.Forms.Button buttonGroups;
         private System.Windows.Forms.PictureBox pictureBoxGroups;
+        private System.Windows.Forms.ListBox listBoxPosts;
+        private System.Windows.Forms.Button buttonPosts;
     }
 }
 
