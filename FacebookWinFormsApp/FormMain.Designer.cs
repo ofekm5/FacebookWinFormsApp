@@ -36,7 +36,6 @@
             this.buttonGroups = new System.Windows.Forms.Button();
             this.labelWelcome = new System.Windows.Forms.Label();
             this.buttonGuessingGame = new System.Windows.Forms.Button();
-            this.labelSingleOrTaken = new System.Windows.Forms.Label();
             this.pictureBoxAlbum = new System.Windows.Forms.PictureBox();
             this.labelBirthday = new System.Windows.Forms.Label();
             this.listBoxAlbums = new System.Windows.Forms.ListBox();
@@ -65,7 +64,6 @@
             this.tabPage1.Controls.Add(this.buttonGroups);
             this.tabPage1.Controls.Add(this.labelWelcome);
             this.tabPage1.Controls.Add(this.buttonGuessingGame);
-            this.tabPage1.Controls.Add(this.labelSingleOrTaken);
             this.tabPage1.Controls.Add(this.pictureBoxAlbum);
             this.tabPage1.Controls.Add(this.labelBirthday);
             this.tabPage1.Controls.Add(this.listBoxAlbums);
@@ -155,16 +153,6 @@
             this.buttonGuessingGame.UseVisualStyleBackColor = true;
             this.buttonGuessingGame.Visible = false;
             this.buttonGuessingGame.Click += new System.EventHandler(this.buttonGuessingGame_Click);
-            // 
-            // labelSingleOrTaken
-            // 
-            this.labelSingleOrTaken.AutoSize = true;
-            this.labelSingleOrTaken.Location = new System.Drawing.Point(451, 56);
-            this.labelSingleOrTaken.Name = "labelSingleOrTaken";
-            this.labelSingleOrTaken.Size = new System.Drawing.Size(123, 18);
-            this.labelSingleOrTaken.TabIndex = 63;
-            this.labelSingleOrTaken.Text = "You are currently:";
-            this.labelSingleOrTaken.Visible = false;
             // 
             // pictureBoxAlbum
             // 
@@ -306,7 +294,6 @@
 
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Button buttonGuessingGame;
-        private System.Windows.Forms.Label labelSingleOrTaken;
         private System.Windows.Forms.PictureBox pictureBoxAlbum;
         private System.Windows.Forms.Label labelBirthday;
         private System.Windows.Forms.ListBox listBoxAlbums;

@@ -177,7 +177,6 @@ namespace BasicFacebookFeatures
             pictureBoxAlbum.Visible = true;
             pictureBoxProfile.Visible = true;
             m_LoggedInUser = m_LoginResult.LoggedInUser;
-            labelSingleOrTaken.Visible = true;
             buttonGuessingGame.Visible = true;
             buttonGuessingGame.Enabled = true;
             labelWelcome.Visible = false;
@@ -189,14 +188,6 @@ namespace BasicFacebookFeatures
             buttonPosts.Visible = true;
             listBoxPosts.Visible = true;
             presentAndCalculateBirthday();
-            if (m_LoggedInUser.RelationshipStatus == User.eRelationshipStatus.None)
-            {
-                labelSingleOrTaken.Text = "You are currently single and lonely :( Go find someone";
-            }
-            else
-            {
-                labelSingleOrTaken.Text = "You are currently taken :)";
-            }
         }
 
         private void handleAllToolsAfterLogout()
@@ -217,7 +208,6 @@ namespace BasicFacebookFeatures
             pictureBoxAlbum.Visible = false;
             pictureBoxAlbum.Image = null;
             pictureBoxProfile.Visible = false;
-            labelSingleOrTaken.Visible = false;
             buttonGuessingGame.Visible = false;
             buttonGuessingGame.Enabled = false;
             labelWelcome.Visible = true;
