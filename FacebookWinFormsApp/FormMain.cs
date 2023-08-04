@@ -105,7 +105,7 @@ namespace BasicFacebookFeatures
                     }
                 }
             }
-            catch(Exception generalException)
+            catch (Exception generalException)
             {
                 MessageBox.Show("Error trying to fetch liked pages.");
             }
@@ -140,7 +140,7 @@ namespace BasicFacebookFeatures
                     }
                 }
             }
-            catch(Exception generalException)
+            catch (Exception generalException)
             {
                 MessageBox.Show("Error trying to fetch albums.");
             }
@@ -185,11 +185,13 @@ namespace BasicFacebookFeatures
             pictureBoxGroups.Visible = true;
             buttonGroups.Visible = true;
             buttonGroups.Enabled = true;
-            labelBirthday.Text = $"Your birthday is on: {m_LoggedInUser.Birthday}";
-
+            buttonPosts.Enabled = true;
+            buttonPosts.Visible = true;
+            listBoxPosts.Visible = true;
+            presentAndCalculateBirthday();
             if (m_LoggedInUser.RelationshipStatus == User.eRelationshipStatus.None)
             {
-                labelSingleOrTaken.Text = "You are currently single :( Go find someone";
+                labelSingleOrTaken.Text = "You are currently single and lonely :( Go find someone";
             }
             else
             {
@@ -223,6 +225,9 @@ namespace BasicFacebookFeatures
             pictureBoxGroups.Visible = false;
             buttonGroups.Visible = false;
             buttonGroups.Enabled = false;
+            buttonPosts.Enabled = false;
+            buttonPosts.Visible = false;
+            listBoxPosts.Visible = false;
         }
 
         private void buttonGuessingGame_Click(object sender, EventArgs e)
@@ -232,7 +237,7 @@ namespace BasicFacebookFeatures
                 FormGuessGame guessGame = new FormGuessGame(m_LoggedInUser);
                 guessGame.ShowDialog();
             }
-            catch(Exception generalException)
+            catch (Exception generalException)
             {
 
             }
@@ -277,5 +282,72 @@ namespace BasicFacebookFeatures
             Group selectedGroup = listBoxGroups.SelectedItem as Group;
             pictureBoxGroups.LoadAsync(selectedGroup.PictureNormalURL);
         }
+
+        private void buttonPosts_Click(object sender, EventArgs e)
+        {
+            presentAllPosts();
+        }
+
+        private void presentAllPosts()
+        {
+            try
+            {
+                List<Post> allPosts = m_LoggedInUser.Posts.ToList();
+                if (allPosts.Count == 0)
+                {
+                    MessageBox.Show("User has no posts");
+                }
+                else
+                {
+                    foreach (Post post in allPosts)
+                    {
+                        listBoxPosts.Items.Add(post);
+                        listBoxPosts.DisplayMember = "Name";
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error trying to fetch posts.");
+            }
+        }
+
+        private void presentAndCalculateBirthday()
+        {
+            try
+            {
+                string userBirthday = m_LoggedInUser.Birthday;
+                DateTime today = DateTime.Today;
+                DateTime formatedUserBirthday;
+                if (DateTime.TryParseExact(userBirthday, "MM/dd/yyyy", null, System.Globalization.DateTimeStyles.None, out formatedUserBirthday))
+                {
+                    DateTime birthdayThisYear = new DateTime(today.Year, formatedUserBirthday.Month, formatedUserBirthday.Day);
+                    if (today < formatedUserBirthday)
+                    {
+                        birthdayThisYear = birthdayThisYear.AddYears(1);
+                    }
+
+                    TimeSpan daysDifference = birthdayThisYear.Subtract(today);
+                    if (daysDifference.Days == 0)
+                    {
+                        labelBirthday.Text ="Happy birthday!!!";
+                    }
+                    else
+                    {
+                        labelBirthday.Text = $"Your birthday is in {userBirthday}\nYou have {daysDifference.Days} days until your birthday";
+                    }    
+                }
+                else
+                {
+                    labelBirthday.Text = "You havent provided a birthday";
+
+                }
+            }
+            catch(Exception generalException)
+            {
+                MessageBox.Show("Error trying to fetch birthday");
+            }
+        }
+            
     }
 }
