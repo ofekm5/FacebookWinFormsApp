@@ -250,7 +250,7 @@ namespace BasicFacebookFeatures
                 List<Group> allGroups = m_LoggedInUser.Groups.ToList();
                 if (allGroups.Count == 0)
                 {
-                    MessageBox.Show("User has no albums.");
+                    MessageBox.Show("User has no groups.");
                 }
                 else
                 {
