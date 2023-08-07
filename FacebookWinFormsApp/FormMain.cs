@@ -63,11 +63,13 @@ namespace BasicFacebookFeatures
                 else
                 {
                     MessageBox.Show("Error logging in");
+                    m_LoginResult = null;
                 }
             }
             catch (Exception generalException)
             {
-                //MessageBox.Show("Error logging in");
+                MessageBox.Show("Error logging in");
+                m_LoginResult = null;
             }
 
         }
@@ -292,7 +294,7 @@ namespace BasicFacebookFeatures
                     foreach (Post post in allPosts)
                     {
                         listBoxPosts.Items.Add(post);
-                        listBoxPosts.DisplayMember = "Name";
+                        //listBoxPosts.DisplayMember = "Name";
                     }
                 }
             }
