@@ -41,7 +41,6 @@ namespace BasicFacebookFeatures
                k_AppId,
                 /// requested permissions:
                 "email",
-<<<<<<< HEAD
                 "public_profile",
                 "user_birthday",
                 "user_events",
@@ -52,35 +51,16 @@ namespace BasicFacebookFeatures
                 "user_photos",
                 "user_likes"
                 );
-            if(m_LoginResult.AccessToken == null)
-            {
-                MessageBox.Show("Error logging in.");
-=======
-               "public_profile",
-               "user_birthday",
-               "user_events",
-               "user_gender",
-               "user_hometown",
-               "user_friends",
-               "user_posts",
-               "user_photos",
-               "user_likes",
-               ""
-               );
 
-                if (!string.IsNullOrEmpty(m_LoginResult.AccessToken))
+                if (m_LoginResult.AccessToken == null)
                 {
-                    buttonLogin.Text = $"Logged in as {m_LoginResult.LoggedInUser.Name}";
-                    buttonLogin.BackColor = Color.LightGreen;
-                    pictureBoxProfile.ImageLocation = m_LoginResult.LoggedInUser.PictureNormalURL;
-                    handleAllToolsAfterLogin();
+                    MessageBox.Show("Error logging in.");
+                    m_LoginResult = null;
                 }
                 else
                 {
-                    MessageBox.Show("Error logging in");
-                    m_LoginResult = null;
+                    handleAllToolsAfterLogin();
                 }
->>>>>>> 171f0fc0e24069b70acf71a507996bf3f11e9a6e
             }
             catch (Exception generalException)
             {
@@ -206,6 +186,15 @@ namespace BasicFacebookFeatures
             buttonPosts.Visible = true;
             listBoxPosts.Visible = true;
             labelBasicDetails.Visible = true;
+            labelWhatsOnYourMind.Visible = true;
+            textBoxPostStatus.Visible = true;
+            textBoxPostStatus.Enabled = true;
+            buttonPost.Visible = true;
+            buttonPost.Enabled = true;
+            buttonPast.Visible = true;
+            buttonPast.Enabled = true;
+            buttonAlbumCreator.Visible = true;
+            buttonAlbumCreator.Enabled = true;
             fetchBasicInfo();
         }
 
@@ -238,6 +227,15 @@ namespace BasicFacebookFeatures
             buttonPosts.Visible = false;
             listBoxPosts.Visible = false;
             labelBasicDetails.Visible = false;
+            labelWhatsOnYourMind.Visible = true;
+            textBoxPostStatus.Visible = true;
+            textBoxPostStatus.Enabled = true;
+            buttonPost.Visible = true;
+            buttonPost.Enabled = true;
+            buttonPast.Visible = true;
+            buttonPast.Enabled = true;
+            buttonAlbumCreator.Visible = true;
+            buttonAlbumCreator.Enabled = true;
         }
 
         private void buttonGuessingGame_Click(object sender, EventArgs e)
@@ -328,6 +326,7 @@ namespace BasicFacebookFeatures
             fetchBirthdayAndCalculateCountdown();
             labelBasicDetails.Text += "Gender: " + m_LoggedInUser.Gender + "\n\n";
             labelBasicDetails.Text += "Email: " + m_LoggedInUser.Email + "\n\n";
+            pictureBoxProfile.LoadAsync(m_LoggedInUser.PictureNormalURL);
         }
 
         private void fetchBirthdayAndCalculateCountdown()
@@ -340,7 +339,7 @@ namespace BasicFacebookFeatures
                 if (DateTime.TryParseExact(userBirthday, "MM/dd/yyyy", null, System.Globalization.DateTimeStyles.None, out formatedUserBirthday))
                 {
                     DateTime birthdayThisYear = new DateTime(today.Year, formatedUserBirthday.Month, formatedUserBirthday.Day);
-                    if (today < formatedUserBirthday)
+                    if (today > birthdayThisYear)
                     {
                         birthdayThisYear = birthdayThisYear.AddYears(1);
                     }
@@ -353,7 +352,7 @@ namespace BasicFacebookFeatures
                     else
                     {
                         labelBasicDetails.Text += $"Your birthday is in {userBirthday}\n\nYou have {daysDifference.Days} days until your birthday\n\n";
-                    }    
+                    }
                 }
                 else
                 {
@@ -361,10 +360,11 @@ namespace BasicFacebookFeatures
 
                 }
             }
-            catch(Exception generalException)
+            catch (Exception generalException)
             {
                 MessageBox.Show("Error trying to fetch birthday");
             }
         }
+
     }
 }

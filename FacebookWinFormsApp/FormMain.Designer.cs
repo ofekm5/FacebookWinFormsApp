@@ -29,10 +29,11 @@
         private void InitializeComponent()
         {
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.buttonPast = new System.Windows.Forms.Button();
+            this.buttonAlbumCreator = new System.Windows.Forms.Button();
+            this.buttonPost = new System.Windows.Forms.Button();
+            this.textBoxPostStatus = new System.Windows.Forms.TextBox();
+            this.labelWhatsOnYourMind = new System.Windows.Forms.Label();
             this.labelBasicDetails = new System.Windows.Forms.Label();
             this.pictureBoxGroups = new System.Windows.Forms.PictureBox();
             this.listBoxGroups = new System.Windows.Forms.ListBox();
@@ -53,11 +54,11 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label4 = new System.Windows.Forms.Label();
+            this.labelLetterGuess = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxGuess = new System.Windows.Forms.TextBox();
             this.buttonGuessingGame = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGroups)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAlbum)).BeginInit();
@@ -69,11 +70,11 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.button3);
-            this.tabPage1.Controls.Add(this.button2);
-            this.tabPage1.Controls.Add(this.button1);
-            this.tabPage1.Controls.Add(this.textBox2);
-            this.tabPage1.Controls.Add(this.label3);
+            this.tabPage1.Controls.Add(this.buttonPast);
+            this.tabPage1.Controls.Add(this.buttonAlbumCreator);
+            this.tabPage1.Controls.Add(this.buttonPost);
+            this.tabPage1.Controls.Add(this.textBoxPostStatus);
+            this.tabPage1.Controls.Add(this.labelWhatsOnYourMind);
             this.tabPage1.Controls.Add(this.labelBasicDetails);
             this.tabPage1.Controls.Add(this.pictureBoxGroups);
             this.tabPage1.Controls.Add(this.listBoxGroups);
@@ -99,41 +100,55 @@
             this.tabPage1.Text = "Basic features";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // buttonPast
             // 
-            this.button2.Location = new System.Drawing.Point(504, 618);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(163, 31);
-            this.button2.TabIndex = 79;
-            this.button2.Text = "Create an album";
-            this.button2.UseVisualStyleBackColor = true;
+            this.buttonPast.Location = new System.Drawing.Point(992, 74);
+            this.buttonPast.Name = "buttonPast";
+            this.buttonPast.Size = new System.Drawing.Size(207, 32);
+            this.buttonPast.TabIndex = 80;
+            this.buttonPast.Text = "Blast From The Past";
+            this.buttonPast.UseVisualStyleBackColor = true;
+            this.buttonPast.Visible = false;
             // 
-            // button1
+            // buttonAlbumCreator
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(871, 74);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(54, 32);
-            this.button1.TabIndex = 78;
-            this.button1.Text = "Post";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonAlbumCreator.Location = new System.Drawing.Point(504, 618);
+            this.buttonAlbumCreator.Name = "buttonAlbumCreator";
+            this.buttonAlbumCreator.Size = new System.Drawing.Size(163, 31);
+            this.buttonAlbumCreator.TabIndex = 79;
+            this.buttonAlbumCreator.Text = "Create an album";
+            this.buttonAlbumCreator.UseVisualStyleBackColor = true;
+            this.buttonAlbumCreator.Visible = false;
             // 
-            // textBox2
+            // buttonPost
             // 
-            this.textBox2.Location = new System.Drawing.Point(553, 58);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(317, 48);
-            this.textBox2.TabIndex = 77;
+            this.buttonPost.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonPost.Location = new System.Drawing.Point(871, 74);
+            this.buttonPost.Name = "buttonPost";
+            this.buttonPost.Size = new System.Drawing.Size(54, 32);
+            this.buttonPost.TabIndex = 78;
+            this.buttonPost.Text = "Post";
+            this.buttonPost.UseVisualStyleBackColor = true;
+            this.buttonPost.Visible = false;
             // 
-            // label3
+            // textBoxPostStatus
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(625, 32);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(152, 18);
-            this.label3.TabIndex = 76;
-            this.label3.Text = "What\'s on your mind?";
+            this.textBoxPostStatus.Location = new System.Drawing.Point(553, 58);
+            this.textBoxPostStatus.Multiline = true;
+            this.textBoxPostStatus.Name = "textBoxPostStatus";
+            this.textBoxPostStatus.Size = new System.Drawing.Size(317, 48);
+            this.textBoxPostStatus.TabIndex = 77;
+            this.textBoxPostStatus.Visible = false;
+            // 
+            // labelWhatsOnYourMind
+            // 
+            this.labelWhatsOnYourMind.AutoSize = true;
+            this.labelWhatsOnYourMind.Location = new System.Drawing.Point(625, 32);
+            this.labelWhatsOnYourMind.Name = "labelWhatsOnYourMind";
+            this.labelWhatsOnYourMind.Size = new System.Drawing.Size(152, 18);
+            this.labelWhatsOnYourMind.TabIndex = 76;
+            this.labelWhatsOnYourMind.Text = "What\'s on your mind?";
+            this.labelWhatsOnYourMind.Visible = false;
             // 
             // labelBasicDetails
             // 
@@ -324,9 +339,10 @@
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.label4);
+            this.tabPage2.Controls.Add(this.labelLetterGuess);
             this.tabPage2.Controls.Add(this.label2);
             this.tabPage2.Controls.Add(this.label1);
-            this.tabPage2.Controls.Add(this.textBox1);
+            this.tabPage2.Controls.Add(this.textBoxGuess);
             this.tabPage2.Controls.Add(this.buttonGuessingGame);
             this.tabPage2.Location = new System.Drawing.Point(4, 27);
             this.tabPage2.Name = "tabPage2";
@@ -337,11 +353,21 @@
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(487, 206);
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(363, 366);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(242, 31);
-            this.label4.TabIndex = 69;
-            this.label4.Text = "Page";
+            this.label4.Size = new System.Drawing.Size(50, 18);
+            this.label4.TabIndex = 70;
+            this.label4.Text = "Page: ";
+            // 
+            // labelLetterGuess
+            // 
+            this.labelLetterGuess.Location = new System.Drawing.Point(363, 284);
+            this.labelLetterGuess.Name = "labelLetterGuess";
+            this.labelLetterGuess.Size = new System.Drawing.Size(155, 48);
+            this.labelLetterGuess.TabIndex = 69;
+            this.labelLetterGuess.Text = "Please guess a letter";
+            this.labelLetterGuess.UseWaitCursor = true;
             // 
             // label2
             // 
@@ -358,37 +384,28 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic) 
                 | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(491, 29);
+            this.label1.Location = new System.Drawing.Point(464, 29);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(314, 42);
             this.label1.TabIndex = 67;
             this.label1.Text = "Guess The Page";
             // 
-            // textBox1
+            // textBoxGuess
             // 
-            this.textBox1.Location = new System.Drawing.Point(735, 213);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(35, 24);
-            this.textBox1.TabIndex = 66;
+            this.textBoxGuess.Location = new System.Drawing.Point(524, 284);
+            this.textBoxGuess.Name = "textBoxGuess";
+            this.textBoxGuess.Size = new System.Drawing.Size(163, 24);
+            this.textBoxGuess.TabIndex = 66;
             // 
             // buttonGuessingGame
             // 
-            this.buttonGuessingGame.Location = new System.Drawing.Point(85, 144);
+            this.buttonGuessingGame.Location = new System.Drawing.Point(481, 190);
             this.buttonGuessingGame.Name = "buttonGuessingGame";
             this.buttonGuessingGame.Size = new System.Drawing.Size(206, 44);
             this.buttonGuessingGame.TabIndex = 65;
             this.buttonGuessingGame.Text = "Click here to play a guessing game";
             this.buttonGuessingGame.UseVisualStyleBackColor = true;
             this.buttonGuessingGame.Visible = false;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(992, 74);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(207, 32);
-            this.button3.TabIndex = 80;
-            this.button3.Text = "Blast From The Past";
-            this.button3.UseVisualStyleBackColor = true;
             // 
             // FormMain
             // 
@@ -436,16 +453,17 @@
         private System.Windows.Forms.ListBox listBoxGroups;
         private System.Windows.Forms.Button buttonGroups;
         private System.Windows.Forms.Label labelBasicDetails;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxGuess;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBoxPostStatus;
+        private System.Windows.Forms.Label labelWhatsOnYourMind;
+        private System.Windows.Forms.Button buttonPost;
+        private System.Windows.Forms.Button buttonAlbumCreator;
+        private System.Windows.Forms.Label labelLetterGuess;
         private System.Windows.Forms.Button buttonGuessingGame;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button buttonPast;
+        private System.Windows.Forms.Label label4;
     }
 }
 
