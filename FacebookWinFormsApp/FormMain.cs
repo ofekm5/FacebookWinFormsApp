@@ -366,5 +366,24 @@ namespace BasicFacebookFeatures
             }
         }
 
+        private void buttonPost_Click(object sender, EventArgs e)
+        {
+            if(textBoxPostStatus.Text == "")
+            {
+                MessageBox.Show("Cannot post an empty status.");
+            }
+            else
+            {
+                try
+                {
+                    Status postedStatus = m_LoggedInUser.PostStatus(textBoxPostStatus.Text);
+                    MessageBox.Show("Status Posted! ID: " + postedStatus.Id);
+                }
+                catch (Exception generalException)
+                {
+                    MessageBox.Show("There was a problem with posting the status");
+                }
+            }
+        }
     }
 }

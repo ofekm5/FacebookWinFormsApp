@@ -130,6 +130,7 @@
             this.buttonPost.Text = "Post";
             this.buttonPost.UseVisualStyleBackColor = true;
             this.buttonPost.Visible = false;
+            this.buttonPost.Click += new System.EventHandler(this.buttonPost_Click);
             // 
             // textBoxPostStatus
             // 
