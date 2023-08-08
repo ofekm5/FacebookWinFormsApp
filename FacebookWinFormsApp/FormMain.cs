@@ -35,10 +35,13 @@ namespace BasicFacebookFeatures
 
         private void login()
         {
-            m_LoginResult = FacebookService.Login(
-                k_AppId,
+            try
+            {
+                m_LoginResult = FacebookService.Login(
+               k_AppId,
                 /// requested permissions:
                 "email",
+<<<<<<< HEAD
                 "public_profile",
                 "user_birthday",
                 "user_events",
@@ -52,14 +55,39 @@ namespace BasicFacebookFeatures
             if(m_LoginResult.AccessToken == null)
             {
                 MessageBox.Show("Error logging in.");
+=======
+               "public_profile",
+               "user_birthday",
+               "user_events",
+               "user_gender",
+               "user_hometown",
+               "user_friends",
+               "user_posts",
+               "user_photos",
+               "user_likes",
+               ""
+               );
+
+                if (!string.IsNullOrEmpty(m_LoginResult.AccessToken))
+                {
+                    buttonLogin.Text = $"Logged in as {m_LoginResult.LoggedInUser.Name}";
+                    buttonLogin.BackColor = Color.LightGreen;
+                    pictureBoxProfile.ImageLocation = m_LoginResult.LoggedInUser.PictureNormalURL;
+                    handleAllToolsAfterLogin();
+                }
+                else
+                {
+                    MessageBox.Show("Error logging in");
+                    m_LoginResult = null;
+                }
+>>>>>>> 171f0fc0e24069b70acf71a507996bf3f11e9a6e
             }
-            else if (string.IsNullOrEmpty(m_LoginResult.ErrorMessage))
+            catch (Exception generalException)
             {
-                buttonLogin.Text = $"Logged in as {m_LoginResult.LoggedInUser.Name}";
-                buttonLogin.BackColor = Color.LightGreen;
-                pictureBoxProfile.ImageLocation = m_LoginResult.LoggedInUser.PictureNormalURL;
-                handleAllToolsAfterLogin();
+                MessageBox.Show("Error logging in");
+                m_LoginResult = null;
             }
+
         }
 
         private void buttonLogout_Click(object sender, EventArgs e)
@@ -70,7 +98,7 @@ namespace BasicFacebookFeatures
             m_LoginResult = null;
             handleAllToolsAfterLogout();
         }
-       
+
         private void buttonLikedPages_Click(object sender, EventArgs e)
         {
             presentLikedPages();
@@ -78,18 +106,26 @@ namespace BasicFacebookFeatures
 
         private void presentLikedPages()
         {
-            List<Page> likedPages = m_LoggedInUser.LikedPages.ToList();
+            try
+            {
+                List<Page> likedPages = m_LoggedInUser.LikedPages.ToList();
 
-            if (likedPages.Count == 0)
-            {
-                MessageBox.Show("No liked pages exist.");
-            }
-            else
-            {
-                foreach (Page currentPage in likedPages)
+                if (likedPages.Count == 0)
                 {
-                    listBoxLikedPages.Items.Add(currentPage);
+                    MessageBox.Show("No liked pages exist.");
                 }
+                else
+                {
+                    foreach (Page currentPage in likedPages)
+                    {
+                        listBoxLikedPages.Items.Add(currentPage);
+                        listBoxLikedPages.DisplayMember = "Name";
+                    }
+                }
+            }
+            catch (Exception generalException)
+            {
+                MessageBox.Show("Error trying to fetch liked pages.");
             }
         }
 
@@ -106,17 +142,25 @@ namespace BasicFacebookFeatures
 
         private void presentAllAlbums()
         {
-            List<Album> allAlbums = m_LoggedInUser.Albums.ToList();
-            if (allAlbums.Count == 0)
+            try
             {
-                MessageBox.Show("User has no albums.");
-            }
-            else
-            {
-                foreach (Album cuurentAlbum in allAlbums)
+                List<Album> allAlbums = m_LoggedInUser.Albums.ToList();
+                if (allAlbums.Count == 0)
                 {
-                    listBoxAlbums.Items.Add(cuurentAlbum);
+                    MessageBox.Show("User has no albums.");
                 }
+                else
+                {
+                    foreach (Album cuurentAlbum in allAlbums)
+                    {
+                        listBoxAlbums.Items.Add(cuurentAlbum);
+                        listBoxAlbums.DisplayMember = "Name";
+                    }
+                }
+            }
+            catch (Exception generalException)
+            {
+                MessageBox.Show("Error trying to fetch albums.");
             }
         }
 
@@ -141,22 +185,35 @@ namespace BasicFacebookFeatures
             buttonLogin.Enabled = false;
             buttonLogout.Enabled = true;
             buttonLikedPages.Visible = true;
+            buttonLikedPages.Enabled = true;
             listBoxLikedPages.Visible = true;
             pictureBoxLikedPages.Visible = true;
             listBoxAlbums.Visible = true;
             buttonAlbums.Visible = true;
+            buttonAlbums.Enabled = true;
             labelBirthday.Visible = true;
             pictureBoxAlbum.Visible = true;
             pictureBoxProfile.Visible = true;
             m_LoggedInUser = m_LoginResult.LoggedInUser;
-            labelBirthday.Text = $"Your birthday is on: {m_LoggedInUser.Birthday}";
+            buttonGuessingGame.Visible = true;
+            buttonGuessingGame.Enabled = true;
+            labelWelcome.Visible = false;
+            listBoxGroups.Visible = true;
+            pictureBoxGroups.Visible = true;
+            buttonGroups.Visible = true;
+            buttonGroups.Enabled = true;
+            buttonPosts.Enabled = true;
+            buttonPosts.Visible = true;
+            listBoxPosts.Visible = true;
+            presentAndCalculateBirthday();
         }
-        
+
         private void handleAllToolsAfterLogout()
         {
             buttonLogin.Enabled = true;
             buttonLogout.Enabled = false;
             buttonLikedPages.Visible = false;
+            buttonLikedPages.Enabled = false;
             listBoxLikedPages.Visible = false;
             listBoxLikedPages.Items.Clear();
             pictureBoxLikedPages.Visible = false;
@@ -164,10 +221,141 @@ namespace BasicFacebookFeatures
             listBoxAlbums.Visible = false;
             listBoxAlbums.Items.Clear();
             buttonAlbums.Visible = false;
+            buttonAlbums.Enabled = false;
             labelBirthday.Visible = false;
             pictureBoxAlbum.Visible = false;
             pictureBoxAlbum.Image = null;
             pictureBoxProfile.Visible = false;
+            buttonGuessingGame.Visible = false;
+            buttonGuessingGame.Enabled = false;
+            labelWelcome.Visible = true;
+            listBoxGroups.Visible = false;
+            pictureBoxGroups.Visible = false;
+            buttonGroups.Visible = false;
+            buttonGroups.Enabled = false;
+            buttonPosts.Enabled = false;
+            buttonPosts.Visible = false;
+            listBoxPosts.Visible = false;
         }
+
+        private void buttonGuessingGame_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FormGuessGame guessGame = new FormGuessGame(m_LoggedInUser);
+                guessGame.ShowDialog();
+            }
+            catch (Exception generalException)
+            {
+
+            }
+        }
+
+        private void buttonGroups_Click(object sender, EventArgs e)
+        {
+            presentAllGroups();
+        }
+
+        private void presentAllGroups()
+        {
+            try
+            {
+                List<Group> allGroups = m_LoggedInUser.Groups.ToList();
+                if (allGroups.Count == 0)
+                {
+                    MessageBox.Show("User has no groups.");
+                }
+                else
+                {
+                    foreach (Group currentGroup in allGroups)
+                    {
+                        listBoxGroups.Items.Add(currentGroup);
+                        listBoxGroups.DisplayMember = "Name";
+                    }
+                }
+            }
+            catch (Exception generalException)
+            {
+                MessageBox.Show("Error trying to fetch groups.");
+            }
+        }
+
+        private void listBoxGroups_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            presentSingleGroup();
+        }
+
+        private void presentSingleGroup()
+        {
+            Group selectedGroup = listBoxGroups.SelectedItem as Group;
+            pictureBoxGroups.LoadAsync(selectedGroup.PictureNormalURL);
+        }
+
+        private void buttonPosts_Click(object sender, EventArgs e)
+        {
+            presentAllPosts();
+        }
+
+        private void presentAllPosts()
+        {
+            try
+            {
+                List<Post> allPosts = m_LoggedInUser.Posts.ToList();
+                if (allPosts.Count == 0)
+                {
+                    MessageBox.Show("User has no posts");
+                }
+                else
+                {
+                    foreach (Post post in allPosts)
+                    {
+                        listBoxPosts.Items.Add(post);
+                        //listBoxPosts.DisplayMember = "Name";
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error trying to fetch posts.");
+            }
+        }
+
+        private void presentAndCalculateBirthday()
+        {
+            try
+            {
+                string userBirthday = m_LoggedInUser.Birthday;
+                DateTime today = DateTime.Today;
+                DateTime formatedUserBirthday;
+                if (DateTime.TryParseExact(userBirthday, "MM/dd/yyyy", null, System.Globalization.DateTimeStyles.None, out formatedUserBirthday))
+                {
+                    DateTime birthdayThisYear = new DateTime(today.Year, formatedUserBirthday.Month, formatedUserBirthday.Day);
+                    if (today < formatedUserBirthday)
+                    {
+                        birthdayThisYear = birthdayThisYear.AddYears(1);
+                    }
+
+                    TimeSpan daysDifference = birthdayThisYear.Subtract(today);
+                    if (daysDifference.Days == 0)
+                    {
+                        labelBirthday.Text ="Happy birthday!!!";
+                    }
+                    else
+                    {
+                        labelBirthday.Text = $"Your birthday is in {userBirthday}\nYou have {daysDifference.Days} days until your birthday";
+                    }    
+                }
+                else
+                {
+                    labelBirthday.Text = "You havent provided a birthday";
+
+                }
+            }
+            catch(Exception generalException)
+            {
+                MessageBox.Show("Error trying to fetch birthday");
+            }
+        }
+            
     }
 }
