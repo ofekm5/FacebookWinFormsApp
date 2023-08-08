@@ -47,8 +47,7 @@ namespace BasicFacebookFeatures
                 "user_friends",
                 "user_posts",
                 "user_photos",
-                "user_likes",
-                ""
+                "user_likes"
                 );
             if(m_LoginResult.AccessToken == null)
             {
