@@ -13,12 +13,13 @@ namespace BasicFacebookFeatures
 {
     public partial class FormMain : Form
     {
-        private const string k_AppId = "607328698057381";
         private User m_LoggedInUser;
+        private LoginManager m_LogicManager;
         public FormMain()
         {
             InitializeComponent();
             FacebookWrapper.FacebookService.s_CollectionLimit = 25;
+            m_LogicManager = new LoginManager();
         }
 
         FacebookWrapper.LoginResult m_LoginResult;
@@ -26,8 +27,7 @@ namespace BasicFacebookFeatures
         private void buttonLogin_Click(object sender, EventArgs e)
         {
             Clipboard.SetText("design.patterns");
-
-            if (m_LoginResult == null)
+            if(m_LogicManager.LoginResult == null)
             {
                 login();
             }
@@ -37,37 +37,20 @@ namespace BasicFacebookFeatures
         {
             try
             {
-                m_LoginResult = FacebookService.Login(
-               k_AppId,
-                /// requested permissions:
-                "email",
-                "public_profile",
-                "user_birthday",
-                "user_events",
-                "user_gender",
-                "user_hometown",
-                "user_friends",
-                "user_posts",
-                "user_photos",
-                "user_likes"
-                );
-
-                if (m_LoginResult.AccessToken == null)
+                if (!m_LogicManager.Login())
                 {
                     MessageBox.Show("Error logging in.");
-                    m_LoginResult = null;
                 }
                 else
                 {
                     handleAllToolsAfterLogin();
                 }
             }
-            catch (Exception generalException)
+            catch(Exception generalException)
             {
-                MessageBox.Show("Error logging in");
-                m_LoginResult = null;
+                MessageBox.Show("Error logging in.");
+                m_LogicManager.LoginResult = null;
             }
-
         }
 
         private void buttonLogout_Click(object sender, EventArgs e)
@@ -174,7 +157,7 @@ namespace BasicFacebookFeatures
             labelDetailsHeadline.Visible = true;
             pictureBoxAlbum.Visible = true;
             pictureBoxProfile.Visible = true;
-            m_LoggedInUser = m_LoginResult.LoggedInUser;
+            m_LoggedInUser = m_LogicManager.LoggedInUser;
             //buttonGuessingGame.Visible = true;
             //buttonGuessingGame.Enabled = true;
             labelWelcome.Visible = false;
@@ -227,15 +210,15 @@ namespace BasicFacebookFeatures
             buttonPosts.Visible = false;
             listBoxPosts.Visible = false;
             labelBasicDetails.Visible = false;
-            labelWhatsOnYourMind.Visible = true;
-            textBoxPostStatus.Visible = true;
-            textBoxPostStatus.Enabled = true;
-            buttonPost.Visible = true;
-            buttonPost.Enabled = true;
-            buttonPast.Visible = true;
-            buttonPast.Enabled = true;
-            buttonAlbumCreator.Visible = true;
-            buttonAlbumCreator.Enabled = true;
+            labelWhatsOnYourMind.Visible = false;
+            textBoxPostStatus.Visible = false;
+            textBoxPostStatus.Enabled = false;
+            buttonPost.Visible = false;
+            buttonPost.Enabled = false;
+            buttonPast.Visible = false;
+            buttonPast.Enabled = false;
+            buttonAlbumCreator.Visible = false;
+            buttonAlbumCreator.Enabled = false;
         }
 
         private void buttonGuessingGame_Click(object sender, EventArgs e)
