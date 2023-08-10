@@ -15,6 +15,8 @@ namespace BasicFacebookFeatures
     {
         private const string k_AppId = "607328698057381";
         private User m_LoggedInUser;
+        private GuessThePageGame m_GuessGame;
+
         public FormMain()
         {
             InitializeComponent();
@@ -195,8 +197,13 @@ namespace BasicFacebookFeatures
             buttonPast.Enabled = true;
             buttonAlbumCreator.Visible = true;
             buttonAlbumCreator.Enabled = true;
+            guessingButton.Enabled = true;
             fetchBasicInfo();
+            textBoxGuess.Enabled = true;
+            m_GuessGame = new GuessThePageGame();
         }
+
+
 
         private void handleAllToolsAfterLogout()
         {
@@ -216,8 +223,8 @@ namespace BasicFacebookFeatures
             pictureBoxAlbum.Visible = false;
             pictureBoxAlbum.Image = null;
             pictureBoxProfile.Visible = false;
-            buttonGuessingGame.Visible = false;
-            buttonGuessingGame.Enabled = false;
+            //buttonGuessingGame.Visible = false;
+            //buttonGuessingGame.Enabled = false;
             labelWelcome.Visible = true;
             listBoxGroups.Visible = false;
             pictureBoxGroups.Visible = false;
@@ -236,6 +243,9 @@ namespace BasicFacebookFeatures
             buttonPast.Enabled = true;
             buttonAlbumCreator.Visible = true;
             buttonAlbumCreator.Enabled = true;
+            guessingButton.Enabled = false;
+            textBoxGuess.Enabled = false;
+            m_GuessGame.cleanGame();
         }
 
         private void buttonGuessingGame_Click(object sender, EventArgs e)
