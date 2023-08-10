@@ -105,7 +105,11 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="PageLetterList.cs" />
+=======
+    <Compile Include="LoginManager.cs" />
+>>>>>>> 3dde667f8621a3d57a31631d06dc95ee7ca3c542
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormGuessGame.resx">
