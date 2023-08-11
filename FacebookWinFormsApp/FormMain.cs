@@ -14,12 +14,9 @@ namespace BasicFacebookFeatures
     public partial class FormMain : Form
     {
         private User m_LoggedInUser;
-<<<<<<< HEAD
         private GuessThePageGame m_GuessGame;
-
-=======
         private LoginManager m_LogicManager;
->>>>>>> 3dde667f8621a3d57a31631d06dc95ee7ca3c542
+
         public FormMain()
         {
             InitializeComponent();
