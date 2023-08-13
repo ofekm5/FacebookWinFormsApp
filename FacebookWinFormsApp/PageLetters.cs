@@ -10,59 +10,77 @@ namespace BasicFacebookFeatures
 {
     class PageLetters
     {
-        private Dictionary<char, List<string>> m_ChosenPage;
-        private string m_Lang;
+        private Dictionary<char, List<int>> m_ChosenPageLetters;
+        private int m_TotalLetters;
 
         public PageLetters(Page i_LikedPage)
         {
-            int letterCounter = 0;
+            int pageLen = i_LikedPage.Name.Length;
+            bool isDictInitiallized = false;
+            int i;
 
-            foreach (char letter in i_LikedPage.Name)
+            for (i = 0; i < pageLen; i++) //could not use foreach because of index storing
             {
-                if ()//a number or diff lang or counter==30
+                if ((!isCharALetter(i_LikedPage.Name[i]) || (i == 30)))
                 {
-                    throw new Exception("illegal page name");
-                }
-                else
-                {
-                    if ()//if the key is already inside
+                    if (isDictInitiallized)
                     {
-
+                        break;
                     }
                     else
                     {
-                        letterCounter++;
+                        throw new Exception("Page starts in non-english language");
+                    }
+                }
+                else
+                {
+                    char currentLetterLowercased = char.ToLower(i_LikedPage.Name[i]);
+
+                    if (!isDictInitiallized)
+                    {
+                        m_ChosenPageLetters = new Dictionary<char, List<int>>();
+                        isDictInitiallized = true;
+                    }
+
+                    if (!m_ChosenPageLetters.ContainsKey(currentLetterLowercased))
+                    {
+                        List<int> newKeyList = new List<int>();
+                        newKeyList.Add(i);
+                        m_ChosenPageLetters.Add(currentLetterLowercased, newKeyList);
+                    }
+                    else
+                    {
+                        m_ChosenPageLetters[currentLetterLowercased].Add(i);
                     }
                 }
             }
+
+            m_TotalLetters = i;
+        }
+
+        public int TotalLetters
+        {
+            get
+            {
+                return m_TotalLetters;
+            }
+        }
+
+        private bool isCharALetter(char i_C)
+        {
+            return ((i_C >= 'A' && i_C <= 'Z') || (i_C >= 'a' && i_C <= 'z') || i_C == ' ') ? true : false;
         }
 
         public void RemoveLetter(char i_Letter)
         {
-            m_ChosenPage.Remove(i_Letter);
+            m_ChosenPageLetters.Remove(i_Letter);
         }
 
-        public Dictionary<char, List<string>> ChosenPage
+        public Dictionary<char, List<int>> PageLettersIndices
         {
             get
             {
-                return m_ChosenPage;
-            }
-        }
-
-        public string Language
-        {
-            get
-            {
-                return m_Lang;
-            }
-        }
-
-        public int Length
-        {
-            get
-            {
-                return m_ChosenPage.Keys.Count();
+                return m_ChosenPageLetters;
             }
         }
     }

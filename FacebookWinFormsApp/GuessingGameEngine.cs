@@ -10,10 +10,10 @@ namespace BasicFacebookFeatures
 {
     class GuessingGameEngine
     {
-        private PageLetterList m_ChosenPage;
+        private PageLetters m_ChosenPageLetters;
         private string m_Outcome;
-        List<Page> m_LikedPages;
-        Random m_Random;
+        private List<Page> m_LikedPages;
+        private Random m_Random;
 
         public string Outcome
         {
@@ -23,18 +23,22 @@ namespace BasicFacebookFeatures
             }
         }
 
-        public string Language
+        public GuessingGameEngine(List<Page> i_LikedPages)
         {
-            get
+            m_Random = new Random();
+            if (i_LikedPages.Count<=0)
             {
-                return m_ChosenPage.Language;
+                throw new Exception("user do not have liked pages");
+            }
+            else
+            {
+                m_LikedPages = i_LikedPages;
+                initiallizeGame();
             }
         }
 
-        public GuessThePageGame(List<Page> i_LikedPages)
+        public void RestartGame()
         {
-            m_Random = new Random();
-            m_LikedPages = i_LikedPages;
             initiallizeGame();
         }
 
@@ -50,11 +54,12 @@ namespace BasicFacebookFeatures
 
             do
             {
-                int randomNumber = m_Random.Next(0, m_LikedPages.Count - 1);
+                int randomNumber = 0;//Revert this!!!!! m_Random.Next(0, m_LikedPages.Count - 1);
 
                 try
                 {
-                    m_ChosenPage = new PageLetterList(m_LikedPages[randomNumber]);
+                    m_ChosenPageLetters = new PageLetters(m_LikedPages[randomNumber]);
+                    isPageValid = true;
                 }
                 catch (Exception ex)
                 {
@@ -64,19 +69,19 @@ namespace BasicFacebookFeatures
             while (!isPageValid);
         }
 
-        public List<string> GuessLetter(char i_Guess)
+        public List<int> GuessLetter(char i_Guess)
         {
-            List<string> guessIndicesInPage = null;
+            List<int> guessIndicesInPage = null;
 
             if (m_Outcome != "You won!")
             {
-                if (m_ChosenPage.ChosenPage.ContainsKey(i_Guess))
+                if (m_ChosenPageLetters.PageLettersIndices.ContainsKey(i_Guess))
                 {
-                    guessIndicesInPage = m_ChosenPage.ChosenPage[i_Guess];
+                    guessIndicesInPage = m_ChosenPageLetters.PageLettersIndices[i_Guess];
 
-                    m_ChosenPage.RemoveLetter(i_Guess);
+                    m_ChosenPageLetters.RemoveLetter(i_Guess);
 
-                    if (m_ChosenPage.Length == 0)
+                    if (m_ChosenPageLetters.PageLettersIndices.Keys.Count == 0)
                     {
                         m_Outcome = "You won!";
                     }

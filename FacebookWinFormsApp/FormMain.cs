@@ -14,8 +14,9 @@ namespace BasicFacebookFeatures
     public partial class FormMain : Form
     {
         private User m_LoggedInUser;
-        private GuessThePageGame m_GuessGame;
+        private GuessingGameEngine m_GuessGame;
         private LoginManager m_LogicManager;
+        FacebookWrapper.LoginResult m_LoginResult;
 
         public FormMain()
         {
@@ -23,8 +24,6 @@ namespace BasicFacebookFeatures
             FacebookWrapper.FacebookService.s_CollectionLimit = 25;
             m_LogicManager = new LoginManager();
         }
-
-        FacebookWrapper.LoginResult m_LoginResult;
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
@@ -160,8 +159,6 @@ namespace BasicFacebookFeatures
             pictureBoxAlbum.Visible = true;
             pictureBoxProfile.Visible = true;
             m_LoggedInUser = m_LogicManager.LoggedInUser;
-            //buttonGuessingGame.Visible = true;
-            //buttonGuessingGame.Enabled = true;
             labelWelcome.Visible = false;
             listBoxGroups.Visible = true;
             pictureBoxGroups.Visible = true;
@@ -180,10 +177,19 @@ namespace BasicFacebookFeatures
             buttonPast.Enabled = true;
             buttonAlbumCreator.Visible = true;
             buttonAlbumCreator.Enabled = true;
-            guessingButton.Enabled = true;
             fetchBasicInfo();
-            textBoxGuess.Enabled = true;
-            m_GuessGame = new GuessThePageGame();
+            try
+            {
+                m_GuessGame = new GuessingGameEngine(m_LoggedInUser.LikedPages.ToList());
+                textBoxGuess.Enabled = true;
+                textBoxGuess.Text = "";
+                guessingButton.Enabled = true;
+                labelOutcome.Text = m_GuessGame.Outcome;
+            }
+            catch(Exception ex)
+            {
+                textBoxGuess.Text = ex.Message;
+            }
         }
 
 
@@ -206,8 +212,6 @@ namespace BasicFacebookFeatures
             pictureBoxAlbum.Visible = false;
             pictureBoxAlbum.Image = null;
             pictureBoxProfile.Visible = false;
-            //buttonGuessingGame.Visible = false;
-            //buttonGuessingGame.Enabled = false;
             labelWelcome.Visible = true;
             listBoxGroups.Visible = false;
             pictureBoxGroups.Visible = false;
@@ -217,7 +221,6 @@ namespace BasicFacebookFeatures
             buttonPosts.Visible = false;
             listBoxPosts.Visible = false;
             labelBasicDetails.Visible = false;
-<<<<<<< HEAD
             labelWhatsOnYourMind.Visible = true;
             textBoxPostStatus.Visible = true;
             textBoxPostStatus.Enabled = true;
@@ -229,8 +232,7 @@ namespace BasicFacebookFeatures
             buttonAlbumCreator.Enabled = true;
             guessingButton.Enabled = false;
             textBoxGuess.Enabled = false;
-            m_GuessGame.cleanGame();
-=======
+            m_GuessGame.RestartGame();
             labelWhatsOnYourMind.Visible = false;
             textBoxPostStatus.Visible = false;
             textBoxPostStatus.Enabled = false;
@@ -240,21 +242,20 @@ namespace BasicFacebookFeatures
             buttonPast.Enabled = false;
             buttonAlbumCreator.Visible = false;
             buttonAlbumCreator.Enabled = false;
->>>>>>> 3dde667f8621a3d57a31631d06dc95ee7ca3c542
         }
 
-        private void buttonGuessingGame_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                FormGuessGame guessGame = new FormGuessGame(m_LoggedInUser);
-                guessGame.ShowDialog();
-            }
-            catch (Exception generalException)
-            {
+        //private void buttonGuessingGame_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        FormGuessGame guessGame = new FormGuessGame(m_LoggedInUser);
+        //        guessGame.ShowDialog();
+        //    }
+        //    catch (Exception generalException)
+        //    {
 
-            }
-        }
+        //    }
+        //}
 
         private void buttonGroups_Click(object sender, EventArgs e)
         {
@@ -356,7 +357,7 @@ namespace BasicFacebookFeatures
                     }
                     else
                     {
-                        labelBasicDetails.Text += $"Your birthday is in {userBirthday}\n\nYou have {daysDifference.Days} days until your birthday\n\n";
+                        labelBasicDetails.Text += $"Your birthday is on {userBirthday}\n\nYour birthday is {daysDifference.Days} days apart \n\n";
                     }
                 }
                 else
@@ -388,6 +389,33 @@ namespace BasicFacebookFeatures
                 {
                     MessageBox.Show("There was a problem with posting the status");
                 }
+            }
+        }
+
+        private void guessingButton_Click(object sender, EventArgs e)
+        {
+            if (textBoxGuess.Text.Length == 1)
+            {
+                try
+                {
+                    m_GuessGame.GuessLetter(textBoxGuess.Text[0]);
+                    labelOutcome.Text = m_GuessGame.Outcome;
+                    if (m_GuessGame.Outcome == "You won!")
+                    {
+                        buttonPlayAgain.Enabled = true;
+                        buttonPlayAgain.Visible = true;
+                        textBoxGuess.Text = "Game finished";
+                        textBoxGuess.Enabled = false;
+                    }
+                }
+                catch(Exception ex)
+                {
+                    labelOutcome.Text = ex.Message;
+                }
+            }
+            else
+            {
+                labelOutcome.Text = "Guess is longer than a single letter";
             }
         }
     }
