@@ -14,7 +14,7 @@ namespace BasicFacebookFeatures
     public partial class FormMain : Form
     {
         private User m_LoggedInUser;
-        //private GuessThePageGame m_GuessGame;
+        private GuessThePageGame m_GuessGame;
         private LoginManager m_LoginManager;
         private AppSettings m_AppSettings;
 
@@ -204,7 +204,7 @@ namespace BasicFacebookFeatures
             guessingButton.Enabled = true;
             fetchBasicInfo();
             textBoxGuess.Enabled = true;
-            //m_GuessGame = new GuessThePageGame();
+            m_GuessGame = new GuessThePageGame();
         }
 
 
