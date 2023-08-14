@@ -14,22 +14,28 @@ namespace BasicFacebookFeatures
     public partial class FormMain : Form
     {
         private User m_LoggedInUser;
-        private GuessThePageGame m_GuessGame;
-        private LoginManager m_LogicManager;
+        //private GuessThePageGame m_GuessGame;
+        private LoginManager m_LoginManager;
+        private AppSettings m_AppSettings;
 
         public FormMain()
         {
             InitializeComponent();
             FacebookWrapper.FacebookService.s_CollectionLimit = 25;
-            m_LogicManager = new LoginManager();
+            m_LoginManager = new LoginManager();
+            m_AppSettings = AppSettings.LoadFromFile();
+            if (m_AppSettings.RememberMe && !string.IsNullOrEmpty(m_AppSettings.AccesToken))
+            {
+                m_LoginManager.connectToFacebook(m_AppSettings.AccesToken);
+                handleAllToolsAfterLogin();
+                checkBoxRememberMe.Checked = true;
+            }
         }
-
-        FacebookWrapper.LoginResult m_LoginResult;
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
             Clipboard.SetText("design.patterns");
-            if(m_LogicManager.LoginResult == null)
+            if (m_LoginManager.LoginResult == null)
             {
                 login();
             }
@@ -39,7 +45,7 @@ namespace BasicFacebookFeatures
         {
             try
             {
-                if (!m_LogicManager.Login())
+                if (!m_LoginManager.Login())
                 {
                     MessageBox.Show("Error logging in.");
                 }
@@ -48,10 +54,10 @@ namespace BasicFacebookFeatures
                     handleAllToolsAfterLogin();
                 }
             }
-            catch(Exception generalException)
+            catch (Exception generalException)
             {
                 MessageBox.Show("Error logging in.");
-                m_LogicManager.LoginResult = null;
+                m_LoginManager.LoginResult = null;
             }
         }
 
@@ -60,8 +66,23 @@ namespace BasicFacebookFeatures
             FacebookService.LogoutWithUI();
             buttonLogin.Text = "Login";
             buttonLogin.BackColor = buttonLogout.BackColor;
-            m_LoginResult = null;
+            m_LoginManager.LoginResult = null;
             handleAllToolsAfterLogout();
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+            if (m_AppSettings.RememberMe && m_LoginManager.LoginResult != null)
+            {
+                m_AppSettings.AccesToken = m_LoginManager.LoginResult.AccessToken;
+                m_AppSettings.SaveToFile();
+            }
+            else
+            {
+                m_AppSettings.AccesToken = null;
+                m_AppSettings.deleteDetailsAndFile();
+            }
         }
 
         private void buttonLikedPages_Click(object sender, EventArgs e)
@@ -159,7 +180,7 @@ namespace BasicFacebookFeatures
             labelDetailsHeadline.Visible = true;
             pictureBoxAlbum.Visible = true;
             pictureBoxProfile.Visible = true;
-            m_LoggedInUser = m_LogicManager.LoggedInUser;
+            m_LoggedInUser = m_LoginManager.LoggedInUser;
             //buttonGuessingGame.Visible = true;
             //buttonGuessingGame.Enabled = true;
             labelWelcome.Visible = false;
@@ -183,7 +204,7 @@ namespace BasicFacebookFeatures
             guessingButton.Enabled = true;
             fetchBasicInfo();
             textBoxGuess.Enabled = true;
-            m_GuessGame = new GuessThePageGame();
+            //m_GuessGame = new GuessThePageGame();
         }
 
 
@@ -217,20 +238,6 @@ namespace BasicFacebookFeatures
             buttonPosts.Visible = false;
             listBoxPosts.Visible = false;
             labelBasicDetails.Visible = false;
-<<<<<<< HEAD
-            labelWhatsOnYourMind.Visible = true;
-            textBoxPostStatus.Visible = true;
-            textBoxPostStatus.Enabled = true;
-            buttonPost.Visible = true;
-            buttonPost.Enabled = true;
-            buttonPast.Visible = true;
-            buttonPast.Enabled = true;
-            buttonAlbumCreator.Visible = true;
-            buttonAlbumCreator.Enabled = true;
-            guessingButton.Enabled = false;
-            textBoxGuess.Enabled = false;
-            m_GuessGame.cleanGame();
-=======
             labelWhatsOnYourMind.Visible = false;
             textBoxPostStatus.Visible = false;
             textBoxPostStatus.Enabled = false;
@@ -240,7 +247,10 @@ namespace BasicFacebookFeatures
             buttonPast.Enabled = false;
             buttonAlbumCreator.Visible = false;
             buttonAlbumCreator.Enabled = false;
->>>>>>> 3dde667f8621a3d57a31631d06dc95ee7ca3c542
+            m_AppSettings.RememberMe = false;
+            m_AppSettings.AccesToken = null;
+            checkBoxRememberMe.Checked = false;
+            m_AppSettings.RememberMe = false;
         }
 
         private void buttonGuessingGame_Click(object sender, EventArgs e)
@@ -252,7 +262,7 @@ namespace BasicFacebookFeatures
             }
             catch (Exception generalException)
             {
-
+                MessageBox.Show(generalException.Message);
             }
         }
 
@@ -373,7 +383,7 @@ namespace BasicFacebookFeatures
 
         private void buttonPost_Click(object sender, EventArgs e)
         {
-            if(textBoxPostStatus.Text == "")
+            if (textBoxPostStatus.Text == "")
             {
                 MessageBox.Show("Cannot post an empty status.");
             }
@@ -388,6 +398,18 @@ namespace BasicFacebookFeatures
                 {
                     MessageBox.Show("There was a problem with posting the status");
                 }
+            }
+        }
+
+        private void checkBoxRememberMe_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxRememberMe.Checked)
+            {
+                m_AppSettings.RememberMe = true;
+            }
+            else
+            {
+                m_AppSettings.RememberMe = false;
             }
         }
     }

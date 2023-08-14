@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.checkBoxRememberMe = new System.Windows.Forms.CheckBox();
             this.buttonPast = new System.Windows.Forms.Button();
             this.buttonAlbumCreator = new System.Windows.Forms.Button();
             this.buttonPost = new System.Windows.Forms.Button();
@@ -53,14 +54,14 @@
             this.buttonLogin = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.labelOutcome = new System.Windows.Forms.Label();
+            this.buttonPlayAgain = new System.Windows.Forms.Button();
+            this.guessingButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.labelLetterGuess = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxGuess = new System.Windows.Forms.TextBox();
-            this.guessingButton = new System.Windows.Forms.Button();
-            this.buttonPlayAgain = new System.Windows.Forms.Button();
-            this.labelOutcome = new System.Windows.Forms.Label();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGroups)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAlbum)).BeginInit();
@@ -72,6 +73,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.checkBoxRememberMe);
             this.tabPage1.Controls.Add(this.buttonPast);
             this.tabPage1.Controls.Add(this.buttonAlbumCreator);
             this.tabPage1.Controls.Add(this.buttonPost);
@@ -101,6 +103,17 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Basic features";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxRememberMe
+            // 
+            this.checkBoxRememberMe.AutoSize = true;
+            this.checkBoxRememberMe.Location = new System.Drawing.Point(37, 136);
+            this.checkBoxRememberMe.Name = "checkBoxRememberMe";
+            this.checkBoxRememberMe.Size = new System.Drawing.Size(126, 22);
+            this.checkBoxRememberMe.TabIndex = 81;
+            this.checkBoxRememberMe.Text = "Remember me";
+            this.checkBoxRememberMe.UseVisualStyleBackColor = true;
+            this.checkBoxRememberMe.CheckedChanged += new System.EventHandler(this.checkBoxRememberMe_CheckedChanged);
             // 
             // buttonPast
             // 
@@ -356,6 +369,38 @@
             this.tabPage2.Text = "Guess The Page";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // labelOutcome
+            // 
+            this.labelOutcome.AutoSize = true;
+            this.labelOutcome.Font = new System.Drawing.Font("Nirmala UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelOutcome.Location = new System.Drawing.Point(597, 337);
+            this.labelOutcome.Name = "labelOutcome";
+            this.labelOutcome.Size = new System.Drawing.Size(111, 30);
+            this.labelOutcome.TabIndex = 84;
+            this.labelOutcome.Text = "Let\'s Play!";
+            this.labelOutcome.Visible = false;
+            // 
+            // buttonPlayAgain
+            // 
+            this.buttonPlayAgain.Enabled = false;
+            this.buttonPlayAgain.Location = new System.Drawing.Point(577, 370);
+            this.buttonPlayAgain.Name = "buttonPlayAgain";
+            this.buttonPlayAgain.Size = new System.Drawing.Size(161, 33);
+            this.buttonPlayAgain.TabIndex = 83;
+            this.buttonPlayAgain.Text = "Press to play again";
+            this.buttonPlayAgain.UseVisualStyleBackColor = true;
+            this.buttonPlayAgain.Visible = false;
+            // 
+            // guessingButton
+            // 
+            this.guessingButton.Enabled = false;
+            this.guessingButton.Location = new System.Drawing.Point(784, 195);
+            this.guessingButton.Name = "guessingButton";
+            this.guessingButton.Size = new System.Drawing.Size(65, 24);
+            this.guessingButton.TabIndex = 82;
+            this.guessingButton.Text = "Guess";
+            this.guessingButton.UseVisualStyleBackColor = true;
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -403,38 +448,6 @@
             this.textBoxGuess.Size = new System.Drawing.Size(231, 24);
             this.textBoxGuess.TabIndex = 66;
             this.textBoxGuess.Text = "You have to login in order to play";
-            // 
-            // guessingButton
-            // 
-            this.guessingButton.Enabled = false;
-            this.guessingButton.Location = new System.Drawing.Point(784, 195);
-            this.guessingButton.Name = "guessingButton";
-            this.guessingButton.Size = new System.Drawing.Size(65, 24);
-            this.guessingButton.TabIndex = 82;
-            this.guessingButton.Text = "Guess";
-            this.guessingButton.UseVisualStyleBackColor = true;
-            // 
-            // buttonPlayAgain
-            // 
-            this.buttonPlayAgain.Enabled = false;
-            this.buttonPlayAgain.Location = new System.Drawing.Point(577, 370);
-            this.buttonPlayAgain.Name = "buttonPlayAgain";
-            this.buttonPlayAgain.Size = new System.Drawing.Size(161, 33);
-            this.buttonPlayAgain.TabIndex = 83;
-            this.buttonPlayAgain.Text = "Press to play again";
-            this.buttonPlayAgain.UseVisualStyleBackColor = true;
-            this.buttonPlayAgain.Visible = false;
-            // 
-            // labelOutcome
-            // 
-            this.labelOutcome.AutoSize = true;
-            this.labelOutcome.Font = new System.Drawing.Font("Nirmala UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelOutcome.Location = new System.Drawing.Point(597, 337);
-            this.labelOutcome.Name = "labelOutcome";
-            this.labelOutcome.Size = new System.Drawing.Size(111, 30);
-            this.labelOutcome.TabIndex = 84;
-            this.labelOutcome.Text = "Let\'s Play!";
-            this.labelOutcome.Visible = false;
             // 
             // FormMain
             // 
@@ -495,6 +508,7 @@
         private System.Windows.Forms.Button guessingButton;
         private System.Windows.Forms.Label labelOutcome;
         private System.Windows.Forms.Button buttonPlayAgain;
+        private System.Windows.Forms.CheckBox checkBoxRememberMe;
     }
 }
 

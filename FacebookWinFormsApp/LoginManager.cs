@@ -22,7 +22,17 @@ namespace BasicFacebookFeatures
             }
         }
 
-        public FacebookWrapper.LoginResult LoginResult { get; set; }
+        public FacebookWrapper.LoginResult LoginResult
+        {
+            get
+            {
+                return m_LoginResult;
+            }
+            set
+            {
+                m_LoginResult = value;
+            }
+        }
 
         public bool Login()
         {
@@ -53,6 +63,29 @@ namespace BasicFacebookFeatures
             }
 
             return loginRes;
+        }
+
+        public void connectToFacebook(string accesToken)
+        {
+            m_LoginResult = FacebookService.Connect(accesToken);
+            m_LoggedInUser = m_LoginResult.LoggedInUser; 
+        }
+
+        public bool UserRemembered(AppSettings i_appSettings)
+        {
+            bool result;
+
+            if(i_appSettings.AccesToken != null)
+            {
+                result = true;
+            }
+            else
+            {
+                result = false;
+            }
+
+            return result;
+
         }
     }
 }
