@@ -19,21 +19,21 @@ namespace BasicFacebookFeatures
 
             foreach (char letter in i_LikedPage.Name)
             {
-                if ()//a number or diff lang or counter==30
-                {
-                    throw new Exception("illegal page name");
-                }
-                else
-                {
-                    if ()//if the key is already inside
-                    {
+                //if ()//a number or diff lang or counter==30
+                //{
+                //    throw new Exception("illegal page name");
+                //}
+                //else
+                //{
+                //    if ()//if the key is already inside
+                //    {
 
-                    }
-                    else
-                    {
-                        letterCounter++;
-                    }
-                }
+                //    }
+                //    else
+                //    {
+                //        letterCounter++;
+                //    }
+                //}
             }
         }
 
