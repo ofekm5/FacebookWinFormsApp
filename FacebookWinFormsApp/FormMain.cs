@@ -14,7 +14,7 @@ namespace BasicFacebookFeatures
     public partial class FormMain : Form
     {
         private User m_LoggedInUser;
-        private GuessThePageGame m_GuessGame;
+        //private GuessThePageGame m_GuessGame;
         private LoginManager m_LoginManager;
         private AppSettings m_AppSettings;
 
@@ -184,10 +184,10 @@ namespace BasicFacebookFeatures
             //buttonGuessingGame.Visible = true;
             //buttonGuessingGame.Enabled = true;
             labelWelcome.Visible = false;
-            listBoxGroups.Visible = true;
+            listBoxFriends.Visible = true;
             pictureBoxGroups.Visible = true;
-            buttonGroups.Visible = true;
-            buttonGroups.Enabled = true;
+            buttonFriends.Visible = true;
+            buttonFriends.Enabled = true;
             buttonPosts.Enabled = true;
             buttonPosts.Visible = true;
             listBoxPosts.Visible = true;
@@ -204,7 +204,7 @@ namespace BasicFacebookFeatures
             guessingButton.Enabled = true;
             fetchBasicInfo();
             textBoxGuess.Enabled = true;
-            m_GuessGame = new GuessThePageGame();
+           // m_GuessGame = new GuessThePageGame();
         }
 
 
@@ -230,10 +230,10 @@ namespace BasicFacebookFeatures
             //buttonGuessingGame.Visible = false;
             //buttonGuessingGame.Enabled = false;
             labelWelcome.Visible = true;
-            listBoxGroups.Visible = false;
+            listBoxFriends.Visible = false;
             pictureBoxGroups.Visible = false;
-            buttonGroups.Visible = false;
-            buttonGroups.Enabled = false;
+            buttonFriends.Visible = false;
+            buttonFriends.Enabled = false;
             buttonPosts.Enabled = false;
             buttonPosts.Visible = false;
             listBoxPosts.Visible = false;
@@ -284,8 +284,8 @@ namespace BasicFacebookFeatures
                 {
                     foreach (Group currentGroup in allGroups)
                     {
-                        listBoxGroups.Items.Add(currentGroup);
-                        listBoxGroups.DisplayMember = "Name";
+                        listBoxFriends.Items.Add(currentGroup);
+                        listBoxFriends.DisplayMember = "Name";
                     }
                 }
             }
@@ -302,7 +302,7 @@ namespace BasicFacebookFeatures
 
         private void presentSingleGroup()
         {
-            Group selectedGroup = listBoxGroups.SelectedItem as Group;
+            Group selectedGroup = listBoxFriends.SelectedItem as Group;
             pictureBoxGroups.LoadAsync(selectedGroup.PictureNormalURL);
         }
 
@@ -411,6 +411,46 @@ namespace BasicFacebookFeatures
             {
                 m_AppSettings.RememberMe = false;
             }
+        }
+
+        private void buttonFriends_Click(object sender, EventArgs e)
+        {
+            presentAllFriends();
+        }
+
+        private void presentAllFriends()
+        {
+            try
+            {
+                List<User> allFriends = m_LoggedInUser.Friends.ToList();
+                if (allFriends.Count == 0)
+                {
+                    MessageBox.Show("User has no friends");
+                }
+                else
+                {
+                    foreach (User friend in allFriends)
+                    {
+                        listBoxFriends.Items.Add(friend);
+                        listBoxFriends.DisplayMember = "Name";
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error trying to fetch friends.");
+            }
+        }
+
+        private void listBoxFriends_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            presentSingleFriend();
+        }
+
+        private void presentSingleFriend()
+        {
+            User selectedFriend = listBoxFriends.SelectedItem as User;
+            pictureBoxGroups.LoadAsync(selectedFriend.PictureNormalURL);
         }
     }
 }
