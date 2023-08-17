@@ -21,7 +21,7 @@ namespace BasicFacebookFeatures
         public FormMain()
         {
             InitializeComponent();
-            FacebookWrapper.FacebookService.s_CollectionLimit = 25;
+            FacebookWrapper.FacebookService.s_CollectionLimit = 30;
             m_LoginManager = new LoginManager();
             m_AppSettings = AppSettings.LoadFromFile();
             if (m_AppSettings.RememberMe && !string.IsNullOrEmpty(m_AppSettings.AccesToken))
@@ -30,6 +30,7 @@ namespace BasicFacebookFeatures
                 handleAllToolsAfterLogin();
                 checkBoxRememberMe.Checked = true;
             }
+           
         }
 
         private void buttonLogin_Click(object sender, EventArgs e)
@@ -168,6 +169,7 @@ namespace BasicFacebookFeatures
 
         private void handleAllToolsAfterLogin()
         {
+            
             buttonLogin.Enabled = false;
             buttonLogout.Enabled = true;
             buttonLikedPages.Visible = true;
@@ -199,8 +201,6 @@ namespace BasicFacebookFeatures
             buttonPost.Enabled = true;
             buttonPast.Visible = true;
             buttonPast.Enabled = true;
-            buttonAlbumCreator.Visible = true;
-            buttonAlbumCreator.Enabled = true;
             guessingButton.Enabled = true;
             fetchBasicInfo();
             textBoxGuess.Enabled = true;
@@ -245,8 +245,6 @@ namespace BasicFacebookFeatures
             buttonPost.Enabled = false;
             buttonPast.Visible = false;
             buttonPast.Enabled = false;
-            buttonAlbumCreator.Visible = false;
-            buttonAlbumCreator.Enabled = false;
             m_AppSettings.RememberMe = false;
             m_AppSettings.AccesToken = null;
             checkBoxRememberMe.Checked = false;
@@ -325,7 +323,7 @@ namespace BasicFacebookFeatures
                     foreach (Post post in allPosts)
                     {
                         listBoxPosts.Items.Add(post);
-                        //listBoxPosts.DisplayMember = "Name";
+                        listBoxPosts.DisplayMember = "Name";
                     }
                 }
             }
@@ -451,6 +449,30 @@ namespace BasicFacebookFeatures
         {
             User selectedFriend = listBoxFriends.SelectedItem as User;
             pictureBoxGroups.LoadAsync(selectedFriend.PictureNormalURL);
+        }
+
+        private void buttonPast_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<Post> allPosts = m_LoggedInUser.Posts.ToList();
+                if (allPosts.Count == 0)
+                {
+                    MessageBox.Show("User has no posts");
+                }
+                else
+                {
+                    List<Post> oldestPosts = allPosts.Where(post => post.CreatedTime.Value.Year < 2015 && post != null && !post.Equals("")).ToList();
+                    Random random = new Random();
+                    int randInd = random.Next(0, oldestPosts.Count - 1);
+                    Post randomPost = oldestPosts.ElementAt(randInd);
+                    MessageBox.Show(randomPost.Name);
+                }
+            }
+            catch (Exception generalException)
+            {
+                MessageBox.Show("Error trying to fetch posts.");
+            }
         }
     }
 }

@@ -71,7 +71,7 @@ namespace BasicFacebookFeatures
                     File.Delete("AppSettings.xml");
                 }
             }
-            catch(Exception generalException)
+            catch (Exception generalException)
             {
                 
             }

@@ -31,7 +31,6 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.checkBoxRememberMe = new System.Windows.Forms.CheckBox();
             this.buttonPast = new System.Windows.Forms.Button();
-            this.buttonAlbumCreator = new System.Windows.Forms.Button();
             this.buttonPost = new System.Windows.Forms.Button();
             this.textBoxPostStatus = new System.Windows.Forms.TextBox();
             this.labelWhatsOnYourMind = new System.Windows.Forms.Label();
@@ -75,7 +74,6 @@
             // 
             this.tabPage1.Controls.Add(this.checkBoxRememberMe);
             this.tabPage1.Controls.Add(this.buttonPast);
-            this.tabPage1.Controls.Add(this.buttonAlbumCreator);
             this.tabPage1.Controls.Add(this.buttonPost);
             this.tabPage1.Controls.Add(this.textBoxPostStatus);
             this.tabPage1.Controls.Add(this.labelWhatsOnYourMind);
@@ -124,16 +122,7 @@
             this.buttonPast.Text = "Blast From The Past";
             this.buttonPast.UseVisualStyleBackColor = true;
             this.buttonPast.Visible = false;
-            // 
-            // buttonAlbumCreator
-            // 
-            this.buttonAlbumCreator.Location = new System.Drawing.Point(436, 612);
-            this.buttonAlbumCreator.Name = "buttonAlbumCreator";
-            this.buttonAlbumCreator.Size = new System.Drawing.Size(235, 34);
-            this.buttonAlbumCreator.TabIndex = 79;
-            this.buttonAlbumCreator.Text = "Create an album";
-            this.buttonAlbumCreator.UseVisualStyleBackColor = true;
-            this.buttonAlbumCreator.Visible = false;
+            this.buttonPast.Click += new System.EventHandler(this.buttonPast_Click);
             // 
             // buttonPost
             // 
@@ -503,7 +492,6 @@
         private System.Windows.Forms.TextBox textBoxPostStatus;
         private System.Windows.Forms.Label labelWhatsOnYourMind;
         private System.Windows.Forms.Button buttonPost;
-        private System.Windows.Forms.Button buttonAlbumCreator;
         private System.Windows.Forms.Label labelLetterGuess;
         private System.Windows.Forms.Button buttonPast;
         private System.Windows.Forms.Label label4;
