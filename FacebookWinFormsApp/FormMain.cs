@@ -21,12 +21,12 @@ namespace BasicFacebookFeatures
         public FormMain()
         {
             InitializeComponent();
-            FacebookWrapper.FacebookService.s_CollectionLimit = 30;
+            
             m_LoginManager = new LoginManager();
             m_AppSettings = AppSettings.LoadFromFile();
             if (m_AppSettings.RememberMe && !string.IsNullOrEmpty(m_AppSettings.AccesToken))
             {
-                m_LoginManager.connectToFacebook(m_AppSettings.AccesToken);
+                m_LoginManager.ConnectToFacebook(m_AppSettings.AccesToken);
                 handleAllToolsAfterLogin();
                 checkBoxRememberMe.Checked = true;
             }
@@ -82,7 +82,14 @@ namespace BasicFacebookFeatures
             else
             {
                 m_AppSettings.AccesToken = null;
-                m_AppSettings.deleteDetailsAndFile();
+                try
+                {
+                    m_AppSettings.deleteDetailsAndFile();
+                }
+                catch(Exception genetalException)
+                {
+                    MessageBox.Show(genetalException.Message);
+                }
             }
         }
 

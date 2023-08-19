@@ -73,7 +73,7 @@ namespace BasicFacebookFeatures
             }
             catch (Exception generalException)
             {
-                
+                throw new Exception("Cannot delete file AppSettings.xml");
             }
         }
     }

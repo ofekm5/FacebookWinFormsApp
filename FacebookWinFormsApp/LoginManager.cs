@@ -14,6 +14,7 @@ namespace BasicFacebookFeatures
         private User m_LoggedInUser;
         private FacebookWrapper.LoginResult m_LoginResult;
 
+
         public User LoggedInUser
         {
             get
@@ -36,6 +37,7 @@ namespace BasicFacebookFeatures
 
         public bool Login()
         {
+            FacebookWrapper.FacebookService.s_CollectionLimit = 30;
             bool loginRes = false;
             m_LoginResult = FacebookService.Login(
               k_AppId,
@@ -65,27 +67,11 @@ namespace BasicFacebookFeatures
             return loginRes;
         }
 
-        public void connectToFacebook(string accesToken)
+        public void ConnectToFacebook(string i_AccesToken)
         {
-            m_LoginResult = FacebookService.Connect(accesToken);
+            m_LoginResult = FacebookService.Connect(i_AccesToken);
             m_LoggedInUser = m_LoginResult.LoggedInUser; 
         }
 
-        public bool UserRemembered(AppSettings i_appSettings)
-        {
-            bool result;
-
-            if(i_appSettings.AccesToken != null)
-            {
-                result = true;
-            }
-            else
-            {
-                result = false;
-            }
-
-            return result;
-
-        }
     }
 }
