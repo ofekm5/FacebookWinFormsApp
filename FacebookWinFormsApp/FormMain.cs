@@ -17,6 +17,7 @@ namespace BasicFacebookFeatures
         //private GuessThePageGame m_GuessGame;
         private LoginManager m_LoginManager;
         private AppSettings m_AppSettings;
+        private List<Post> m_ListOfPosts;
 
         public FormMain()
         {
@@ -24,6 +25,7 @@ namespace BasicFacebookFeatures
             
             m_LoginManager = new LoginManager();
             m_AppSettings = AppSettings.LoadFromFile();
+            m_ListOfPosts = null;
             if (m_AppSettings.RememberMe && !string.IsNullOrEmpty(m_AppSettings.AccesToken))
             {
                 m_LoginManager.ConnectToFacebook(m_AppSettings.AccesToken);
@@ -176,7 +178,7 @@ namespace BasicFacebookFeatures
 
         private void handleAllToolsAfterLogin()
         {
-            
+            pictureBoxFriends.Visible = true;
             buttonLogin.Enabled = false;
             buttonLogout.Enabled = true;
             buttonLikedPages.Visible = true;
@@ -194,7 +196,7 @@ namespace BasicFacebookFeatures
             //buttonGuessingGame.Enabled = true;
             labelWelcome.Visible = false;
             listBoxFriends.Visible = true;
-            pictureBoxGroups.Visible = true;
+           
             buttonFriends.Visible = true;
             buttonFriends.Enabled = true;
             buttonPosts.Enabled = true;
@@ -218,6 +220,7 @@ namespace BasicFacebookFeatures
 
         private void handleAllToolsAfterLogout()
         {
+            pictureBoxFriends.Visible = false;
             buttonLogin.Enabled = true;
             buttonLogout.Enabled = false;
             buttonLikedPages.Visible = false;
@@ -238,7 +241,7 @@ namespace BasicFacebookFeatures
             //buttonGuessingGame.Enabled = false;
             labelWelcome.Visible = true;
             listBoxFriends.Visible = false;
-            pictureBoxGroups.Visible = false;
+            
             buttonFriends.Visible = false;
             buttonFriends.Enabled = false;
             buttonPosts.Enabled = false;
@@ -271,46 +274,6 @@ namespace BasicFacebookFeatures
             }
         }
 
-        private void buttonGroups_Click(object sender, EventArgs e)
-        {
-            presentAllGroups();
-        }
-
-        private void presentAllGroups()
-        {
-            try
-            {
-                List<Group> allGroups = m_LoggedInUser.Groups.ToList();
-                if (allGroups.Count == 0)
-                {
-                    MessageBox.Show("User has no groups.");
-                }
-                else
-                {
-                    foreach (Group currentGroup in allGroups)
-                    {
-                        listBoxFriends.Items.Add(currentGroup);
-                        listBoxFriends.DisplayMember = "Name";
-                    }
-                }
-            }
-            catch (Exception generalException)
-            {
-                MessageBox.Show("Error trying to fetch groups.");
-            }
-        }
-
-        private void listBoxGroups_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            presentSingleGroup();
-        }
-
-        private void presentSingleGroup()
-        {
-            Group selectedGroup = listBoxFriends.SelectedItem as Group;
-            pictureBoxGroups.LoadAsync(selectedGroup.PictureNormalURL);
-        }
-
         private void buttonPosts_Click(object sender, EventArgs e)
         {
             presentAllPosts();
@@ -318,23 +281,29 @@ namespace BasicFacebookFeatures
 
         private void presentAllPosts()
         {
+            fetchPosts();
+            foreach(Post post in m_ListOfPosts)
+            {
+                listBoxPosts.Items.Add(post);
+                listBoxPosts.DisplayMember = "Name";
+            }
+        }
+
+        private void fetchPosts()
+        {
             try
             {
-                List<Post> allPosts = m_LoggedInUser.Posts.ToList();
-                if (allPosts.Count == 0)
+                if (m_ListOfPosts == null)
                 {
-                    MessageBox.Show("User has no posts");
-                }
-                else
-                {
-                    foreach (Post post in allPosts)
+                    m_ListOfPosts = m_LoggedInUser.Posts.ToList();
+
+                    if (m_ListOfPosts.Count == 0)
                     {
-                        listBoxPosts.Items.Add(post);
-                        listBoxPosts.DisplayMember = "Name";
+                        MessageBox.Show("User has no posts");
                     }
-                }
+                }  
             }
-            catch (Exception e)
+            catch(Exception generalException)
             {
                 MessageBox.Show("Error trying to fetch posts.");
             }
@@ -455,31 +424,84 @@ namespace BasicFacebookFeatures
         private void presentSingleFriend()
         {
             User selectedFriend = listBoxFriends.SelectedItem as User;
-            pictureBoxGroups.LoadAsync(selectedFriend.PictureNormalURL);
+            pictureBoxFriends.LoadAsync(selectedFriend.PictureNormalURL);
         }
 
         private void buttonPast_Click(object sender, EventArgs e)
         {
-            try
+            Post randomOldPost;
+
+            fetchPosts();
+            randomOldPost = getRandomOldPost();
+            showRandomOldPost(randomOldPost);
+        }
+
+        private Post getRandomOldPost()
+        {
+            int earliestYear;
+            List<Post> oldestPosts;
+            Random random = new Random();
+            int randInd;
+
+            earliestYear = findEarliestYear();
+            oldestPosts = m_ListOfPosts.Where(post => ((post.CreatedTime.Value.Year >= earliestYear) && (post.CreatedTime.Value.Year <= earliestYear+5)) && ((post.Type == Post.eType.photo) || (post.Type == Post.eType.status)) && !post.Equals("")).ToList();
+            randInd = random.Next(0, oldestPosts.Count - 1);
+
+            return oldestPosts.ElementAt(randInd);
+        }
+
+        private void showRandomOldPost(Post i_RandomOldPost)
+        {
+            if (i_RandomOldPost.Type == Post.eType.status)
             {
-                List<Post> allPosts = m_LoggedInUser.Posts.ToList();
-                if (allPosts.Count == 0)
+                MessageBox.Show(i_RandomOldPost.Message);
+            }
+            else
+            {
+                presentImageInPopUp(i_RandomOldPost);
+            }
+        }
+
+        private void presentImageInPopUp(Post i_RandomOldPost)
+        {
+            Form imagePopUpForm = new Form
+            {
+                Text = "Your Fadicha:",
+                Width = 400,
+                Height = 300,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                StartPosition = FormStartPosition.CenterScreen,
+                MaximizeBox = false,
+                MinimizeBox = false
+            };
+
+            PictureBox pictureBox = new PictureBox
+            {
+                Location = new Point(10, 10),
+                Size = new Size(380, 240),
+                SizeMode = PictureBoxSizeMode.Zoom
+            };
+
+            pictureBox.LoadAsync(i_RandomOldPost.PictureURL);
+
+            imagePopUpForm.Controls.Add(pictureBox);
+            imagePopUpForm.ShowDialog();
+        }
+    
+
+        private int findEarliestYear()
+        {
+            DateTime earliestDate = DateTime.Now;
+
+            foreach (Post currentPost in m_ListOfPosts)
+            {
+                if (currentPost.CreatedTime < earliestDate)
                 {
-                    MessageBox.Show("User has no posts");
-                }
-                else
-                {
-                    List<Post> oldestPosts = allPosts.Where(post => post.CreatedTime.Value.Year < 2015 && post != null && !post.Equals("")).ToList();
-                    Random random = new Random();
-                    int randInd = random.Next(0, oldestPosts.Count - 1);
-                    Post randomPost = oldestPosts.ElementAt(randInd);
-                    MessageBox.Show(randomPost.Name);
+                    earliestDate = (DateTime)currentPost.CreatedTime;
                 }
             }
-            catch (Exception generalException)
-            {
-                MessageBox.Show("Error trying to fetch posts.");
-            }
+
+            return earliestDate.Year;
         }
     }
 }

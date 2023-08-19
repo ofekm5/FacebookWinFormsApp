@@ -35,7 +35,7 @@
             this.textBoxPostStatus = new System.Windows.Forms.TextBox();
             this.labelWhatsOnYourMind = new System.Windows.Forms.Label();
             this.labelBasicDetails = new System.Windows.Forms.Label();
-            this.pictureBoxGroups = new System.Windows.Forms.PictureBox();
+            this.pictureBoxFriends = new System.Windows.Forms.PictureBox();
             this.listBoxFriends = new System.Windows.Forms.ListBox();
             this.buttonFriends = new System.Windows.Forms.Button();
             this.listBoxPosts = new System.Windows.Forms.ListBox();
@@ -62,7 +62,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxGuess = new System.Windows.Forms.TextBox();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGroups)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFriends)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAlbum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLikedPages)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
@@ -78,7 +78,7 @@
             this.tabPage1.Controls.Add(this.textBoxPostStatus);
             this.tabPage1.Controls.Add(this.labelWhatsOnYourMind);
             this.tabPage1.Controls.Add(this.labelBasicDetails);
-            this.tabPage1.Controls.Add(this.pictureBoxGroups);
+            this.tabPage1.Controls.Add(this.pictureBoxFriends);
             this.tabPage1.Controls.Add(this.listBoxFriends);
             this.tabPage1.Controls.Add(this.buttonFriends);
             this.tabPage1.Controls.Add(this.listBoxPosts);
@@ -165,14 +165,14 @@
             this.labelBasicDetails.Text = "Details";
             this.labelBasicDetails.Visible = false;
             // 
-            // pictureBoxGroups
+            // pictureBoxFriends
             // 
-            this.pictureBoxGroups.Location = new System.Drawing.Point(1076, 448);
-            this.pictureBoxGroups.Name = "pictureBoxGroups";
-            this.pictureBoxGroups.Size = new System.Drawing.Size(140, 166);
-            this.pictureBoxGroups.TabIndex = 74;
-            this.pictureBoxGroups.TabStop = false;
-            this.pictureBoxGroups.Visible = false;
+            this.pictureBoxFriends.Location = new System.Drawing.Point(1076, 448);
+            this.pictureBoxFriends.Name = "pictureBoxFriends";
+            this.pictureBoxFriends.Size = new System.Drawing.Size(140, 166);
+            this.pictureBoxFriends.TabIndex = 74;
+            this.pictureBoxFriends.TabStop = false;
+            this.pictureBoxFriends.Visible = false;
             // 
             // listBoxFriends
             // 
@@ -453,7 +453,7 @@
             this.Text = "Form1";
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGroups)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFriends)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAlbum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLikedPages)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).EndInit();
@@ -482,7 +482,7 @@
         private System.Windows.Forms.ListBox listBoxPosts;
         private System.Windows.Forms.Button buttonPosts;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.PictureBox pictureBoxGroups;
+        private System.Windows.Forms.PictureBox pictureBoxFriends;
         private System.Windows.Forms.ListBox listBoxFriends;
         private System.Windows.Forms.Button buttonFriends;
         private System.Windows.Forms.Label labelBasicDetails;
