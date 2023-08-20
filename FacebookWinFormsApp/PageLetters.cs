@@ -19,6 +19,10 @@ namespace BasicFacebookFeatures
             if (!isCharALetter(i_LikedPage.Name[0])){
                 throw new Exception("Page starts in non-english language");
             }
+            else if (i_LikedPage.Name.Length > 30)
+            {
+                throw new Exception("Page is too long");
+            }
             else
             {
                 m_ChosenPageLetters = new Dictionary<char, List<int>>();
@@ -35,7 +39,7 @@ namespace BasicFacebookFeatures
 
             for (i = 0; i < pageLen; i++) //could not use foreach because of index storing
             {
-                if ((i == pageLen && i_PageName[i] == ' ') || (i == 30) || (!isCharALetter(i_PageName[i]) && !isSpecialChar(i_PageName[i])))
+                if (!isCharALetter(i_PageName[i]) && !isSpecialChar(i_PageName[i]))
                 {
                     break;
                 }

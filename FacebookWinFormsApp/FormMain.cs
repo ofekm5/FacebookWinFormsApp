@@ -496,11 +496,11 @@ namespace BasicFacebookFeatures
         {
             foreach (Label labelChar in m_GuessingGameUI.LabelChars)
             {
-                Controls.Remove(labelChar);
+                tabPage2.Controls.Remove(labelChar);
             }
 
             m_GuessingGameUI.Rematch();
-            Controls.AddRange(m_GuessingGameUI.LabelChars);
+            tabPage2.Controls.AddRange(m_GuessingGameUI.LabelChars);
         }
     }
 }

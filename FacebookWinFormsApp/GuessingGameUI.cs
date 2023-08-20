@@ -49,72 +49,70 @@ namespace BasicFacebookFeatures
 
         private void initiallizeUI()
         {
-            int totalChars;
+            int totalChars = m_GuessGame.TotalChars;
+            int currentLabelX = (m_LabelPage.Location.X) - (totalChars * 10) + 50;
+            int currentLabelY = m_LabelPage.Location.Y + 100;
 
-            totalChars = m_GuessGame.TotalChars;
             m_LabelChars = new Label[totalChars];
-            for (int i = 0; i < totalChars; i++)
+            for (int i = 0 ; i < totalChars; i++)
             {
                 m_LabelChars[i] = new Label();
                 m_LabelChars[i].Height = m_LabelPage.Height;
                 m_LabelChars[i].Width = m_LabelPage.Width;
-                m_LabelChars[i].Location = new System.Drawing.Point(m_LabelPage.Location.X + (50 * (i + 1)), m_LabelPage.Location.Y);
+                m_LabelChars[i].Location = new System.Drawing.Point(currentLabelX, currentLabelY);
                 m_LabelChars[i].Visible = true;
-                if (m_GuessGame.ChosenPageLetters.PageLettersIndices.ContainsKey(' ') && m_GuessGame.ChosenPageLetters.PageLettersIndices[' '].Contains(i))
-                {
-                    m_LabelChars[i].Text = " ";
-                }
-                else if (m_GuessGame.ChosenPageLetters.PageLettersIndices.ContainsKey('.') && m_GuessGame.ChosenPageLetters.PageLettersIndices['.'].Contains(i))
-                {
-                    m_LabelChars[i].Text = ".";
-                }
-                else if (m_GuessGame.ChosenPageLetters.PageLettersIndices.ContainsKey('\'') && m_GuessGame.ChosenPageLetters.PageLettersIndices['\''].Contains(i))
-                {
-                    m_LabelChars[i].Text = "\'";
-                }
-                else if (m_GuessGame.ChosenPageLetters.PageLettersIndices.ContainsKey(',') && m_GuessGame.ChosenPageLetters.PageLettersIndices[','].Contains(i))
-                {
-                    m_LabelChars[i].Text = ",";
-                }
-                else
-                {
-                    m_LabelChars[i].Text = "?";
-                }
+                storeCurrectCharInLabel(i);
+                currentLabelX += 50;
             }
 
             m_LabelOutcome.Text = "Let's Play!";
-
             m_TextBoxGuess.Enabled = true;
             m_TextBoxGuess.Text = "";
-
             m_ButtonGuess.Enabled = true;
-
-            m_LabelOutcome.Text = m_GuessGame.Outcome;
             m_LabelOutcome.Visible = true;
+        }
+
+        private void storeCurrectCharInLabel(int i_LabelIndex)
+        {
+            if (m_GuessGame.ChosenPageLetters.PageLettersIndices.ContainsKey(' ') && m_GuessGame.ChosenPageLetters.PageLettersIndices[' '].Contains(i_LabelIndex))
+            {
+                m_LabelChars[i_LabelIndex].Text = " ";
+            }
+            else if (m_GuessGame.ChosenPageLetters.PageLettersIndices.ContainsKey('.') && m_GuessGame.ChosenPageLetters.PageLettersIndices['.'].Contains(i_LabelIndex))
+            {
+                m_LabelChars[i_LabelIndex].Text = ".";
+            }
+            else if (m_GuessGame.ChosenPageLetters.PageLettersIndices.ContainsKey('\'') && m_GuessGame.ChosenPageLetters.PageLettersIndices['\''].Contains(i_LabelIndex))
+            {
+                m_LabelChars[i_LabelIndex].Text = "\'";
+            }
+            else if (m_GuessGame.ChosenPageLetters.PageLettersIndices.ContainsKey(',') && m_GuessGame.ChosenPageLetters.PageLettersIndices[','].Contains(i_LabelIndex))
+            {
+                m_LabelChars[i_LabelIndex].Text = ",";
+            }
+            else
+            {
+                m_LabelChars[i_LabelIndex].Text = "?";
+            }
         }
 
         public void PlayTurn()
         {
             try
             {
-                if (m_TextBoxGuess.Text.Length == 1)
+                List<int> indices = m_GuessGame.GuessLetter(m_TextBoxGuess.Text);
+                switch (m_GuessGame.Outcome)
                 {
-                    List<int> indices = m_GuessGame.GuessLetter(m_TextBoxGuess.Text);
-                    m_LabelOutcome.Text = m_GuessGame.Outcome;
-                    switch (m_GuessGame.Outcome)
-                    {
-                        case "You won!":
-                            updateLabelsChar(indices, m_TextBoxGuess.Text);
-                            wrapUpGame();
-                            break;
-                        case "You lost!":
-                            wrapUpGame();
-                            break;
-                        case "Good guess":
-                            updateLabelsChar(indices, m_TextBoxGuess.Text);
-                            break;
-                    }
-                    
+                    case "You won!":
+                        updateLabelsChar(indices, m_TextBoxGuess.Text);
+                        wrapUpGame();
+                        break;
+                    case "You lost!":
+                        wrapUpGame();
+                        break;
+                    case "Good guess":
+                        updateLabelsChar(indices, m_TextBoxGuess.Text);
+                        break;
                 }
                 m_LabelOutcome.Text = m_GuessGame.Outcome;
                 m_TextBoxGuess.Text = "";
@@ -146,6 +144,8 @@ namespace BasicFacebookFeatures
         {
             m_GuessGame.RestartGame();
             initiallizeUI();
+            m_ButtonPlayAgain.Enabled = false;
+            m_ButtonPlayAgain.Visible = false;
         }
 
         public void UserLogout()

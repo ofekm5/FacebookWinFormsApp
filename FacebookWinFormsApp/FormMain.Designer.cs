@@ -364,7 +364,7 @@
             // 
             this.labelOutcome.AutoSize = true;
             this.labelOutcome.Font = new System.Drawing.Font("Nirmala UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelOutcome.Location = new System.Drawing.Point(597, 337);
+            this.labelOutcome.Location = new System.Drawing.Point(597, 397);
             this.labelOutcome.Name = "labelOutcome";
             this.labelOutcome.Size = new System.Drawing.Size(111, 30);
             this.labelOutcome.TabIndex = 84;
@@ -374,7 +374,7 @@
             // buttonPlayAgain
             // 
             this.buttonPlayAgain.Enabled = false;
-            this.buttonPlayAgain.Location = new System.Drawing.Point(577, 370);
+            this.buttonPlayAgain.Location = new System.Drawing.Point(577, 430);
             this.buttonPlayAgain.Name = "buttonPlayAgain";
             this.buttonPlayAgain.Size = new System.Drawing.Size(161, 33);
             this.buttonPlayAgain.TabIndex = 83;
@@ -397,7 +397,7 @@
             // labelPage
             // 
             this.labelPage.AutoSize = true;
-            this.labelPage.Location = new System.Drawing.Point(386, 277);
+            this.labelPage.Location = new System.Drawing.Point(386, 243);
             this.labelPage.Name = "labelPage";
             this.labelPage.Size = new System.Drawing.Size(50, 18);
             this.labelPage.TabIndex = 70;

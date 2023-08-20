@@ -103,6 +103,10 @@ namespace BasicFacebookFeatures
                 {
                     m_Outcome = "Guess is longer than a single letter";
                 }
+                else if (i_Guess.Length < 1)
+                {
+                    m_Outcome = "Guess is shorter than a single letter";
+                }
                 else if (i_Guess[0] < 'a' || i_Guess[0] > 'z')
                 {
                     m_Outcome = "Guess is not a letter";
