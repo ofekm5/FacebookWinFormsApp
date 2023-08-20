@@ -55,8 +55,8 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.labelOutcome = new System.Windows.Forms.Label();
             this.buttonPlayAgain = new System.Windows.Forms.Button();
-            this.guessingButton = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
+            this.buttonGuess = new System.Windows.Forms.Button();
+            this.labelPage = new System.Windows.Forms.Label();
             this.labelLetterGuess = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -343,8 +343,8 @@
             // 
             this.tabPage2.Controls.Add(this.labelOutcome);
             this.tabPage2.Controls.Add(this.buttonPlayAgain);
-            this.tabPage2.Controls.Add(this.guessingButton);
-            this.tabPage2.Controls.Add(this.label4);
+            this.tabPage2.Controls.Add(this.buttonGuess);
+            this.tabPage2.Controls.Add(this.labelPage);
             this.tabPage2.Controls.Add(this.labelLetterGuess);
             this.tabPage2.Controls.Add(this.label2);
             this.tabPage2.Controls.Add(this.label1);
@@ -358,45 +358,46 @@
             // 
             // labelOutcome
             // 
-            this.labelOutcome.AutoSize = true;
             this.labelOutcome.Font = new System.Drawing.Font("Nirmala UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelOutcome.Location = new System.Drawing.Point(597, 388);
+            this.labelOutcome.Location = new System.Drawing.Point(466, 392);
             this.labelOutcome.Name = "labelOutcome";
-            this.labelOutcome.Size = new System.Drawing.Size(111, 30);
+            this.labelOutcome.Size = new System.Drawing.Size(367, 30);
             this.labelOutcome.TabIndex = 84;
             this.labelOutcome.Text = "Let\'s Play!";
+            this.labelOutcome.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.labelOutcome.Visible = false;
             // 
             // buttonPlayAgain
             // 
             this.buttonPlayAgain.Enabled = false;
-            this.buttonPlayAgain.Location = new System.Drawing.Point(577, 421);
+            this.buttonPlayAgain.Location = new System.Drawing.Point(579, 425);
             this.buttonPlayAgain.Name = "buttonPlayAgain";
-            this.buttonPlayAgain.Size = new System.Drawing.Size(161, 33);
+            this.buttonPlayAgain.Size = new System.Drawing.Size(147, 38);
             this.buttonPlayAgain.TabIndex = 83;
             this.buttonPlayAgain.Text = "Press to play again";
             this.buttonPlayAgain.UseVisualStyleBackColor = true;
             this.buttonPlayAgain.Visible = false;
+            this.buttonPlayAgain.Click += new System.EventHandler(this.buttonPlayAgain_Click);
             // 
-            // guessingButton
+            // buttonGuess
             // 
-            this.guessingButton.Enabled = false;
-            this.guessingButton.Location = new System.Drawing.Point(784, 246);
-            this.guessingButton.Name = "guessingButton";
-            this.guessingButton.Size = new System.Drawing.Size(65, 24);
-            this.guessingButton.TabIndex = 82;
-            this.guessingButton.Text = "Guess";
-            this.guessingButton.UseVisualStyleBackColor = true;
-            this.guessingButton.Click += new System.EventHandler(this.guessingButton_Click);
+            this.buttonGuess.Enabled = false;
+            this.buttonGuess.Location = new System.Drawing.Point(784, 246);
+            this.buttonGuess.Name = "buttonGuess";
+            this.buttonGuess.Size = new System.Drawing.Size(65, 24);
+            this.buttonGuess.TabIndex = 82;
+            this.buttonGuess.Text = "Guess";
+            this.buttonGuess.UseVisualStyleBackColor = true;
+            this.buttonGuess.Click += new System.EventHandler(this.guessingButton_Click);
             // 
-            // label4
+            // labelPage
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(386, 328);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(50, 18);
-            this.label4.TabIndex = 70;
-            this.label4.Text = "Page: ";
+            this.labelPage.AutoSize = true;
+            this.labelPage.Location = new System.Drawing.Point(386, 328);
+            this.labelPage.Name = "labelPage";
+            this.labelPage.Size = new System.Drawing.Size(50, 18);
+            this.labelPage.TabIndex = 70;
+            this.labelPage.Text = "Page: ";
             // 
             // labelLetterGuess
             // 
@@ -414,8 +415,8 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(592, 142);
             this.label2.TabIndex = 68;
-            this.label2.Text = "We have picked a random page you have liked. \r\nCould you guess it? \r\nGuess one le" +
-    "tter at a time. Make sure its lowercase and in english.\r\n";
+            this.label2.Text = "We have picked a random page you have liked. \r\nCould you guess it? You have 5 str" +
+    "ikes.\r\n \r\nGuess one letter at a time. Make sure its lowercase and in english.\r\n";
             // 
             // label1
             // 
@@ -492,8 +493,8 @@
         private System.Windows.Forms.Button buttonAlbumCreator;
         private System.Windows.Forms.Label labelLetterGuess;
         private System.Windows.Forms.Button buttonPast;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button guessingButton;
+        private System.Windows.Forms.Label labelPage;
+        private System.Windows.Forms.Button buttonGuess;
         private System.Windows.Forms.Label labelOutcome;
         private System.Windows.Forms.Button buttonPlayAgain;
     }

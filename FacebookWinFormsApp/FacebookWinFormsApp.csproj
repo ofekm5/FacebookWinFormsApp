@@ -99,6 +99,7 @@
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
     <Compile Include="GuessingGameEngine.cs" />
+    <Compile Include="GuessingGameUI.cs" />
     <Compile Include="LoginManager.cs" />
     <Compile Include="PageLetters.cs" />
     <Compile Include="Program.cs" />

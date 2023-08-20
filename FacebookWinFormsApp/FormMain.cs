@@ -14,21 +14,21 @@ namespace BasicFacebookFeatures
     public partial class FormMain : Form
     {
         private User m_LoggedInUser;
-        private GuessingGameEngine m_GuessGame;
-        private LoginManager m_LogicManager;
+        private GuessingGameUI m_GuessingGameUI;
+        private LoginManager m_LoginManager;
         FacebookWrapper.LoginResult m_LoginResult;
 
         public FormMain()
         {
             InitializeComponent();
             FacebookWrapper.FacebookService.s_CollectionLimit = 25;
-            m_LogicManager = new LoginManager();
+            m_LoginManager = new LoginManager();
         }
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
             Clipboard.SetText("design.patterns");
-            if(m_LogicManager.LoginResult == null)
+            if(m_LoginManager.LoginResult == null)
             {
                 login();
             }
@@ -38,7 +38,7 @@ namespace BasicFacebookFeatures
         {
             try
             {
-                if (!m_LogicManager.Login())
+                if (!m_LoginManager.Login())
                 {
                     MessageBox.Show("Error logging in.");
                 }
@@ -50,7 +50,7 @@ namespace BasicFacebookFeatures
             catch(Exception generalException)
             {
                 MessageBox.Show("Error logging in.");
-                m_LogicManager.LoginResult = null;
+                m_LoginManager.LoginResult = null;
             }
         }
 
@@ -158,7 +158,7 @@ namespace BasicFacebookFeatures
             labelDetailsHeadline.Visible = true;
             pictureBoxAlbum.Visible = true;
             pictureBoxProfile.Visible = true;
-            m_LoggedInUser = m_LogicManager.LoggedInUser;
+            m_LoggedInUser = m_LoginManager.LoggedInUser;
             labelWelcome.Visible = false;
             listBoxGroups.Visible = true;
             pictureBoxGroups.Visible = true;
@@ -178,21 +178,9 @@ namespace BasicFacebookFeatures
             buttonAlbumCreator.Visible = true;
             buttonAlbumCreator.Enabled = true;
             fetchBasicInfo();
-            try
-            {
-                m_GuessGame = new GuessingGameEngine(m_LoggedInUser.LikedPages.ToList());
-                textBoxGuess.Enabled = true;
-                textBoxGuess.Text = "";
-                guessingButton.Enabled = true;
-                labelOutcome.Text = m_GuessGame.Outcome;
-            }
-            catch(Exception ex)
-            {
-                textBoxGuess.Text = ex.Message;
-            }
+            m_GuessingGameUI = new GuessingGameUI(m_LoggedInUser.LikedPages.ToList(), textBoxGuess, buttonGuess, labelOutcome, buttonPlayAgain, labelPage);
+            tabPage2.Controls.AddRange(m_GuessingGameUI.LabelChars);
         }
-
-
 
         private void handleAllToolsAfterLogout()
         {
@@ -230,9 +218,6 @@ namespace BasicFacebookFeatures
             buttonPast.Enabled = true;
             buttonAlbumCreator.Visible = true;
             buttonAlbumCreator.Enabled = true;
-            guessingButton.Enabled = false;
-            textBoxGuess.Enabled = false;
-            m_GuessGame.RestartGame();
             labelWhatsOnYourMind.Visible = false;
             textBoxPostStatus.Visible = false;
             textBoxPostStatus.Enabled = false;
@@ -242,20 +227,8 @@ namespace BasicFacebookFeatures
             buttonPast.Enabled = false;
             buttonAlbumCreator.Visible = false;
             buttonAlbumCreator.Enabled = false;
+            m_GuessingGameUI.UserLogout();
         }
-
-        //private void buttonGuessingGame_Click(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        FormGuessGame guessGame = new FormGuessGame(m_LoggedInUser);
-        //        guessGame.ShowDialog();
-        //    }
-        //    catch (Exception generalException)
-        //    {
-
-        //    }
-        //}
 
         private void buttonGroups_Click(object sender, EventArgs e)
         {
@@ -394,29 +367,18 @@ namespace BasicFacebookFeatures
 
         private void guessingButton_Click(object sender, EventArgs e)
         {
-            if (textBoxGuess.Text.Length == 1)
+            m_GuessingGameUI.PlayTurn();
+        }
+
+        private void buttonPlayAgain_Click(object sender, EventArgs e)
+        {
+            foreach(Label labelChar in m_GuessingGameUI.LabelChars)
             {
-                try
-                {
-                    m_GuessGame.GuessLetter(textBoxGuess.Text[0]);
-                    labelOutcome.Text = m_GuessGame.Outcome;
-                    if (m_GuessGame.Outcome == "You won!")
-                    {
-                        buttonPlayAgain.Enabled = true;
-                        buttonPlayAgain.Visible = true;
-                        textBoxGuess.Text = "Game finished";
-                        textBoxGuess.Enabled = false;
-                    }
-                }
-                catch(Exception ex)
-                {
-                    labelOutcome.Text = ex.Message;
-                }
+                Controls.Remove(labelChar);
             }
-            else
-            {
-                labelOutcome.Text = "Guess is longer than a single letter";
-            }
+            
+            m_GuessingGameUI.Rematch();
+            Controls.AddRange(m_GuessingGameUI.LabelChars);
         }
     }
 }
