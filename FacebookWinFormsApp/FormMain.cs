@@ -16,19 +16,28 @@ namespace BasicFacebookFeatures
         private User m_LoggedInUser;
         private GuessingGameUI m_GuessingGameUI;
         private LoginManager m_LoginManager;
-        FacebookWrapper.LoginResult m_LoginResult;
+        private AppSettings m_AppSettings;
+        private List<Post> m_ListOfPosts;
 
         public FormMain()
         {
             InitializeComponent();
-            FacebookWrapper.FacebookService.s_CollectionLimit = 25;
+            
             m_LoginManager = new LoginManager();
+            m_AppSettings = AppSettings.LoadFromFile();
+            m_ListOfPosts = null;
+            if (m_AppSettings.RememberMe && !string.IsNullOrEmpty(m_AppSettings.AccesToken))
+            {
+                m_LoginManager.ConnectToFacebook(m_AppSettings.AccesToken);
+                handleAllToolsAfterLogin();
+                checkBoxRememberMe.Checked = true;
+            }
         }
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
             Clipboard.SetText("design.patterns");
-            if(m_LoginManager.LoginResult == null)
+            if (m_LoginManager.LoginResult == null)
             {
                 login();
             }
@@ -47,7 +56,7 @@ namespace BasicFacebookFeatures
                     handleAllToolsAfterLogin();
                 }
             }
-            catch(Exception generalException)
+            catch (Exception generalException)
             {
                 MessageBox.Show("Error logging in.");
                 m_LoginManager.LoginResult = null;
@@ -59,8 +68,30 @@ namespace BasicFacebookFeatures
             FacebookService.LogoutWithUI();
             buttonLogin.Text = "Login";
             buttonLogin.BackColor = buttonLogout.BackColor;
-            m_LoginResult = null;
+            m_LoginManager.LoginResult = null;
             handleAllToolsAfterLogout();
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+            if (m_AppSettings.RememberMe && m_LoginManager.LoginResult != null)
+            {
+                m_AppSettings.AccesToken = m_LoginManager.LoginResult.AccessToken;
+                m_AppSettings.SaveToFile();
+            }
+            else
+            {
+                m_AppSettings.AccesToken = null;
+                try
+                {
+                    m_AppSettings.deleteDetailsAndFile();
+                }
+                catch(Exception genetalException)
+                {
+                    MessageBox.Show(genetalException.Message);
+                }
+            }
         }
 
         private void buttonLikedPages_Click(object sender, EventArgs e)
@@ -155,15 +186,15 @@ namespace BasicFacebookFeatures
             listBoxAlbums.Visible = true;
             buttonAlbums.Visible = true;
             buttonAlbums.Enabled = true;
+            pictureBoxFriends.Visible = true;
+            buttonFriends.Visible = true;
+            buttonFriends.Enabled = true;
+            listBoxFriends.Visible = true;
             labelDetailsHeadline.Visible = true;
             pictureBoxAlbum.Visible = true;
             pictureBoxProfile.Visible = true;
             m_LoggedInUser = m_LoginManager.LoggedInUser;
             labelWelcome.Visible = false;
-            listBoxGroups.Visible = true;
-            pictureBoxGroups.Visible = true;
-            buttonGroups.Visible = true;
-            buttonGroups.Enabled = true;
             buttonPosts.Enabled = true;
             buttonPosts.Visible = true;
             listBoxPosts.Visible = true;
@@ -175,8 +206,6 @@ namespace BasicFacebookFeatures
             buttonPost.Enabled = true;
             buttonPast.Visible = true;
             buttonPast.Enabled = true;
-            buttonAlbumCreator.Visible = true;
-            buttonAlbumCreator.Enabled = true;
             fetchBasicInfo();
             m_GuessingGameUI = new GuessingGameUI(m_LoggedInUser.LikedPages.ToList(), textBoxGuess, buttonGuess, labelOutcome, buttonPlayAgain, labelPage);
             tabPage2.Controls.AddRange(m_GuessingGameUI.LabelChars);
@@ -201,10 +230,6 @@ namespace BasicFacebookFeatures
             pictureBoxAlbum.Image = null;
             pictureBoxProfile.Visible = false;
             labelWelcome.Visible = true;
-            listBoxGroups.Visible = false;
-            pictureBoxGroups.Visible = false;
-            buttonGroups.Visible = false;
-            buttonGroups.Enabled = false;
             buttonPosts.Enabled = false;
             buttonPosts.Visible = false;
             listBoxPosts.Visible = false;
@@ -216,8 +241,6 @@ namespace BasicFacebookFeatures
             buttonPost.Enabled = true;
             buttonPast.Visible = true;
             buttonPast.Enabled = true;
-            buttonAlbumCreator.Visible = true;
-            buttonAlbumCreator.Enabled = true;
             labelWhatsOnYourMind.Visible = false;
             textBoxPostStatus.Visible = false;
             textBoxPostStatus.Enabled = false;
@@ -225,49 +248,11 @@ namespace BasicFacebookFeatures
             buttonPost.Enabled = false;
             buttonPast.Visible = false;
             buttonPast.Enabled = false;
-            buttonAlbumCreator.Visible = false;
-            buttonAlbumCreator.Enabled = false;
+            pictureBoxFriends.Visible = false;
+            buttonFriends.Visible = false;
+            buttonFriends.Enabled = false;
+            listBoxFriends.Visible = false;
             m_GuessingGameUI.UserLogout();
-        }
-
-        private void buttonGroups_Click(object sender, EventArgs e)
-        {
-            presentAllGroups();
-        }
-
-        private void presentAllGroups()
-        {
-            try
-            {
-                List<Group> allGroups = m_LoggedInUser.Groups.ToList();
-                if (allGroups.Count == 0)
-                {
-                    MessageBox.Show("User has no groups.");
-                }
-                else
-                {
-                    foreach (Group currentGroup in allGroups)
-                    {
-                        listBoxGroups.Items.Add(currentGroup);
-                        listBoxGroups.DisplayMember = "Name";
-                    }
-                }
-            }
-            catch (Exception generalException)
-            {
-                MessageBox.Show("Error trying to fetch groups.");
-            }
-        }
-
-        private void listBoxGroups_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            presentSingleGroup();
-        }
-
-        private void presentSingleGroup()
-        {
-            Group selectedGroup = listBoxGroups.SelectedItem as Group;
-            pictureBoxGroups.LoadAsync(selectedGroup.PictureNormalURL);
         }
 
         private void buttonPosts_Click(object sender, EventArgs e)
@@ -277,23 +262,29 @@ namespace BasicFacebookFeatures
 
         private void presentAllPosts()
         {
+            fetchPosts();
+            foreach(Post post in m_ListOfPosts)
+            {
+                listBoxPosts.Items.Add(post);
+                listBoxPosts.DisplayMember = "Name";
+            }
+        }
+
+        private void fetchPosts()
+        {
             try
             {
-                List<Post> allPosts = m_LoggedInUser.Posts.ToList();
-                if (allPosts.Count == 0)
+                if (m_ListOfPosts == null)
                 {
-                    MessageBox.Show("User has no posts");
-                }
-                else
-                {
-                    foreach (Post post in allPosts)
+                    m_ListOfPosts = m_LoggedInUser.Posts.ToList();
+
+                    if (m_ListOfPosts.Count == 0)
                     {
-                        listBoxPosts.Items.Add(post);
-                        //listBoxPosts.DisplayMember = "Name";
+                        MessageBox.Show("User has no posts");
                     }
-                }
+                }  
             }
-            catch (Exception e)
+            catch(Exception generalException)
             {
                 MessageBox.Show("Error trying to fetch posts.");
             }
@@ -330,7 +321,7 @@ namespace BasicFacebookFeatures
                     }
                     else
                     {
-                        labelBasicDetails.Text += $"Your birthday is on {userBirthday}\n\nYour birthday is {daysDifference.Days} days apart \n\n";
+                        labelBasicDetails.Text += $"Your birthday is in {userBirthday}\n\nYou have {daysDifference.Days} days until your birthday\n\n";
                     }
                 }
                 else
@@ -347,7 +338,7 @@ namespace BasicFacebookFeatures
 
         private void buttonPost_Click(object sender, EventArgs e)
         {
-            if(textBoxPostStatus.Text == "")
+            if (textBoxPostStatus.Text == "")
             {
                 MessageBox.Show("Cannot post an empty status.");
             }
@@ -365,18 +356,149 @@ namespace BasicFacebookFeatures
             }
         }
 
-        private void guessingButton_Click(object sender, EventArgs e)
+        private void checkBoxRememberMe_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxRememberMe.Checked)
+            {
+                m_AppSettings.RememberMe = true;
+            }
+            else
+            {
+                m_AppSettings.RememberMe = false;
+            }
+        }
+
+        private void buttonFriends_Click(object sender, EventArgs e)
+        {
+            presentAllFriends();
+        }
+
+        private void presentAllFriends()
+        {
+            try
+            {
+                List<User> allFriends = m_LoggedInUser.Friends.ToList();
+                if (allFriends.Count == 0)
+                {
+                    MessageBox.Show("User has no friends");
+                }
+                else
+                {
+                    foreach (User friend in allFriends)
+                    {
+                        listBoxFriends.Items.Add(friend);
+                        listBoxFriends.DisplayMember = "Name";
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error trying to fetch friends.");
+            }
+        }
+
+        private void listBoxFriends_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            presentSingleFriend();
+        }
+
+        private void presentSingleFriend()
+        {
+            User selectedFriend = listBoxFriends.SelectedItem as User;
+            pictureBoxFriends.LoadAsync(selectedFriend.PictureNormalURL);
+        }
+
+        private void buttonPast_Click(object sender, EventArgs e)
+        {
+            Post randomOldPost;
+
+            fetchPosts();
+            randomOldPost = getRandomOldPost();
+            showRandomOldPost(randomOldPost);
+        }
+
+        private Post getRandomOldPost()
+        {
+            int earliestYear;
+            List<Post> oldestPosts;
+            Random random = new Random();
+            int randInd;
+
+            earliestYear = findEarliestYear();
+            oldestPosts = m_ListOfPosts.Where(post => ((post.CreatedTime.Value.Year >= earliestYear) && (post.CreatedTime.Value.Year <= earliestYear+5)) && ((post.Type == Post.eType.photo) || (post.Type == Post.eType.status)) && !post.Equals("")).ToList();
+            randInd = random.Next(0, oldestPosts.Count - 1);
+
+            return oldestPosts.ElementAt(randInd);
+        }
+
+        private void showRandomOldPost(Post i_RandomOldPost)
+        {
+            if (i_RandomOldPost.Type == Post.eType.status)
+            {
+                MessageBox.Show(i_RandomOldPost.Message);
+            }
+            else
+            {
+                presentImageInPopUp(i_RandomOldPost);
+            }
+        }
+
+        private void presentImageInPopUp(Post i_RandomOldPost)
+        {
+            Form imagePopUpForm = new Form
+            {
+                Text = "Your Fadicha:",
+                Width = 400,
+                Height = 300,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                StartPosition = FormStartPosition.CenterScreen,
+                MaximizeBox = false,
+                MinimizeBox = false
+            };
+
+            PictureBox pictureBox = new PictureBox
+            {
+                Location = new Point(10, 10),
+                Size = new Size(380, 240),
+                SizeMode = PictureBoxSizeMode.Zoom
+            };
+
+            pictureBox.LoadAsync(i_RandomOldPost.PictureURL);
+
+            imagePopUpForm.Controls.Add(pictureBox);
+            imagePopUpForm.ShowDialog();
+        }
+    
+
+        private int findEarliestYear()
+        {
+            DateTime earliestDate = DateTime.Now; 
+            int currentYear;
+
+            foreach (Post currentPost in m_ListOfPosts)
+            {
+                currentYear = ((DateTime)currentPost.CreatedTime).Year;
+                if (currentYear >= 2009 && currentPost.CreatedTime < earliestDate)
+                {
+                    earliestDate = (DateTime)currentPost.CreatedTime;
+                }
+            }
+
+            return earliestDate.Year;
+        }
+
+        private void buttonGuess_Click(object sender, EventArgs e)
         {
             m_GuessingGameUI.PlayTurn();
         }
 
         private void buttonPlayAgain_Click(object sender, EventArgs e)
         {
-            foreach(Label labelChar in m_GuessingGameUI.LabelChars)
+            foreach (Label labelChar in m_GuessingGameUI.LabelChars)
             {
                 Controls.Remove(labelChar);
             }
-            
+
             m_GuessingGameUI.Rematch();
             Controls.AddRange(m_GuessingGameUI.LabelChars);
         }

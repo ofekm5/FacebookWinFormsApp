@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.checkBoxRememberMe = new System.Windows.Forms.CheckBox();
             this.buttonPast = new System.Windows.Forms.Button();
-            this.buttonAlbumCreator = new System.Windows.Forms.Button();
             this.buttonPost = new System.Windows.Forms.Button();
             this.textBoxPostStatus = new System.Windows.Forms.TextBox();
             this.labelWhatsOnYourMind = new System.Windows.Forms.Label();
             this.labelBasicDetails = new System.Windows.Forms.Label();
-            this.pictureBoxGroups = new System.Windows.Forms.PictureBox();
-            this.listBoxGroups = new System.Windows.Forms.ListBox();
-            this.buttonGroups = new System.Windows.Forms.Button();
+            this.pictureBoxFriends = new System.Windows.Forms.PictureBox();
+            this.listBoxFriends = new System.Windows.Forms.ListBox();
+            this.buttonFriends = new System.Windows.Forms.Button();
             this.listBoxPosts = new System.Windows.Forms.ListBox();
             this.buttonPosts = new System.Windows.Forms.Button();
             this.labelWelcome = new System.Windows.Forms.Label();
@@ -62,7 +62,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxGuess = new System.Windows.Forms.TextBox();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGroups)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFriends)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAlbum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLikedPages)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
@@ -72,15 +72,15 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.checkBoxRememberMe);
             this.tabPage1.Controls.Add(this.buttonPast);
-            this.tabPage1.Controls.Add(this.buttonAlbumCreator);
             this.tabPage1.Controls.Add(this.buttonPost);
             this.tabPage1.Controls.Add(this.textBoxPostStatus);
             this.tabPage1.Controls.Add(this.labelWhatsOnYourMind);
             this.tabPage1.Controls.Add(this.labelBasicDetails);
-            this.tabPage1.Controls.Add(this.pictureBoxGroups);
-            this.tabPage1.Controls.Add(this.listBoxGroups);
-            this.tabPage1.Controls.Add(this.buttonGroups);
+            this.tabPage1.Controls.Add(this.pictureBoxFriends);
+            this.tabPage1.Controls.Add(this.listBoxFriends);
+            this.tabPage1.Controls.Add(this.buttonFriends);
             this.tabPage1.Controls.Add(this.listBoxPosts);
             this.tabPage1.Controls.Add(this.buttonPosts);
             this.tabPage1.Controls.Add(this.labelWelcome);
@@ -102,6 +102,17 @@
             this.tabPage1.Text = "Basic features";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // checkBoxRememberMe
+            // 
+            this.checkBoxRememberMe.AutoSize = true;
+            this.checkBoxRememberMe.Location = new System.Drawing.Point(37, 136);
+            this.checkBoxRememberMe.Name = "checkBoxRememberMe";
+            this.checkBoxRememberMe.Size = new System.Drawing.Size(126, 22);
+            this.checkBoxRememberMe.TabIndex = 81;
+            this.checkBoxRememberMe.Text = "Remember me";
+            this.checkBoxRememberMe.UseVisualStyleBackColor = true;
+            this.checkBoxRememberMe.CheckedChanged += new System.EventHandler(this.checkBoxRememberMe_CheckedChanged);
+            // 
             // buttonPast
             // 
             this.buttonPast.Location = new System.Drawing.Point(992, 74);
@@ -111,16 +122,7 @@
             this.buttonPast.Text = "Blast From The Past";
             this.buttonPast.UseVisualStyleBackColor = true;
             this.buttonPast.Visible = false;
-            // 
-            // buttonAlbumCreator
-            // 
-            this.buttonAlbumCreator.Location = new System.Drawing.Point(436, 612);
-            this.buttonAlbumCreator.Name = "buttonAlbumCreator";
-            this.buttonAlbumCreator.Size = new System.Drawing.Size(235, 34);
-            this.buttonAlbumCreator.TabIndex = 79;
-            this.buttonAlbumCreator.Text = "Create an album";
-            this.buttonAlbumCreator.UseVisualStyleBackColor = true;
-            this.buttonAlbumCreator.Visible = false;
+            this.buttonPast.Click += new System.EventHandler(this.buttonPast_Click);
             // 
             // buttonPost
             // 
@@ -163,34 +165,36 @@
             this.labelBasicDetails.Text = "Details";
             this.labelBasicDetails.Visible = false;
             // 
-            // pictureBoxGroups
+            // pictureBoxFriends
             // 
-            this.pictureBoxGroups.Location = new System.Drawing.Point(1076, 448);
-            this.pictureBoxGroups.Name = "pictureBoxGroups";
-            this.pictureBoxGroups.Size = new System.Drawing.Size(140, 166);
-            this.pictureBoxGroups.TabIndex = 74;
-            this.pictureBoxGroups.TabStop = false;
-            this.pictureBoxGroups.Visible = false;
+            this.pictureBoxFriends.Location = new System.Drawing.Point(1076, 448);
+            this.pictureBoxFriends.Name = "pictureBoxFriends";
+            this.pictureBoxFriends.Size = new System.Drawing.Size(140, 166);
+            this.pictureBoxFriends.TabIndex = 74;
+            this.pictureBoxFriends.TabStop = false;
+            this.pictureBoxFriends.Visible = false;
             // 
-            // listBoxGroups
+            // listBoxFriends
             // 
-            this.listBoxGroups.FormattingEnabled = true;
-            this.listBoxGroups.ItemHeight = 18;
-            this.listBoxGroups.Location = new System.Drawing.Point(840, 448);
-            this.listBoxGroups.Name = "listBoxGroups";
-            this.listBoxGroups.Size = new System.Drawing.Size(230, 148);
-            this.listBoxGroups.TabIndex = 73;
-            this.listBoxGroups.Visible = false;
+            this.listBoxFriends.FormattingEnabled = true;
+            this.listBoxFriends.ItemHeight = 18;
+            this.listBoxFriends.Location = new System.Drawing.Point(840, 448);
+            this.listBoxFriends.Name = "listBoxFriends";
+            this.listBoxFriends.Size = new System.Drawing.Size(230, 130);
+            this.listBoxFriends.TabIndex = 73;
+            this.listBoxFriends.Visible = false;
+            this.listBoxFriends.SelectedIndexChanged += new System.EventHandler(this.listBoxFriends_SelectedIndexChanged);
             // 
-            // buttonGroups
+            // buttonFriends
             // 
-            this.buttonGroups.Location = new System.Drawing.Point(840, 391);
-            this.buttonGroups.Name = "buttonGroups";
-            this.buttonGroups.Size = new System.Drawing.Size(275, 46);
-            this.buttonGroups.TabIndex = 72;
-            this.buttonGroups.Text = "Fetch TODO";
-            this.buttonGroups.UseVisualStyleBackColor = true;
-            this.buttonGroups.Visible = false;
+            this.buttonFriends.Location = new System.Drawing.Point(840, 391);
+            this.buttonFriends.Name = "buttonFriends";
+            this.buttonFriends.Size = new System.Drawing.Size(275, 46);
+            this.buttonFriends.TabIndex = 72;
+            this.buttonFriends.Text = "Click to view your friends";
+            this.buttonFriends.UseVisualStyleBackColor = true;
+            this.buttonFriends.Visible = false;
+            this.buttonFriends.Click += new System.EventHandler(this.buttonFriends_Click);
             // 
             // listBoxPosts
             // 
@@ -198,7 +202,7 @@
             this.listBoxPosts.ItemHeight = 18;
             this.listBoxPosts.Location = new System.Drawing.Point(840, 205);
             this.listBoxPosts.Name = "listBoxPosts";
-            this.listBoxPosts.Size = new System.Drawing.Size(376, 148);
+            this.listBoxPosts.Size = new System.Drawing.Size(376, 130);
             this.listBoxPosts.TabIndex = 70;
             this.listBoxPosts.Visible = false;
             // 
@@ -249,7 +253,7 @@
             this.listBoxAlbums.ItemHeight = 18;
             this.listBoxAlbums.Location = new System.Drawing.Point(377, 446);
             this.listBoxAlbums.Name = "listBoxAlbums";
-            this.listBoxAlbums.Size = new System.Drawing.Size(230, 148);
+            this.listBoxAlbums.Size = new System.Drawing.Size(230, 130);
             this.listBoxAlbums.TabIndex = 60;
             this.listBoxAlbums.Visible = false;
             this.listBoxAlbums.SelectedIndexChanged += new System.EventHandler(this.listBoxAlbums_SelectedIndexChanged);
@@ -291,7 +295,7 @@
             this.listBoxLikedPages.ItemHeight = 18;
             this.listBoxLikedPages.Location = new System.Drawing.Point(377, 205);
             this.listBoxLikedPages.Name = "listBoxLikedPages";
-            this.listBoxLikedPages.Size = new System.Drawing.Size(229, 148);
+            this.listBoxLikedPages.Size = new System.Drawing.Size(229, 130);
             this.listBoxLikedPages.TabIndex = 56;
             this.listBoxLikedPages.Visible = false;
             this.listBoxLikedPages.SelectedIndexChanged += new System.EventHandler(this.listBoxLikedPages_SelectedIndexChanged);
@@ -358,21 +362,21 @@
             // 
             // labelOutcome
             // 
+            this.labelOutcome.AutoSize = true;
             this.labelOutcome.Font = new System.Drawing.Font("Nirmala UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelOutcome.Location = new System.Drawing.Point(466, 392);
+            this.labelOutcome.Location = new System.Drawing.Point(597, 337);
             this.labelOutcome.Name = "labelOutcome";
-            this.labelOutcome.Size = new System.Drawing.Size(367, 30);
+            this.labelOutcome.Size = new System.Drawing.Size(111, 30);
             this.labelOutcome.TabIndex = 84;
             this.labelOutcome.Text = "Let\'s Play!";
-            this.labelOutcome.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.labelOutcome.Visible = false;
             // 
             // buttonPlayAgain
             // 
             this.buttonPlayAgain.Enabled = false;
-            this.buttonPlayAgain.Location = new System.Drawing.Point(579, 425);
+            this.buttonPlayAgain.Location = new System.Drawing.Point(577, 370);
             this.buttonPlayAgain.Name = "buttonPlayAgain";
-            this.buttonPlayAgain.Size = new System.Drawing.Size(147, 38);
+            this.buttonPlayAgain.Size = new System.Drawing.Size(161, 33);
             this.buttonPlayAgain.TabIndex = 83;
             this.buttonPlayAgain.Text = "Press to play again";
             this.buttonPlayAgain.UseVisualStyleBackColor = true;
@@ -382,18 +386,18 @@
             // buttonGuess
             // 
             this.buttonGuess.Enabled = false;
-            this.buttonGuess.Location = new System.Drawing.Point(784, 246);
+            this.buttonGuess.Location = new System.Drawing.Point(784, 195);
             this.buttonGuess.Name = "buttonGuess";
             this.buttonGuess.Size = new System.Drawing.Size(65, 24);
             this.buttonGuess.TabIndex = 82;
             this.buttonGuess.Text = "Guess";
             this.buttonGuess.UseVisualStyleBackColor = true;
-            this.buttonGuess.Click += new System.EventHandler(this.guessingButton_Click);
+            this.buttonGuess.Click += new System.EventHandler(this.buttonGuess_Click);
             // 
             // labelPage
             // 
             this.labelPage.AutoSize = true;
-            this.labelPage.Location = new System.Drawing.Point(386, 328);
+            this.labelPage.Location = new System.Drawing.Point(386, 277);
             this.labelPage.Name = "labelPage";
             this.labelPage.Size = new System.Drawing.Size(50, 18);
             this.labelPage.TabIndex = 70;
@@ -401,7 +405,7 @@
             // 
             // labelLetterGuess
             // 
-            this.labelLetterGuess.Location = new System.Drawing.Point(386, 246);
+            this.labelLetterGuess.Location = new System.Drawing.Point(386, 195);
             this.labelLetterGuess.Name = "labelLetterGuess";
             this.labelLetterGuess.Size = new System.Drawing.Size(155, 48);
             this.labelLetterGuess.TabIndex = 69;
@@ -411,12 +415,12 @@
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(374, 81);
+            this.label2.Location = new System.Drawing.Point(377, 101);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(592, 142);
+            this.label2.Size = new System.Drawing.Size(566, 77);
             this.label2.TabIndex = 68;
-            this.label2.Text = "We have picked a random page you have liked. \r\nCould you guess it? You have 5 str" +
-    "ikes.\r\n \r\nGuess one letter at a time. Make sure its lowercase and in english.\r\n";
+            this.label2.Text = "We have picked a random page you have liked. Could you guess it? Type one letter " +
+    "at a time";
             // 
             // label1
             // 
@@ -432,7 +436,7 @@
             // textBoxGuess
             // 
             this.textBoxGuess.Enabled = false;
-            this.textBoxGuess.Location = new System.Drawing.Point(547, 246);
+            this.textBoxGuess.Location = new System.Drawing.Point(547, 195);
             this.textBoxGuess.Name = "textBoxGuess";
             this.textBoxGuess.Size = new System.Drawing.Size(231, 24);
             this.textBoxGuess.TabIndex = 66;
@@ -451,7 +455,7 @@
             this.Text = "Form1";
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGroups)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFriends)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAlbum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLikedPages)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).EndInit();
@@ -480,9 +484,9 @@
         private System.Windows.Forms.ListBox listBoxPosts;
         private System.Windows.Forms.Button buttonPosts;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.PictureBox pictureBoxGroups;
-        private System.Windows.Forms.ListBox listBoxGroups;
-        private System.Windows.Forms.Button buttonGroups;
+        private System.Windows.Forms.PictureBox pictureBoxFriends;
+        private System.Windows.Forms.ListBox listBoxFriends;
+        private System.Windows.Forms.Button buttonFriends;
         private System.Windows.Forms.Label labelBasicDetails;
         private System.Windows.Forms.TextBox textBoxGuess;
         private System.Windows.Forms.Label label2;
@@ -490,13 +494,13 @@
         private System.Windows.Forms.TextBox textBoxPostStatus;
         private System.Windows.Forms.Label labelWhatsOnYourMind;
         private System.Windows.Forms.Button buttonPost;
-        private System.Windows.Forms.Button buttonAlbumCreator;
         private System.Windows.Forms.Label labelLetterGuess;
         private System.Windows.Forms.Button buttonPast;
         private System.Windows.Forms.Label labelPage;
         private System.Windows.Forms.Button buttonGuess;
         private System.Windows.Forms.Label labelOutcome;
         private System.Windows.Forms.Button buttonPlayAgain;
+        private System.Windows.Forms.CheckBox checkBoxRememberMe;
     }
 }
 
