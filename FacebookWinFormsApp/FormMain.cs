@@ -14,11 +14,7 @@ namespace BasicFacebookFeatures
     public partial class FormMain : Form
     {
         private User m_LoggedInUser;
-<<<<<<< HEAD
         private GuessingGameUI m_GuessingGameUI;
-=======
-        //private GuessThePageGame m_GuessGame;
->>>>>>> f5d4fba9c8394e0c90d43cd28e08b606270100b7
         private LoginManager m_LoginManager;
         private AppSettings m_AppSettings;
         private List<Post> m_ListOfPosts;
@@ -36,10 +32,6 @@ namespace BasicFacebookFeatures
                 handleAllToolsAfterLogin();
                 checkBoxRememberMe.Checked = true;
             }
-<<<<<<< HEAD
-=======
-           
->>>>>>> f5d4fba9c8394e0c90d43cd28e08b606270100b7
         }
 
         private void buttonLogin_Click(object sender, EventArgs e)
@@ -185,7 +177,6 @@ namespace BasicFacebookFeatures
 
         private void handleAllToolsAfterLogin()
         {
-            pictureBoxFriends.Visible = true;
             buttonLogin.Enabled = false;
             buttonLogout.Enabled = true;
             buttonLikedPages.Visible = true;
@@ -203,17 +194,7 @@ namespace BasicFacebookFeatures
             pictureBoxAlbum.Visible = true;
             pictureBoxProfile.Visible = true;
             m_LoggedInUser = m_LoginManager.LoggedInUser;
-<<<<<<< HEAD
             labelWelcome.Visible = false;
-=======
-            //buttonGuessingGame.Visible = true;
-            //buttonGuessingGame.Enabled = true;
-            labelWelcome.Visible = false;
-            listBoxFriends.Visible = true;
-           
-            buttonFriends.Visible = true;
-            buttonFriends.Enabled = true;
->>>>>>> f5d4fba9c8394e0c90d43cd28e08b606270100b7
             buttonPosts.Enabled = true;
             buttonPosts.Visible = true;
             listBoxPosts.Visible = true;
@@ -225,21 +206,13 @@ namespace BasicFacebookFeatures
             buttonPost.Enabled = true;
             buttonPast.Visible = true;
             buttonPast.Enabled = true;
-<<<<<<< HEAD
             fetchBasicInfo();
             m_GuessingGameUI = new GuessingGameUI(m_LoggedInUser.LikedPages.ToList(), textBoxGuess, buttonGuess, labelOutcome, buttonPlayAgain, labelPage);
             tabPage2.Controls.AddRange(m_GuessingGameUI.LabelChars);
-=======
-            guessingButton.Enabled = true;
-            fetchBasicInfo();
-            textBoxGuess.Enabled = true;
-           // m_GuessGame = new GuessThePageGame();
->>>>>>> f5d4fba9c8394e0c90d43cd28e08b606270100b7
         }
 
         private void handleAllToolsAfterLogout()
         {
-            pictureBoxFriends.Visible = false;
             buttonLogin.Enabled = true;
             buttonLogout.Enabled = false;
             buttonLikedPages.Visible = false;
@@ -257,18 +230,10 @@ namespace BasicFacebookFeatures
             pictureBoxAlbum.Image = null;
             pictureBoxProfile.Visible = false;
             labelWelcome.Visible = true;
-<<<<<<< HEAD
-=======
-            listBoxFriends.Visible = false;
-            
-            buttonFriends.Visible = false;
-            buttonFriends.Enabled = false;
->>>>>>> f5d4fba9c8394e0c90d43cd28e08b606270100b7
             buttonPosts.Enabled = false;
             buttonPosts.Visible = false;
             listBoxPosts.Visible = false;
             labelBasicDetails.Visible = false;
-<<<<<<< HEAD
             labelWhatsOnYourMind.Visible = true;
             textBoxPostStatus.Visible = true;
             textBoxPostStatus.Enabled = true;
@@ -276,8 +241,6 @@ namespace BasicFacebookFeatures
             buttonPost.Enabled = true;
             buttonPast.Visible = true;
             buttonPast.Enabled = true;
-=======
->>>>>>> f5d4fba9c8394e0c90d43cd28e08b606270100b7
             labelWhatsOnYourMind.Visible = false;
             textBoxPostStatus.Visible = false;
             textBoxPostStatus.Enabled = false;
@@ -285,31 +248,11 @@ namespace BasicFacebookFeatures
             buttonPost.Enabled = false;
             buttonPast.Visible = false;
             buttonPast.Enabled = false;
-<<<<<<< HEAD
             pictureBoxFriends.Visible = false;
             buttonFriends.Visible = false;
             buttonFriends.Enabled = false;
             listBoxFriends.Visible = false;
             m_GuessingGameUI.UserLogout();
-=======
-            m_AppSettings.RememberMe = false;
-            m_AppSettings.AccesToken = null;
-            checkBoxRememberMe.Checked = false;
-            m_AppSettings.RememberMe = false;
-        }
-
-        private void buttonGuessingGame_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                FormGuessGame guessGame = new FormGuessGame(m_LoggedInUser);
-                guessGame.ShowDialog();
-            }
-            catch (Exception generalException)
-            {
-                MessageBox.Show(generalException.Message);
-            }
->>>>>>> f5d4fba9c8394e0c90d43cd28e08b606270100b7
         }
 
         private void buttonPosts_Click(object sender, EventArgs e)
@@ -529,7 +472,6 @@ namespace BasicFacebookFeatures
 
         private int findEarliestYear()
         {
-<<<<<<< HEAD
             DateTime earliestDate = DateTime.Now; 
             int currentYear;
 
@@ -537,13 +479,6 @@ namespace BasicFacebookFeatures
             {
                 currentYear = ((DateTime)currentPost.CreatedTime).Year;
                 if (currentYear >= 2009 && currentPost.CreatedTime < earliestDate)
-=======
-            DateTime earliestDate = DateTime.Now;
-
-            foreach (Post currentPost in m_ListOfPosts)
-            {
-                if (currentPost.CreatedTime < earliestDate)
->>>>>>> f5d4fba9c8394e0c90d43cd28e08b606270100b7
                 {
                     earliestDate = (DateTime)currentPost.CreatedTime;
                 }
@@ -551,7 +486,6 @@ namespace BasicFacebookFeatures
 
             return earliestDate.Year;
         }
-<<<<<<< HEAD
 
         private void buttonGuess_Click(object sender, EventArgs e)
         {
@@ -568,7 +502,5 @@ namespace BasicFacebookFeatures
             m_GuessingGameUI.Rematch();
             tabPage2.Controls.AddRange(m_GuessingGameUI.LabelChars);
         }
-=======
->>>>>>> f5d4fba9c8394e0c90d43cd28e08b606270100b7
     }
 }
