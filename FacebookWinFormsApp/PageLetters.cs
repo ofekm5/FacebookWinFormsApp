@@ -19,7 +19,7 @@ namespace BasicFacebookFeatures
             if (!isCharALetter(i_LikedPage.Name[0])){
                 throw new Exception("Page starts in non-english language");
             }
-            else if (i_LikedPage.Name.Length > 30)
+            else if (i_LikedPage.Name.Length > 25)
             {
                 throw new Exception("Page is too long");
             }

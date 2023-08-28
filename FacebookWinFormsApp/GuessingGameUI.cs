@@ -50,7 +50,7 @@ namespace BasicFacebookFeatures
         private void initiallizeUI()
         {
             int totalChars = m_GuessGame.TotalChars;
-            int currentLabelX = (m_LabelPage.Location.X) - (totalChars * 10) + 50;
+            int currentLabelX = (m_LabelPage.Location.X) - (totalChars * 10) + 20;
             int currentLabelY = m_LabelPage.Location.Y + 100;
 
             m_LabelChars = new Label[totalChars];
