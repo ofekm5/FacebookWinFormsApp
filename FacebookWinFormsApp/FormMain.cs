@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
+using System.Threading;
 
 namespace BasicFacebookFeatures
 {
@@ -22,7 +23,7 @@ namespace BasicFacebookFeatures
         public FormMain()
         {
             InitializeComponent();
-            
+
             m_LoginManager = new LoginManager();
             m_AppSettings = AppSettings.LoadFromFile();
             m_ListOfPosts = null;
@@ -87,7 +88,7 @@ namespace BasicFacebookFeatures
                 {
                     m_AppSettings.deleteDetailsAndFile();
                 }
-                catch(Exception genetalException)
+                catch (Exception genetalException)
                 {
                     MessageBox.Show(genetalException.Message);
                 }
@@ -101,79 +102,85 @@ namespace BasicFacebookFeatures
 
         private void presentLikedPages()
         {
-            try
-            {
-                List<Page> likedPages = m_LoggedInUser.LikedPages.ToList();
+            
+            pageBindingSource.DataSource = m_LoggedInUser.LikedPages;
+            //listBoxLikedPages.DisplayMember = "Name";
+            //listBoxLikedPages.DataSource = pageBindingSource;
+            //try
+            //{
+            //    List<Page> likedPages = m_LoggedInUser.LikedPages.ToList();
 
-                if (likedPages.Count == 0)
-                {
-                    MessageBox.Show("No liked pages exist.");
-                }
-                else
-                {
-                    foreach (Page currentPage in likedPages)
-                    {
-                        listBoxLikedPages.Items.Add(currentPage);
-                        listBoxLikedPages.DisplayMember = "Name";
-                    }
-                }
-            }
-            catch (Exception generalException)
-            {
-                MessageBox.Show("Error trying to fetch liked pages.");
-            }
+            //    if (likedPages.Count == 0)
+            //    {
+            //        MessageBox.Show("No liked pages exist.");
+            //    }
+            //    else
+            //    {
+            //        foreach (Page currentPage in likedPages)
+            //        {
+            //            listBoxLikedPages.Items.Add(currentPage);
+            //            listBoxLikedPages.DisplayMember = "Name";
+            //        }
+            //    }
+            //}
+            //catch (Exception generalException)
+            //{
+            //    MessageBox.Show("Error trying to fetch liked pages.");
+            //}
         }
 
-        private void listBoxLikedPages_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            displaySelectedPage();
-        }
+        //private void listBoxLikedPages_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    displaySelectedPage();
+        //}
 
-        private void displaySelectedPage()
-        {
-            Page selectedLikedPage = listBoxLikedPages.SelectedItem as Page;
-            pictureBoxLikedPages.LoadAsync(selectedLikedPage.PictureNormalURL);
-        }
+        //private void displaySelectedPage()
+        //{
+        //    Page selectedLikedPage = listBoxLikedPages.SelectedItem as Page;
+        //    pictureBoxLikedPages.LoadAsync(selectedLikedPage.PictureNormalURL);
+        //}
 
         private void presentAllAlbums()
         {
-            try
-            {
-                List<Album> allAlbums = m_LoggedInUser.Albums.ToList();
-                if (allAlbums.Count == 0)
-                {
-                    MessageBox.Show("User has no albums.");
-                }
-                else
-                {
-                    foreach (Album cuurentAlbum in allAlbums)
-                    {
-                        listBoxAlbums.Items.Add(cuurentAlbum);
-                        listBoxAlbums.DisplayMember = "Name";
-                    }
-                }
-            }
-            catch (Exception generalException)
-            {
-                MessageBox.Show("Error trying to fetch albums.");
-            }
+            //albumBindingSource.DataSource = m_LoggedInUser.Albums;
+            new Thread(() => albumBindingSource.DataSource = m_LoggedInUser.Albums).Start();
+            //try
+            //{
+            //    List<Album> allAlbums = m_LoggedInUser.Albums.ToList();
+            //    if (allAlbums.Count == 0)
+            //    {
+            //        MessageBox.Show("User has no albums.");
+            //    }
+            //    else
+            //    {
+            //        foreach (Album cuurentAlbum in allAlbums)
+            //        {
+            //            listBoxAlbums.Items.Add(cuurentAlbum);
+            //            listBoxAlbums.DisplayMember = "Name";
+            //        }
+            //    }
+            //}
+            //catch (Exception generalException)
+            //{
+            //    MessageBox.Show("Error trying to fetch albums.");
+            //}
         }
 
-        private void presentSelectedAlbum()
-        {
-            Album selectedAlbum = listBoxAlbums.SelectedItem as Album;
-            pictureBoxAlbum.LoadAsync(selectedAlbum.PictureAlbumURL);
-        }
+        //private void presentSelectedAlbum()
+        //{
+        //    Album selectedAlbum = listBoxAlbums.SelectedItem as Album;
+        //    pictureBoxAlbum.LoadAsync(selectedAlbum.PictureAlbumURL);
+        //}
 
         private void buttonAlbums_Click(object sender, EventArgs e)
         {
             presentAllAlbums();
         }
 
-        private void listBoxAlbums_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            presentSelectedAlbum();
-        }
+        //private void listBoxAlbums_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    presentSelectedAlbum();
+        //}
 
         private void handleAllToolsAfterLogin()
         {
@@ -182,7 +189,7 @@ namespace BasicFacebookFeatures
             buttonLikedPages.Visible = true;
             buttonLikedPages.Enabled = true;
             listBoxLikedPages.Visible = true;
-            pictureBoxLikedPages.Visible = true;
+            
             listBoxAlbums.Visible = true;
             buttonAlbums.Visible = true;
             buttonAlbums.Enabled = true;
@@ -219,8 +226,6 @@ namespace BasicFacebookFeatures
             buttonLikedPages.Enabled = false;
             listBoxLikedPages.Visible = false;
             listBoxLikedPages.Items.Clear();
-            pictureBoxLikedPages.Visible = false;
-            pictureBoxLikedPages.Image = null;
             listBoxAlbums.Visible = false;
             listBoxAlbums.Items.Clear();
             buttonAlbums.Visible = false;
@@ -263,7 +268,7 @@ namespace BasicFacebookFeatures
         private void presentAllPosts()
         {
             fetchPosts();
-            foreach(Post post in m_ListOfPosts)
+            foreach (Post post in m_ListOfPosts)
             {
                 listBoxPosts.Items.Add(post);
                 listBoxPosts.DisplayMember = "Name";
@@ -282,9 +287,9 @@ namespace BasicFacebookFeatures
                     {
                         MessageBox.Show("User has no posts");
                     }
-                }  
+                }
             }
-            catch(Exception generalException)
+            catch (Exception generalException)
             {
                 MessageBox.Show("Error trying to fetch posts.");
             }
@@ -425,7 +430,7 @@ namespace BasicFacebookFeatures
             int randInd;
 
             earliestYear = findEarliestYear();
-            oldestPosts = m_ListOfPosts.Where(post => ((post.CreatedTime.Value.Year >= earliestYear) && (post.CreatedTime.Value.Year <= earliestYear+5)) && ((post.Type == Post.eType.photo) || (post.Type == Post.eType.status)) && !post.Equals("")).ToList();
+            oldestPosts = m_ListOfPosts.Where(post => ((post.CreatedTime.Value.Year >= earliestYear) && (post.CreatedTime.Value.Year <= earliestYear + 5)) && ((post.Type == Post.eType.photo) || (post.Type == Post.eType.status)) && !post.Equals("")).ToList();
             randInd = random.Next(0, oldestPosts.Count - 1);
 
             return oldestPosts.ElementAt(randInd);
@@ -468,11 +473,11 @@ namespace BasicFacebookFeatures
             imagePopUpForm.Controls.Add(pictureBox);
             imagePopUpForm.ShowDialog();
         }
-    
+
 
         private int findEarliestYear()
         {
-            DateTime earliestDate = DateTime.Now; 
+            DateTime earliestDate = DateTime.Now;
             int currentYear;
 
             foreach (Post currentPost in m_ListOfPosts)
@@ -502,5 +507,9 @@ namespace BasicFacebookFeatures
             m_GuessingGameUI.Rematch();
             tabPage2.Controls.AddRange(m_GuessingGameUI.LabelChars);
         }
+
+      
     }
 }
+
+        
