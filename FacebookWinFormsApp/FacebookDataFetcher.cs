@@ -46,9 +46,9 @@ namespace BasicFacebookFeatures
             return m_LoggedInUser.Posts;//.ToList();
         }
 
-        public List<Album> FetchAlbums()
+        public FacebookObjectCollection<Album> FetchAlbums()
         {
-            return m_LoggedInUser.Albums.ToList();
+            return m_LoggedInUser.Albums;
         }
 
         public string FetchBasicInfo()
@@ -109,9 +109,9 @@ namespace BasicFacebookFeatures
             return m_LoggedInUser.PostStatus(i_Text);
         }
 
-        public List<User> FetchFriends()
+        public FacebookObjectCollection<User> FetchFriends()
         {
-            return m_LoggedInUser.Friends.ToList(); 
+            return m_LoggedInUser.Friends; 
         }
     }
 }

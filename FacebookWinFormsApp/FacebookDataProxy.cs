@@ -19,16 +19,15 @@ namespace BasicFacebookFeatures
         private BindingSource m_PostBindingSource;
         private readonly FacebookDataFetcher m_DataFetcher;
         private static readonly object r_UpdateTriesLock = new object(), r_LikedPagesLock = new object(), r_PostsLock = new object(), r_AlbumsLock = new object(), r_FriendsLock = new object();
-        public FacebookObjectCollection<Page> LikedPages;
-        public FacebookObjectCollection<Post> Posts{ get; set; }
-        public List<Album> Albums { get; set; }
-        public List<User> Friends { get; set; }
+        public FacebookObjectCollection<Page> LikedPages { get; set; }
+        public FacebookObjectCollection<Post> Posts { get; set; }
+        public FacebookObjectCollection<Album> Albums { get; set; }
+        public FacebookObjectCollection<User> Friends { get; set; }
 
-        public FacebookDataProxy(User i_LoggedInUser, BindingSource i_PostBindingSource)
+        public FacebookDataProxy(User i_LoggedInUser)
         {
             m_DataFetcher = FacebookDataFetcher.GetInstance(i_LoggedInUser);
             m_UpdateTries = new Dictionary<string, int>();
-            m_PostBindingSource = i_PostBindingSource;
         }
 
         private int getTotalTries(string i_Command)
@@ -102,7 +101,6 @@ namespace BasicFacebookFeatures
                 if (isTimeForUpdate("FetchLikedPages"))
                 {
                     LikedPages = m_DataFetcher.FetchLikedPages();
-                    //bind to a source
                 }
                 if (LikedPages.Count == 0)
                 {
@@ -127,7 +125,6 @@ namespace BasicFacebookFeatures
                 if (isTimeForUpdate("FetchPosts"))
                 {
                     Posts = m_DataFetcher.FetchPosts();
-                    m_PostBindingSource.DataSource = Posts;
                 }
                 if (Posts.Count == 0)
                 {
@@ -143,7 +140,7 @@ namespace BasicFacebookFeatures
             return Posts;
         }
 
-        public List<Album> FetchAlbums()
+        public FacebookObjectCollection<Album> FetchAlbums()
         {
             bool isListEmpty = false;
 
@@ -182,7 +179,7 @@ namespace BasicFacebookFeatures
             return m_DataFetcher.PostStatus(i_Text);
         }
 
-        public List<User> FetchFriends()
+        public FacebookObjectCollection<User> FetchFriends()
         {
             bool isListEmpty = false;
 

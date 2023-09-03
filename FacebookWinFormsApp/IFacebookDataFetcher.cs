@@ -12,10 +12,10 @@ namespace BasicFacebookFeatures
     {
         FacebookObjectCollection<Page> FetchLikedPages();
         FacebookObjectCollection<Post> FetchPosts();
-        List<Album> FetchAlbums();
+        FacebookObjectCollection<Album> FetchAlbums();
         string FetchBasicInfo();
         string FetchProfilePicURL();
         Status PostStatus(string i_Text);
-        List<User> FetchFriends();
+        FacebookObjectCollection<User> FetchFriends();
     }
 }

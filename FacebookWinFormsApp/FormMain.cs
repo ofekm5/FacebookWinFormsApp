@@ -14,19 +14,16 @@ namespace BasicFacebookFeatures
 {
     public partial class FormMain : Form
     {
-        //private User m_LoggedInUser;
         private GuessingGameUI m_GuessingGameUI;
         private LoginManager m_LoginManager;
         private AppSettings m_AppSettings;
-        private List<Post> m_ListOfPosts;
         private FacebookDataProxy m_FacebookDataProxy;
-
+        
         public FormMain()
         {
             InitializeComponent();
             m_LoginManager = new LoginManager();
             m_AppSettings = AppSettings.LoadFromFile();
-            m_ListOfPosts = null;
             if (m_AppSettings.RememberMe && !string.IsNullOrEmpty(m_AppSettings.AccesToken))
             {
                 m_LoginManager.ConnectToFacebook(m_AppSettings.AccesToken);
@@ -97,83 +94,14 @@ namespace BasicFacebookFeatures
 
         private void buttonLikedPages_Click(object sender, EventArgs e)
         {
-            presentLikedPages();
+            //presentLikedPages();
         }
 
-        private void presentLikedPages()
-        {
-            
-           
-            //listBoxLikedPages.DisplayMember = "Name";
-            //listBoxLikedPages.DataSource = pageBindingSource;
-            //try
-            //{
-            //    List<Page> likedPages = m_LoggedInUser.LikedPages.ToList();
-
-            //    if (likedPages.Count == 0)
-            //    {
-            //        MessageBox.Show("No liked pages exist.");
-            //    }
-            //    else
-            //    {
-            //        foreach (Page currentPage in likedPages)
-            //        {
-            //            listBoxLikedPages.Items.Add(currentPage);
-            //            listBoxLikedPages.DisplayMember = "Name";
-            //        }
-            //    }
-            //}
-            //catch (Exception generalException)
-            //{
-            //    MessageBox.Show("Error trying to fetch liked pages.");
-            //}
-        }
-
-        //private void listBoxLikedPages_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    displaySelectedPage();
-        //}
-
-        //private void displaySelectedPage()
-        //{
-        //    Page selectedLikedPage = listBoxLikedPages.SelectedItem as Page;
-        //    pictureBoxLikedPages.LoadAsync(selectedLikedPage.PictureNormalURL);
-        //}
-
-        private void presentAllAlbums()
-        {
-            //albumBindingSource.DataSource = m_LoggedInUser.Albums;
-            //try
-            //{
-            //    List<Album> allAlbums = m_LoggedInUser.Albums.ToList();
-            //    if (allAlbums.Count == 0)
-            //    {
-            //        MessageBox.Show("User has no albums.");
-            //    }
-            //    else
-            //    {
-            //        foreach (Album cuurentAlbum in allAlbums)
-            //        {
-            //            listBoxAlbums.Items.Add(cuurentAlbum);
-            //            listBoxAlbums.DisplayMember = "Name";
-            //        }
-            //    }
-            //}
-            //catch (Exception generalException)
-            //{
-            //    MessageBox.Show("Error trying to fetch albums.");
-            //}
-        }
-
-        //private void presentSelectedAlbum()
-        //{
-        //    Album selectedAlbum = listBoxAlbums.SelectedItem as Album;
-        //    pictureBoxAlbum.LoadAsync(selectedAlbum.PictureAlbumURL);
-        //}
+        
 
         private void buttonAlbums_Click(object sender, EventArgs e)
         {
-            presentAllAlbums();
+            //presentAllAlbums();
         }
 
         //private void listBoxAlbums_SelectedIndexChanged(object sender, EventArgs e)
@@ -197,10 +125,7 @@ namespace BasicFacebookFeatures
             listBoxFriends.Visible = true;
             labelDetailsHeadline.Visible = true;
             pictureBoxProfile.Visible = true;
-            m_FacebookDataProxy = new FacebookDataProxy(m_LoginManager.LoggedInUser, postBindingSource);
-            //postBindingSource.DataSource = m_FacebookDataProxy.Posts;
-            //albumBindingSource.DataSource = m_FacebookDataProxy.Albums;
-            //pageBindingSource.DataSource = m_FacebookDataProxy.LikedPages;
+            m_FacebookDataProxy = new FacebookDataProxy(m_LoginManager.LoggedInUser);
             labelWelcome.Visible = false;
             buttonPosts.Enabled = true;
             buttonPosts.Visible = true;
@@ -215,8 +140,8 @@ namespace BasicFacebookFeatures
             buttonPast.Enabled = true;
             labelBasicDetails.Text = m_FacebookDataProxy.FetchBasicInfo();
             pictureBoxProfile.LoadAsync(m_FacebookDataProxy.FetchProfilePicURL());
-            //m_GuessingGameUI = new GuessingGameUI(m_FacebookDataProxy.LikedPages.ToList(), textBoxGuess, buttonGuess, labelOutcome, buttonPlayAgain, labelPage);
-            //tabPage2.Controls.AddRange(m_GuessingGameUI.LabelChars);
+            m_GuessingGameUI = new GuessingGameUI(m_FacebookDataProxy.FetchLikedPages().ToList(), textBoxGuess, buttonGuess, labelOutcome, buttonPlayAgain, labelPage);
+            tabPage2.Controls.AddRange(m_GuessingGameUI.LabelChars);
         }
 
         private void handleAllToolsAfterLogout()
@@ -266,12 +191,14 @@ namespace BasicFacebookFeatures
 
         private void presentAllPosts()
         {
+            FacebookObjectCollection<Post> posts;
+
             Thread postsThread = new Thread(()=>
             {
                 try
                 {
-                    FacebookObjectCollection<Post> fetchedposts = m_FacebookDataProxy.FetchPosts();
-                    listBoxPosts.Invoke(new Action(() => listBoxPosts.Items.Add(fetchedposts)));
+                    posts = m_FacebookDataProxy.FetchPosts();
+                    listBoxPosts.Invoke(new Action(() => postBindingSource.DataSource = posts));
                 }
                 catch(Exception e)
                 {
@@ -280,80 +207,7 @@ namespace BasicFacebookFeatures
             });
 
             postsThread.Start();
-                //fetchPosts();
-                //foreach (Post post in m_ListOfPosts)
-                //{
-                //    listBoxPosts.Items.Add(post);
-                //    listBoxPosts.DisplayMember = "Name";
-                //}
         }
-
-        //private void fetchPosts()
-        //{
-        //    try
-        //    {
-        //        if (m_ListOfPosts == null)
-        //        {
-
-        //            m_ListOfPosts = m_FacebookDataProxy.FetchPosts();
-
-        //            if (m_ListOfPosts.Count == 0)
-        //            {
-        //                MessageBox.Show("User has no posts");
-        //            }
-        //        }
-        //    }
-        //    catch (Exception generalException)
-        //    {
-        //        MessageBox.Show("Error trying to fetch posts.");
-        //    }
-        //}
-
-        //private void fetchBasicInfo()
-        //{
-        //    labelBasicDetails.Text = "Name: " + m_LoggedInUser.FirstName + " " + m_LoggedInUser.LastName + "\n\n";
-        //    fetchBirthdayAndCalculateCountdown();
-        //    labelBasicDetails.Text += "Gender: " + m_LoggedInUser.Gender + "\n\n";
-        //    labelBasicDetails.Text += "Email: " + m_LoggedInUser.Email + "\n\n";
-        //    pictureBoxProfile.LoadAsync(m_LoggedInUser.PictureNormalURL);
-        //}
-
-        //private void fetchBirthdayAndCalculateCountdown()
-        //{
-        //    try
-        //    {
-        //        string userBirthday = m_LoggedInUser.Birthday;
-        //        DateTime today = DateTime.Today;
-        //        DateTime formatedUserBirthday;
-        //        if (DateTime.TryParseExact(userBirthday, "MM/dd/yyyy", null, System.Globalization.DateTimeStyles.None, out formatedUserBirthday))
-        //        {
-        //            DateTime birthdayThisYear = new DateTime(today.Year, formatedUserBirthday.Month, formatedUserBirthday.Day);
-        //            if (today > birthdayThisYear)
-        //            {
-        //                birthdayThisYear = birthdayThisYear.AddYears(1);
-        //            }
-
-        //            TimeSpan daysDifference = birthdayThisYear.Subtract(today);
-        //            if (daysDifference.Days == 0)
-        //            {
-        //                labelBasicDetails.Text += "Happy birthday!!!\n\n";
-        //            }
-        //            else
-        //            {
-        //                labelBasicDetails.Text += $"Your birthday is in {userBirthday}\n\nYou have {daysDifference.Days} days until your birthday\n\n";
-        //            }
-        //        }
-        //        else
-        //        {
-        //            labelBasicDetails.Text += "You havent provided a birthday\n\n";
-
-        //        }
-        //    }
-        //    catch (Exception generalException)
-        //    {
-        //        MessageBox.Show("Error trying to fetch birthday");
-        //    }
-        //}
 
         private void buttonPost_Click(object sender, EventArgs e)
         {
@@ -365,8 +219,19 @@ namespace BasicFacebookFeatures
             {
                 try
                 {
-                    Status postedStatus = m_FacebookDataProxy.PostStatus(textBoxPostStatus.Text);
-                    MessageBox.Show("Status Posted! ID: " + postedStatus.Id);
+                    Status postedStatus;
+                    Thread statusThread = new Thread(() =>
+                    {
+                        try
+                        {
+                            postedStatus = m_FacebookDataProxy.PostStatus(textBoxPostStatus.Text);
+                            MessageBox.Show("Status Posted! ID: " + postedStatus.Id);
+                        }
+                        catch (Exception Ex)
+                        {
+                            MessageBox.Show(Ex.Message);
+                        }
+                    });
                 }
                 catch (Exception generalException)
                 {
@@ -396,19 +261,34 @@ namespace BasicFacebookFeatures
         {
             try
             {
-                List<User> allFriends = m_FacebookDataProxy.FetchFriends().ToList();
-                if (allFriends.Count == 0)
+                FacebookObjectCollection<User> allFriends; 
+
+                Thread postsThread = new Thread(() =>
                 {
-                    MessageBox.Show("User has no friends");
-                }
-                else
-                {
-                    foreach (User friend in allFriends)
+                    try
                     {
-                        listBoxFriends.Items.Add(friend);
-                        listBoxFriends.DisplayMember = "Name";
+                        allFriends = m_FacebookDataProxy.FetchFriends();
+                        if (allFriends.Count == 0)
+                        {
+                            MessageBox.Show("User has no friends");
+                        }
+                        else
+                        {
+                            listBoxFriends.Invoke(new Action(() => 
+                            {
+                                foreach (User friend in allFriends)
+                                {
+                                    listBoxFriends.Items.Add(friend);
+                                    listBoxFriends.DisplayMember = "Name";
+                                }
+                            }));
+                        }
                     }
-                }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message);
+                    }
+                });
             }
             catch (Exception e)
             {
@@ -450,7 +330,7 @@ namespace BasicFacebookFeatures
             int randInd;
 
             earliestYear = findEarliestYear();
-            oldestPosts = m_ListOfPosts.Where(post => ((post.CreatedTime.Value.Year >= earliestYear) && (post.CreatedTime.Value.Year <= earliestYear + 5)) && ((post.Type == Post.eType.photo) || (post.Type == Post.eType.status)) && !post.Equals("")).ToList();
+            oldestPosts = m_FacebookDataProxy.FetchPosts().Where(post => ((post.CreatedTime.Value.Year >= earliestYear) && (post.CreatedTime.Value.Year <= earliestYear + 5)) && ((post.Type == Post.eType.photo) || (post.Type == Post.eType.status)) && !post.Equals("")).ToList();
             randInd = random.Next(0, oldestPosts.Count - 1);
 
             return oldestPosts.ElementAt(randInd);
@@ -500,7 +380,7 @@ namespace BasicFacebookFeatures
             DateTime earliestDate = DateTime.Now;
             int currentYear;
 
-            foreach (Post currentPost in m_ListOfPosts)
+            foreach (Post currentPost in Posts)
             {
                 currentYear = ((DateTime)currentPost.CreatedTime).Year;
                 if (currentYear >= 2009 && currentPost.CreatedTime < earliestDate)
@@ -530,4 +410,143 @@ namespace BasicFacebookFeatures
     }
 }
 
-        
+
+
+
+//private void presentLikedPages()
+//{
+
+
+//    //listBoxLikedPages.DisplayMember = "Name";
+//    //listBoxLikedPages.DataSource = pageBindingSource;
+//    //try
+//    //{
+//    //    List<Page> likedPages = m_LoggedInUser.LikedPages.ToList();
+
+//    //    if (likedPages.Count == 0)
+//    //    {
+//    //        MessageBox.Show("No liked pages exist.");
+//    //    }
+//    //    else
+//    //    {
+//    //        foreach (Page currentPage in likedPages)
+//    //        {
+//    //            listBoxLikedPages.Items.Add(currentPage);
+//    //            listBoxLikedPages.DisplayMember = "Name";
+//    //        }
+//    //    }
+//    //}
+//    //catch (Exception generalException)
+//    //{
+//    //    MessageBox.Show("Error trying to fetch liked pages.");
+//    //}
+//}
+
+//private void listBoxLikedPages_SelectedIndexChanged(object sender, EventArgs e)
+//{
+//    displaySelectedPage();
+//}
+
+//private void displaySelectedPage()
+//{
+//    Page selectedLikedPage = listBoxLikedPages.SelectedItem as Page;
+//    pictureBoxLikedPages.LoadAsync(selectedLikedPage.PictureNormalURL);
+//}
+
+//private void presentAllAlbums()
+//{
+//    //albumBindingSource.DataSource = m_LoggedInUser.Albums;
+//    //try
+//    //{
+//    //    List<Album> allAlbums = m_LoggedInUser.Albums.ToList();
+//    //    if (allAlbums.Count == 0)
+//    //    {
+//    //        MessageBox.Show("User has no albums.");
+//    //    }
+//    //    else
+//    //    {
+//    //        foreach (Album cuurentAlbum in allAlbums)
+//    //        {
+//    //            listBoxAlbums.Items.Add(cuurentAlbum);
+//    //            listBoxAlbums.DisplayMember = "Name";
+//    //        }
+//    //    }
+//    //}
+//    //catch (Exception generalException)
+//    //{
+//    //    MessageBox.Show("Error trying to fetch albums.");
+//    //}
+//}
+
+//private void presentSelectedAlbum()
+//{
+//    Album selectedAlbum = listBoxAlbums.SelectedItem as Album;
+//    pictureBoxAlbum.LoadAsync(selectedAlbum.PictureAlbumURL);
+//}
+
+//private void fetchPosts()
+//{
+//    try
+//    {
+//        if (m_ListOfPosts == null)
+//        {
+
+//            m_ListOfPosts = m_FacebookDataProxy.FetchPosts();
+
+//            if (m_ListOfPosts.Count == 0)
+//            {
+//                MessageBox.Show("User has no posts");
+//            }
+//        }
+//    }
+//    catch (Exception generalException)
+//    {
+//        MessageBox.Show("Error trying to fetch posts.");
+//    }
+//}
+
+//private void fetchBasicInfo()
+//{
+//    labelBasicDetails.Text = "Name: " + m_LoggedInUser.FirstName + " " + m_LoggedInUser.LastName + "\n\n";
+//    fetchBirthdayAndCalculateCountdown();
+//    labelBasicDetails.Text += "Gender: " + m_LoggedInUser.Gender + "\n\n";
+//    labelBasicDetails.Text += "Email: " + m_LoggedInUser.Email + "\n\n";
+//    pictureBoxProfile.LoadAsync(m_LoggedInUser.PictureNormalURL);
+//}
+
+//private void fetchBirthdayAndCalculateCountdown()
+//{
+//    try
+//    {
+//        string userBirthday = m_LoggedInUser.Birthday;
+//        DateTime today = DateTime.Today;
+//        DateTime formatedUserBirthday;
+//        if (DateTime.TryParseExact(userBirthday, "MM/dd/yyyy", null, System.Globalization.DateTimeStyles.None, out formatedUserBirthday))
+//        {
+//            DateTime birthdayThisYear = new DateTime(today.Year, formatedUserBirthday.Month, formatedUserBirthday.Day);
+//            if (today > birthdayThisYear)
+//            {
+//                birthdayThisYear = birthdayThisYear.AddYears(1);
+//            }
+
+//            TimeSpan daysDifference = birthdayThisYear.Subtract(today);
+//            if (daysDifference.Days == 0)
+//            {
+//                labelBasicDetails.Text += "Happy birthday!!!\n\n";
+//            }
+//            else
+//            {
+//                labelBasicDetails.Text += $"Your birthday is in {userBirthday}\n\nYou have {daysDifference.Days} days until your birthday\n\n";
+//            }
+//        }
+//        else
+//        {
+//            labelBasicDetails.Text += "You havent provided a birthday\n\n";
+
+//        }
+//    }
+//    catch (Exception generalException)
+//    {
+//        MessageBox.Show("Error trying to fetch birthday");
+//    }
+//}
