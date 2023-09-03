@@ -93,6 +93,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppSettings.cs" />
+    <Compile Include="FacebookDataFetcher.cs" />
+    <Compile Include="FacebookDataProxy.cs" />
     <Compile Include="FormGuessGame.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,6 +109,7 @@
     </Compile>
     <Compile Include="GuessingGameEngine.cs" />
     <Compile Include="GuessingGameUI.cs" />
+    <Compile Include="IFacebookDataFetcher.cs" />
     <Compile Include="LoginManager.cs" />
     <Compile Include="PageLetters.cs" />
     <Compile Include="Program.cs" />
