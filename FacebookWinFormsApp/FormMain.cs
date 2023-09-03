@@ -23,6 +23,7 @@ namespace BasicFacebookFeatures
         public FormMain()
         {
             InitializeComponent();
+            
 
             m_LoginManager = new LoginManager();
             m_AppSettings = AppSettings.LoadFromFile();
@@ -103,7 +104,7 @@ namespace BasicFacebookFeatures
         private void presentLikedPages()
         {
             
-            pageBindingSource.DataSource = m_LoggedInUser.LikedPages;
+           
             //listBoxLikedPages.DisplayMember = "Name";
             //listBoxLikedPages.DataSource = pageBindingSource;
             //try
@@ -143,7 +144,6 @@ namespace BasicFacebookFeatures
         private void presentAllAlbums()
         {
             //albumBindingSource.DataSource = m_LoggedInUser.Albums;
-            new Thread(() => albumBindingSource.DataSource = m_LoggedInUser.Albums).Start();
             //try
             //{
             //    List<Album> allAlbums = m_LoggedInUser.Albums.ToList();
@@ -184,6 +184,7 @@ namespace BasicFacebookFeatures
 
         private void handleAllToolsAfterLogin()
         {
+           
             buttonLogin.Enabled = false;
             buttonLogout.Enabled = true;
             buttonLikedPages.Visible = true;
@@ -198,9 +199,11 @@ namespace BasicFacebookFeatures
             buttonFriends.Enabled = true;
             listBoxFriends.Visible = true;
             labelDetailsHeadline.Visible = true;
-            pictureBoxAlbum.Visible = true;
             pictureBoxProfile.Visible = true;
             m_LoggedInUser = m_LoginManager.LoggedInUser;
+            postBindingSource.DataSource = m_LoggedInUser.Posts;
+            albumBindingSource.DataSource = m_LoggedInUser.Albums;
+            pageBindingSource.DataSource = m_LoggedInUser.LikedPages;
             labelWelcome.Visible = false;
             buttonPosts.Enabled = true;
             buttonPosts.Visible = true;
@@ -231,8 +234,6 @@ namespace BasicFacebookFeatures
             buttonAlbums.Visible = false;
             buttonAlbums.Enabled = false;
             labelDetailsHeadline.Visible = false;
-            pictureBoxAlbum.Visible = false;
-            pictureBoxAlbum.Image = null;
             pictureBoxProfile.Visible = false;
             labelWelcome.Visible = true;
             buttonPosts.Enabled = false;
@@ -267,12 +268,14 @@ namespace BasicFacebookFeatures
 
         private void presentAllPosts()
         {
-            fetchPosts();
-            foreach (Post post in m_ListOfPosts)
-            {
-                listBoxPosts.Items.Add(post);
-                listBoxPosts.DisplayMember = "Name";
-            }
+            new Thread(() => fetchPosts()).Start();
+               
+            //fetchPosts();
+            //foreach (Post post in m_ListOfPosts)
+            //{
+            //    listBoxPosts.Items.Add(post);
+            //    listBoxPosts.DisplayMember = "Name";
+            //}
         }
 
         private void fetchPosts()
@@ -507,8 +510,6 @@ namespace BasicFacebookFeatures
             m_GuessingGameUI.Rematch();
             tabPage2.Controls.AddRange(m_GuessingGameUI.LabelChars);
         }
-
-      
     }
 }
 

@@ -29,10 +29,20 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             System.Windows.Forms.Label createdTimeLabel;
             System.Windows.Forms.Label imageAlbumLabel;
+            System.Windows.Forms.Label nameLabel;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
+            System.Windows.Forms.Label captionLabel;
+            System.Windows.Forms.Label createdTimeLabel1;
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.nameTextBox = new System.Windows.Forms.TextBox();
+            this.postBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.imageAlbumPictureBox = new System.Windows.Forms.PictureBox();
+            this.albumBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.createdTimeDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.panel1 = new System.Windows.Forms.Panel();
             this.imageNormalPictureBox = new System.Windows.Forms.PictureBox();
             this.pageBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -48,7 +58,6 @@
             this.listBoxPosts = new System.Windows.Forms.ListBox();
             this.buttonPosts = new System.Windows.Forms.Button();
             this.labelWelcome = new System.Windows.Forms.Label();
-            this.pictureBoxAlbum = new System.Windows.Forms.PictureBox();
             this.labelDetailsHeadline = new System.Windows.Forms.Label();
             this.listBoxAlbums = new System.Windows.Forms.ListBox();
             this.buttonAlbums = new System.Windows.Forms.Button();
@@ -80,31 +89,61 @@
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.pageBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
-            this.albumBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.createdTimeDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.imageAlbumPictureBox = new System.Windows.Forms.PictureBox();
+            this.captionTextBox = new System.Windows.Forms.TextBox();
+            this.createdTimeDateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             createdTimeLabel = new System.Windows.Forms.Label();
             imageAlbumLabel = new System.Windows.Forms.Label();
+            nameLabel = new System.Windows.Forms.Label();
+            captionLabel = new System.Windows.Forms.Label();
+            createdTimeLabel1 = new System.Windows.Forms.Label();
             this.tabPage1.SuspendLayout();
+            this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.postBindingSource)).BeginInit();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imageAlbumPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.albumBindingSource)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imageNormalPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pageBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFriends)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAlbum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pageBindingNavigator)).BeginInit();
             this.pageBindingNavigator.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.albumBindingSource)).BeginInit();
-            this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.imageAlbumPictureBox)).BeginInit();
             this.SuspendLayout();
+            // 
+            // createdTimeLabel
+            // 
+            createdTimeLabel.AutoSize = true;
+            createdTimeLabel.Location = new System.Drawing.Point(3, 3);
+            createdTimeLabel.Name = "createdTimeLabel";
+            createdTimeLabel.Size = new System.Drawing.Size(101, 18);
+            createdTimeLabel.TabIndex = 2;
+            createdTimeLabel.Text = "Created Time:";
+            // 
+            // imageAlbumLabel
+            // 
+            imageAlbumLabel.AutoSize = true;
+            imageAlbumLabel.Location = new System.Drawing.Point(7, 83);
+            imageAlbumLabel.Name = "imageAlbumLabel";
+            imageAlbumLabel.Size = new System.Drawing.Size(97, 18);
+            imageAlbumLabel.TabIndex = 4;
+            imageAlbumLabel.Text = "Image Album:";
+            // 
+            // nameLabel
+            // 
+            nameLabel.AutoSize = true;
+            nameLabel.Location = new System.Drawing.Point(3, 3);
+            nameLabel.Name = "nameLabel";
+            nameLabel.Size = new System.Drawing.Size(87, 18);
+            nameLabel.TabIndex = 0;
+            nameLabel.Text = "Post Name:";
             // 
             // tabPage1
             // 
             this.tabPage1.AutoScroll = true;
+            this.tabPage1.Controls.Add(this.panel3);
             this.tabPage1.Controls.Add(this.panel2);
             this.tabPage1.Controls.Add(this.panel1);
             this.tabPage1.Controls.Add(this.checkBoxRememberMe);
@@ -119,7 +158,6 @@
             this.tabPage1.Controls.Add(this.listBoxPosts);
             this.tabPage1.Controls.Add(this.buttonPosts);
             this.tabPage1.Controls.Add(this.labelWelcome);
-            this.tabPage1.Controls.Add(this.pictureBoxAlbum);
             this.tabPage1.Controls.Add(this.labelDetailsHeadline);
             this.tabPage1.Controls.Add(this.listBoxAlbums);
             this.tabPage1.Controls.Add(this.buttonAlbums);
@@ -135,6 +173,63 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Basic features";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(createdTimeLabel1);
+            this.panel3.Controls.Add(this.createdTimeDateTimePicker1);
+            this.panel3.Controls.Add(captionLabel);
+            this.panel3.Controls.Add(this.captionTextBox);
+            this.panel3.Controls.Add(nameLabel);
+            this.panel3.Controls.Add(this.nameTextBox);
+            this.panel3.Location = new System.Drawing.Point(950, 205);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(391, 152);
+            this.panel3.TabIndex = 84;
+            // 
+            // nameTextBox
+            // 
+            this.nameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.postBindingSource, "Name", true));
+            this.nameTextBox.Location = new System.Drawing.Point(87, 5);
+            this.nameTextBox.Name = "nameTextBox";
+            this.nameTextBox.Size = new System.Drawing.Size(306, 24);
+            this.nameTextBox.TabIndex = 1;
+            // 
+            // postBindingSource
+            // 
+            this.postBindingSource.DataSource = typeof(FacebookWrapper.ObjectModel.Post);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(imageAlbumLabel);
+            this.panel2.Controls.Add(this.imageAlbumPictureBox);
+            this.panel2.Controls.Add(createdTimeLabel);
+            this.panel2.Controls.Add(this.createdTimeDateTimePicker);
+            this.panel2.Location = new System.Drawing.Point(614, 448);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(287, 212);
+            this.panel2.TabIndex = 83;
+            // 
+            // imageAlbumPictureBox
+            // 
+            this.imageAlbumPictureBox.DataBindings.Add(new System.Windows.Forms.Binding("Image", this.albumBindingSource, "ImageAlbum", true));
+            this.imageAlbumPictureBox.Location = new System.Drawing.Point(110, 83);
+            this.imageAlbumPictureBox.Name = "imageAlbumPictureBox";
+            this.imageAlbumPictureBox.Size = new System.Drawing.Size(155, 126);
+            this.imageAlbumPictureBox.TabIndex = 5;
+            this.imageAlbumPictureBox.TabStop = false;
+            // 
+            // albumBindingSource
+            // 
+            this.albumBindingSource.DataSource = typeof(FacebookWrapper.ObjectModel.Album);
+            // 
+            // createdTimeDateTimePicker
+            // 
+            this.createdTimeDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.albumBindingSource, "CreatedTime", true));
+            this.createdTimeDateTimePicker.Location = new System.Drawing.Point(99, 0);
+            this.createdTimeDateTimePicker.Name = "createdTimeDateTimePicker";
+            this.createdTimeDateTimePicker.Size = new System.Drawing.Size(184, 24);
+            this.createdTimeDateTimePicker.TabIndex = 3;
             // 
             // panel1
             // 
@@ -253,11 +348,12 @@
             // 
             // listBoxPosts
             // 
+            this.listBoxPosts.DataSource = this.postBindingSource;
             this.listBoxPosts.FormattingEnabled = true;
             this.listBoxPosts.ItemHeight = 18;
             this.listBoxPosts.Location = new System.Drawing.Point(840, 205);
             this.listBoxPosts.Name = "listBoxPosts";
-            this.listBoxPosts.Size = new System.Drawing.Size(376, 130);
+            this.listBoxPosts.Size = new System.Drawing.Size(93, 130);
             this.listBoxPosts.TabIndex = 70;
             this.listBoxPosts.Visible = false;
             // 
@@ -280,15 +376,6 @@
             this.labelWelcome.Size = new System.Drawing.Size(240, 18);
             this.labelWelcome.TabIndex = 65;
             this.labelWelcome.Text = "Welcome to our Facebook API app";
-            // 
-            // pictureBoxAlbum
-            // 
-            this.pictureBoxAlbum.Location = new System.Drawing.Point(611, 446);
-            this.pictureBoxAlbum.Name = "pictureBoxAlbum";
-            this.pictureBoxAlbum.Size = new System.Drawing.Size(156, 160);
-            this.pictureBoxAlbum.TabIndex = 62;
-            this.pictureBoxAlbum.TabStop = false;
-            this.pictureBoxAlbum.Visible = false;
             // 
             // labelDetailsHeadline
             // 
@@ -404,7 +491,7 @@
             this.tabPage2.Controls.Add(this.textBoxGuess);
             this.tabPage2.Location = new System.Drawing.Point(4, 27);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(1235, 666);
+            this.tabPage2.Size = new System.Drawing.Size(1349, 740);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Guess The Page";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -573,6 +660,7 @@
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "Position";
             this.bindingNavigatorPositionItem.AutoSize = false;
+            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -615,55 +703,39 @@
             this.pageBindingNavigatorSaveItem.Size = new System.Drawing.Size(23, 22);
             this.pageBindingNavigatorSaveItem.Text = "Save Data";
             // 
-            // albumBindingSource
+            // captionLabel
             // 
-            this.albumBindingSource.DataSource = typeof(FacebookWrapper.ObjectModel.Album);
+            captionLabel.AutoSize = true;
+            captionLabel.Location = new System.Drawing.Point(3, 35);
+            captionLabel.Name = "captionLabel";
+            captionLabel.Size = new System.Drawing.Size(63, 18);
+            captionLabel.TabIndex = 2;
+            captionLabel.Text = "Caption:";
             // 
-            // panel2
+            // captionTextBox
             // 
-            this.panel2.Controls.Add(imageAlbumLabel);
-            this.panel2.Controls.Add(this.imageAlbumPictureBox);
-            this.panel2.Controls.Add(createdTimeLabel);
-            this.panel2.Controls.Add(this.createdTimeDateTimePicker);
-            this.panel2.Location = new System.Drawing.Point(614, 448);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(287, 212);
-            this.panel2.TabIndex = 83;
+            this.captionTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.postBindingSource, "Caption", true));
+            this.captionTextBox.Location = new System.Drawing.Point(72, 35);
+            this.captionTextBox.Name = "captionTextBox";
+            this.captionTextBox.Size = new System.Drawing.Size(321, 24);
+            this.captionTextBox.TabIndex = 3;
             // 
-            // createdTimeLabel
+            // createdTimeLabel1
             // 
-            createdTimeLabel.AutoSize = true;
-            createdTimeLabel.Location = new System.Drawing.Point(3, 3);
-            createdTimeLabel.Name = "createdTimeLabel";
-            createdTimeLabel.Size = new System.Drawing.Size(101, 18);
-            createdTimeLabel.TabIndex = 2;
-            createdTimeLabel.Text = "Created Time:";
+            createdTimeLabel1.AutoSize = true;
+            createdTimeLabel1.Location = new System.Drawing.Point(3, 76);
+            createdTimeLabel1.Name = "createdTimeLabel1";
+            createdTimeLabel1.Size = new System.Drawing.Size(101, 18);
+            createdTimeLabel1.TabIndex = 4;
+            createdTimeLabel1.Text = "Created Time:";
             // 
-            // createdTimeDateTimePicker
+            // createdTimeDateTimePicker1
             // 
-            this.createdTimeDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.albumBindingSource, "CreatedTime", true));
-            this.createdTimeDateTimePicker.Location = new System.Drawing.Point(99, 0);
-            this.createdTimeDateTimePicker.Name = "createdTimeDateTimePicker";
-            this.createdTimeDateTimePicker.Size = new System.Drawing.Size(184, 24);
-            this.createdTimeDateTimePicker.TabIndex = 3;
-            // 
-            // imageAlbumLabel
-            // 
-            imageAlbumLabel.AutoSize = true;
-            imageAlbumLabel.Location = new System.Drawing.Point(7, 83);
-            imageAlbumLabel.Name = "imageAlbumLabel";
-            imageAlbumLabel.Size = new System.Drawing.Size(97, 18);
-            imageAlbumLabel.TabIndex = 4;
-            imageAlbumLabel.Text = "Image Album:";
-            // 
-            // imageAlbumPictureBox
-            // 
-            this.imageAlbumPictureBox.DataBindings.Add(new System.Windows.Forms.Binding("Image", this.albumBindingSource, "ImageAlbum", true));
-            this.imageAlbumPictureBox.Location = new System.Drawing.Point(110, 83);
-            this.imageAlbumPictureBox.Name = "imageAlbumPictureBox";
-            this.imageAlbumPictureBox.Size = new System.Drawing.Size(155, 126);
-            this.imageAlbumPictureBox.TabIndex = 5;
-            this.imageAlbumPictureBox.TabStop = false;
+            this.createdTimeDateTimePicker1.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.postBindingSource, "CreatedTime", true));
+            this.createdTimeDateTimePicker1.Location = new System.Drawing.Point(110, 72);
+            this.createdTimeDateTimePicker1.Name = "createdTimeDateTimePicker1";
+            this.createdTimeDateTimePicker1.Size = new System.Drawing.Size(200, 24);
+            this.createdTimeDateTimePicker1.TabIndex = 5;
             // 
             // FormMain
             // 
@@ -679,11 +751,17 @@
             this.Text = "Form1";
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.postBindingSource)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imageAlbumPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.albumBindingSource)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.imageNormalPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pageBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFriends)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAlbum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
@@ -691,10 +769,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pageBindingNavigator)).EndInit();
             this.pageBindingNavigator.ResumeLayout(false);
             this.pageBindingNavigator.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.albumBindingSource)).EndInit();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.imageAlbumPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -703,7 +777,6 @@
         #endregion
 
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.PictureBox pictureBoxAlbum;
         private System.Windows.Forms.Label labelDetailsHeadline;
         private System.Windows.Forms.ListBox listBoxAlbums;
         private System.Windows.Forms.Button buttonAlbums;
@@ -754,6 +827,11 @@
         private System.Windows.Forms.PictureBox imageAlbumPictureBox;
         private System.Windows.Forms.BindingSource albumBindingSource;
         private System.Windows.Forms.DateTimePicker createdTimeDateTimePicker;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.TextBox nameTextBox;
+        private System.Windows.Forms.BindingSource postBindingSource;
+        private System.Windows.Forms.DateTimePicker createdTimeDateTimePicker1;
+        private System.Windows.Forms.TextBox captionTextBox;
     }
 }
 
