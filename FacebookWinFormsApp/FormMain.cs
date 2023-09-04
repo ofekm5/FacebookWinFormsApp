@@ -186,27 +186,34 @@ namespace BasicFacebookFeatures
 
         private void buttonPosts_Click(object sender, EventArgs e)
         {
-            presentAllPosts();
+            new Thread(() => presentAllPosts()).Start();
         }
 
         private void presentAllPosts()
         {
             FacebookObjectCollection<Post> posts;
-
-            Thread postsThread = new Thread(()=>
+            try
             {
-                try
-                {
-                    posts = m_FacebookDataProxy.FetchPosts();
-                    listBoxPosts.Invoke(new Action(() => postBindingSource.DataSource = posts));
-                }
-                catch(Exception e)
-                {
-                    MessageBox.Show(e.Message);
-                }
-            });
+                posts = m_FacebookDataProxy.FetchPosts();
+                listBoxPosts.Invoke(new Action(()=>postBindingSource.DataSource = posts));
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
 
-            postsThread.Start();
+            //new Thread(()=>
+            //{
+            //    try
+            //    {
+            //        posts = m_FacebookDataProxy.FetchPosts();
+            //        listBoxPosts.Invoke(new Action(() => postBindingSource.DataSource = posts));
+            //    }
+            //    catch(Exception e)
+            //    {
+            //        MessageBox.Show(e.Message);
+            //    }
+            //}).Start();           
         }
 
         private void buttonPost_Click(object sender, EventArgs e)
@@ -328,12 +335,13 @@ namespace BasicFacebookFeatures
             List<Post> oldestPosts;
             Random random = new Random();
             int randInd;
+            return null;
 
-            earliestYear = findEarliestYear();
-            oldestPosts = m_FacebookDataProxy.FetchPosts().Where(post => ((post.CreatedTime.Value.Year >= earliestYear) && (post.CreatedTime.Value.Year <= earliestYear + 5)) && ((post.Type == Post.eType.photo) || (post.Type == Post.eType.status)) && !post.Equals("")).ToList();
-            randInd = random.Next(0, oldestPosts.Count - 1);
+            //earliestYear = findEarliestYear();
+           // oldestPosts = m_FacebookDataProxy.FetchPosts().Where(post => ((post.CreatedTime.Value.Year >= earliestYear) && (post.CreatedTime.Value.Year <= earliestYear + 5)) && ((post.Type == Post.eType.photo) || (post.Type == Post.eType.status)) && !post.Equals("")).ToList();
+            //randInd = random.Next(0, oldestPosts.Count - 1);
 
-            return oldestPosts.ElementAt(randInd);
+            //return oldestPosts.ElementAt(randInd);
         }
 
         private void showRandomOldPost(Post i_RandomOldPost)
@@ -375,22 +383,22 @@ namespace BasicFacebookFeatures
         }
 
 
-        private int findEarliestYear()
-        {
-            DateTime earliestDate = DateTime.Now;
-            int currentYear;
+        //private int findEarliestYear()
+        //{
+        //    DateTime earliestDate = DateTime.Now;
+        //    int currentYear;
 
-            foreach (Post currentPost in Posts)
-            {
-                currentYear = ((DateTime)currentPost.CreatedTime).Year;
-                if (currentYear >= 2009 && currentPost.CreatedTime < earliestDate)
-                {
-                    earliestDate = (DateTime)currentPost.CreatedTime;
-                }
-            }
+        //    foreach (Post currentPost in Posts)
+        //    {
+        //        currentYear = ((DateTime)currentPost.CreatedTime).Year;
+        //        if (currentYear >= 2009 && currentPost.CreatedTime < earliestDate)
+        //        {
+        //            earliestDate = (DateTime)currentPost.CreatedTime;
+        //        }
+        //    }
 
-            return earliestDate.Year;
-        }
+        //    return earliestDate.Year;
+        //}
 
         private void buttonGuess_Click(object sender, EventArgs e)
         {
