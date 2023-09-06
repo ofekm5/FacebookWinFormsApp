@@ -101,7 +101,22 @@ namespace BasicFacebookFeatures
 
         private void buttonAlbums_Click(object sender, EventArgs e)
         {
+            new Thread(() => presentAllAlbums()).Start();
             //presentAllAlbums();
+        }
+
+        private void presentAllAlbums()
+        {
+            FacebookObjectCollection<Album> albums;
+            try
+            {
+                albums = m_FacebookDataProxy.FetchAlbums();
+                listBoxPosts.Invoke(new Action(() => albumBindingSource.DataSource = albums));
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
 
         //private void listBoxAlbums_SelectedIndexChanged(object sender, EventArgs e)
@@ -261,46 +276,71 @@ namespace BasicFacebookFeatures
 
         private void buttonFriends_Click(object sender, EventArgs e)
         {
-            presentAllFriends();
+            new Thread(()=>presentAllFriends()).Start();
         }
 
         private void presentAllFriends()
         {
+            FacebookObjectCollection<User> friends;
             try
             {
-                FacebookObjectCollection<User> allFriends; 
-
-                Thread postsThread = new Thread(() =>
+                friends = m_FacebookDataProxy.FetchFriends();
+                if (friends.Count == 0)
                 {
-                    try
+                    MessageBox.Show("User has no friends");
+                }
+                else
+                {
+                    listBoxFriends.Invoke(new Action(() =>
                     {
-                        allFriends = m_FacebookDataProxy.FetchFriends();
-                        if (allFriends.Count == 0)
+                        foreach (User friend in friends)
                         {
-                            MessageBox.Show("User has no friends");
+                            listBoxFriends.Items.Add(friend);
+                            listBoxFriends.DisplayMember = "Name";
                         }
-                        else
-                        {
-                            listBoxFriends.Invoke(new Action(() => 
-                            {
-                                foreach (User friend in allFriends)
-                                {
-                                    listBoxFriends.Items.Add(friend);
-                                    listBoxFriends.DisplayMember = "Name";
-                                }
-                            }));
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        MessageBox.Show(e.Message);
-                    }
-                });
+                    }));
+                }
             }
             catch (Exception e)
             {
                 MessageBox.Show("Error trying to fetch friends.");
             }
+            //catch (Exception e)
+            //{
+            //    MessageBox.Show(e.Message);
+            //}
+            //try
+            //{
+            //    FacebookObjectCollection<User> allFriends; 
+
+            //    Thread postsThread = new Thread(() =>
+            //    {
+            //        try
+            //        {
+            //            allFriends = m_FacebookDataProxy.FetchFriends();
+            //            if (allFriends.Count == 0)
+            //            {
+            //                MessageBox.Show("User has no friends");
+            //            }
+            //            else
+            //            {
+            //                listBoxFriends.Invoke(new Action(() => 
+            //                {
+            //                    foreach (User friend in allFriends)
+            //                    {
+            //                        listBoxFriends.Items.Add(friend);
+            //                        listBoxFriends.DisplayMember = "Name";
+            //                    }
+            //                }));
+            //            }
+            //        }
+            //        catch (Exception e)
+            //        {
+            //            MessageBox.Show(e.Message);
+            //        }
+            //    });
+            //}
+
         }
 
         private void listBoxFriends_SelectedIndexChanged(object sender, EventArgs e)
@@ -317,11 +357,20 @@ namespace BasicFacebookFeatures
         private void buttonPast_Click(object sender, EventArgs e)
         {
             Post randomOldPost;
+            FacebookObjectCollection<Post> listOfPosts;
             try
             {
-                m_FacebookDataProxy.FetchPosts();
-                randomOldPost = getRandomOldPost();
-                showRandomOldPost(randomOldPost);
+                Thread threadPostPresenter = new Thread(() =>
+                {
+                    listOfPosts = m_FacebookDataProxy.FetchPosts();
+                    randomOldPost = getRandomOldPost(listOfPosts);
+                    showRandomOldPost(randomOldPost);
+                });
+                threadPostPresenter.Start();
+                //new Thread(() => listOfPosts = m_FacebookDataProxy.FetchPosts()).Start();               
+                //randomOldPost = getRandomOldPost(listOfPosts);
+                //showRandomOldPost(randomOldPost);
+
             }
             catch (Exception ex)
             {
@@ -329,19 +378,18 @@ namespace BasicFacebookFeatures
             }
         }
 
-        private Post getRandomOldPost()
+        private Post getRandomOldPost(FacebookObjectCollection<Post> i_ListOfPosts)
         {
             int earliestYear;
             List<Post> oldestPosts;
             Random random = new Random();
             int randInd;
-            return null;
 
-            //earliestYear = findEarliestYear();
-           // oldestPosts = m_FacebookDataProxy.FetchPosts().Where(post => ((post.CreatedTime.Value.Year >= earliestYear) && (post.CreatedTime.Value.Year <= earliestYear + 5)) && ((post.Type == Post.eType.photo) || (post.Type == Post.eType.status)) && !post.Equals("")).ToList();
-            //randInd = random.Next(0, oldestPosts.Count - 1);
+            earliestYear = findEarliestYear(i_ListOfPosts);
+            oldestPosts = i_ListOfPosts.Where(post => ((post.CreatedTime.Value.Year >= earliestYear) && (post.CreatedTime.Value.Year <= earliestYear + 5)) && ((post.Type == Post.eType.photo) || (post.Type == Post.eType.status)) && !post.Equals("")).ToList();
+            randInd = random.Next(0, oldestPosts.Count - 1);
 
-            //return oldestPosts.ElementAt(randInd);
+            return oldestPosts.ElementAt(randInd);
         }
 
         private void showRandomOldPost(Post i_RandomOldPost)
@@ -383,22 +431,22 @@ namespace BasicFacebookFeatures
         }
 
 
-        //private int findEarliestYear()
-        //{
-        //    DateTime earliestDate = DateTime.Now;
-        //    int currentYear;
+        private int findEarliestYear(FacebookObjectCollection<Post> i_Posts)
+        {
+            DateTime earliestDate = DateTime.Now;
+            int currentYear;
 
-        //    foreach (Post currentPost in Posts)
-        //    {
-        //        currentYear = ((DateTime)currentPost.CreatedTime).Year;
-        //        if (currentYear >= 2009 && currentPost.CreatedTime < earliestDate)
-        //        {
-        //            earliestDate = (DateTime)currentPost.CreatedTime;
-        //        }
-        //    }
+            foreach (Post currentPost in i_Posts)
+            {
+                currentYear = ((DateTime)currentPost.CreatedTime).Year;
+                if (currentYear >= 2009 && currentPost.CreatedTime < earliestDate)
+                {
+                    earliestDate = (DateTime)currentPost.CreatedTime;
+                }
+            }
 
-        //    return earliestDate.Year;
-        //}
+            return earliestDate.Year;
+        }
 
         private void buttonGuess_Click(object sender, EventArgs e)
         {
@@ -463,27 +511,27 @@ namespace BasicFacebookFeatures
 
 //private void presentAllAlbums()
 //{
-//    //albumBindingSource.DataSource = m_LoggedInUser.Albums;
-//    //try
-//    //{
-//    //    List<Album> allAlbums = m_LoggedInUser.Albums.ToList();
-//    //    if (allAlbums.Count == 0)
-//    //    {
-//    //        MessageBox.Show("User has no albums.");
-//    //    }
-//    //    else
-//    //    {
-//    //        foreach (Album cuurentAlbum in allAlbums)
-//    //        {
-//    //            listBoxAlbums.Items.Add(cuurentAlbum);
-//    //            listBoxAlbums.DisplayMember = "Name";
-//    //        }
-//    //    }
-//    //}
-//    //catch (Exception generalException)
-//    //{
-//    //    MessageBox.Show("Error trying to fetch albums.");
-//    //}
+//    albumBindingSource.DataSource = m_LoggedInUser.Albums;
+//    try
+//    {
+//        List<Album> allAlbums = m_LoggedInUser.Albums.ToList();
+//        if (allAlbums.Count == 0)
+//        {
+//            MessageBox.Show("User has no albums.");
+//        }
+//        else
+//        {
+//            foreach (Album cuurentAlbum in allAlbums)
+//            {
+//                listBoxAlbums.Items.Add(cuurentAlbum);
+//                listBoxAlbums.DisplayMember = "Name";
+//            }
+//        }
+//    }
+//    catch (Exception generalException)
+//    {
+//        MessageBox.Show("Error trying to fetch albums.");
+//    }
 //}
 
 //private void presentSelectedAlbum()

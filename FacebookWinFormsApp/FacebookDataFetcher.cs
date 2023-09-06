@@ -55,15 +55,16 @@ namespace BasicFacebookFeatures
         {
             string basicDetails = "Name: " + m_LoggedInUser.FirstName + " " + m_LoggedInUser.LastName + "\n\n";
 
-            fetchBirthdayAndCalculateCountdown(basicDetails);
+            basicDetails += fetchBirthdayAndCalculateCountdown();
             basicDetails += "Gender: " + m_LoggedInUser.Gender + "\n\n";
             basicDetails += "Email: " + m_LoggedInUser.Email + "\n\n";
 
             return basicDetails;
         }
 
-        private void fetchBirthdayAndCalculateCountdown(string io_BasicDetails)
+        private string fetchBirthdayAndCalculateCountdown()
         {
+            string res = "";
             try
             {
                 string userBirthday = m_LoggedInUser.Birthday;
@@ -80,16 +81,16 @@ namespace BasicFacebookFeatures
                     TimeSpan daysDifference = birthdayThisYear.Subtract(today);
                     if (daysDifference.Days == 0)
                     {
-                        io_BasicDetails += "Happy birthday!!!\n\n";
+                        res += "Happy birthday!!!\n\n";
                     }
                     else
                     {
-                        io_BasicDetails += $"Your birthday is in {userBirthday}\n\nYou have {daysDifference.Days} days until your birthday\n\n";
+                        res += $"Your birthday is in {userBirthday}\n\nYou have {daysDifference.Days} days until your birthday\n\n";
                     }
                 }
                 else
                 {
-                    io_BasicDetails += "You havent provided a birthday\n\n";
+                    res += "You havent provided a birthday\n\n";
 
                 }
             }
@@ -97,6 +98,8 @@ namespace BasicFacebookFeatures
             {
                 throw new Exception("Error trying to fetch birthday");
             }
+          
+            return res;
         }
 
         public string FetchProfilePicURL()
