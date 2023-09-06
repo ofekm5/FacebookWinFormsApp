@@ -118,7 +118,7 @@
             createdTimeLabel.AutoSize = true;
             createdTimeLabel.Location = new System.Drawing.Point(3, 3);
             createdTimeLabel.Name = "createdTimeLabel";
-            createdTimeLabel.Size = new System.Drawing.Size(149, 26);
+            createdTimeLabel.Size = new System.Drawing.Size(101, 18);
             createdTimeLabel.TabIndex = 2;
             createdTimeLabel.Text = "Created Time:";
             // 
@@ -127,7 +127,7 @@
             imageAlbumLabel.AutoSize = true;
             imageAlbumLabel.Location = new System.Drawing.Point(7, 83);
             imageAlbumLabel.Name = "imageAlbumLabel";
-            imageAlbumLabel.Size = new System.Drawing.Size(148, 26);
+            imageAlbumLabel.Size = new System.Drawing.Size(97, 18);
             imageAlbumLabel.TabIndex = 4;
             imageAlbumLabel.Text = "Image Album:";
             // 
@@ -136,7 +136,7 @@
             nameLabel.AutoSize = true;
             nameLabel.Location = new System.Drawing.Point(3, 3);
             nameLabel.Name = "nameLabel";
-            nameLabel.Size = new System.Drawing.Size(127, 26);
+            nameLabel.Size = new System.Drawing.Size(87, 18);
             nameLabel.TabIndex = 0;
             nameLabel.Text = "Post Name:";
             // 
@@ -145,7 +145,7 @@
             captionLabel.AutoSize = true;
             captionLabel.Location = new System.Drawing.Point(3, 35);
             captionLabel.Name = "captionLabel";
-            captionLabel.Size = new System.Drawing.Size(93, 26);
+            captionLabel.Size = new System.Drawing.Size(63, 18);
             captionLabel.TabIndex = 2;
             captionLabel.Text = "Caption:";
             // 
@@ -154,7 +154,7 @@
             createdTimeLabel1.AutoSize = true;
             createdTimeLabel1.Location = new System.Drawing.Point(3, 76);
             createdTimeLabel1.Name = "createdTimeLabel1";
-            createdTimeLabel1.Size = new System.Drawing.Size(149, 26);
+            createdTimeLabel1.Size = new System.Drawing.Size(101, 18);
             createdTimeLabel1.TabIndex = 4;
             createdTimeLabel1.Text = "Created Time:";
             // 
@@ -184,10 +184,10 @@
             this.tabPage1.Controls.Add(this.pictureBoxProfile);
             this.tabPage1.Controls.Add(this.buttonLogout);
             this.tabPage1.Controls.Add(this.buttonLogin);
-            this.tabPage1.Location = new System.Drawing.Point(4, 35);
+            this.tabPage1.Location = new System.Drawing.Point(4, 27);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1349, 732);
+            this.tabPage1.Size = new System.Drawing.Size(1349, 740);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Basic features";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -200,9 +200,9 @@
             this.panel3.Controls.Add(this.captionTextBox);
             this.panel3.Controls.Add(nameLabel);
             this.panel3.Controls.Add(this.nameTextBox);
-            this.panel3.Location = new System.Drawing.Point(992, 205);
+            this.panel3.Location = new System.Drawing.Point(963, 205);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(349, 151);
+            this.panel3.Size = new System.Drawing.Size(378, 151);
             this.panel3.TabIndex = 84;
             // 
             // createdTimeDateTimePicker1
@@ -210,7 +210,7 @@
             this.createdTimeDateTimePicker1.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.postBindingSource, "CreatedTime", true));
             this.createdTimeDateTimePicker1.Location = new System.Drawing.Point(110, 72);
             this.createdTimeDateTimePicker1.Name = "createdTimeDateTimePicker1";
-            this.createdTimeDateTimePicker1.Size = new System.Drawing.Size(200, 32);
+            this.createdTimeDateTimePicker1.Size = new System.Drawing.Size(200, 24);
             this.createdTimeDateTimePicker1.TabIndex = 5;
             // 
             // postBindingSource
@@ -222,7 +222,7 @@
             this.captionTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.postBindingSource, "Caption", true));
             this.captionTextBox.Location = new System.Drawing.Point(72, 35);
             this.captionTextBox.Name = "captionTextBox";
-            this.captionTextBox.Size = new System.Drawing.Size(321, 32);
+            this.captionTextBox.Size = new System.Drawing.Size(303, 24);
             this.captionTextBox.TabIndex = 3;
             // 
             // nameTextBox
@@ -230,7 +230,7 @@
             this.nameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.postBindingSource, "Name", true));
             this.nameTextBox.Location = new System.Drawing.Point(87, 5);
             this.nameTextBox.Name = "nameTextBox";
-            this.nameTextBox.Size = new System.Drawing.Size(306, 32);
+            this.nameTextBox.Size = new System.Drawing.Size(288, 24);
             this.nameTextBox.TabIndex = 1;
             // 
             // panel2
@@ -262,7 +262,7 @@
             this.createdTimeDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.albumBindingSource, "CreatedTime", true));
             this.createdTimeDateTimePicker.Location = new System.Drawing.Point(99, 0);
             this.createdTimeDateTimePicker.Name = "createdTimeDateTimePicker";
-            this.createdTimeDateTimePicker.Size = new System.Drawing.Size(184, 32);
+            this.createdTimeDateTimePicker.Size = new System.Drawing.Size(184, 24);
             this.createdTimeDateTimePicker.TabIndex = 3;
             // 
             // panel1
@@ -291,7 +291,7 @@
             this.checkBoxRememberMe.AutoSize = true;
             this.checkBoxRememberMe.Location = new System.Drawing.Point(37, 136);
             this.checkBoxRememberMe.Name = "checkBoxRememberMe";
-            this.checkBoxRememberMe.Size = new System.Drawing.Size(184, 30);
+            this.checkBoxRememberMe.Size = new System.Drawing.Size(126, 22);
             this.checkBoxRememberMe.TabIndex = 81;
             this.checkBoxRememberMe.Text = "Remember me";
             this.checkBoxRememberMe.UseVisualStyleBackColor = true;
@@ -334,7 +334,7 @@
             this.labelWhatsOnYourMind.AutoSize = true;
             this.labelWhatsOnYourMind.Location = new System.Drawing.Point(625, 32);
             this.labelWhatsOnYourMind.Name = "labelWhatsOnYourMind";
-            this.labelWhatsOnYourMind.Size = new System.Drawing.Size(222, 26);
+            this.labelWhatsOnYourMind.Size = new System.Drawing.Size(152, 18);
             this.labelWhatsOnYourMind.TabIndex = 76;
             this.labelWhatsOnYourMind.Text = "What\'s on your mind?";
             this.labelWhatsOnYourMind.Visible = false;
@@ -344,7 +344,7 @@
             this.labelBasicDetails.AutoSize = true;
             this.labelBasicDetails.Location = new System.Drawing.Point(34, 386);
             this.labelBasicDetails.Name = "labelBasicDetails";
-            this.labelBasicDetails.Size = new System.Drawing.Size(79, 26);
+            this.labelBasicDetails.Size = new System.Drawing.Size(53, 18);
             this.labelBasicDetails.TabIndex = 75;
             this.labelBasicDetails.Text = "Details";
             this.labelBasicDetails.Visible = false;
@@ -361,10 +361,10 @@
             // listBoxFriends
             // 
             this.listBoxFriends.FormattingEnabled = true;
-            this.listBoxFriends.ItemHeight = 26;
+            this.listBoxFriends.ItemHeight = 18;
             this.listBoxFriends.Location = new System.Drawing.Point(950, 451);
             this.listBoxFriends.Name = "listBoxFriends";
-            this.listBoxFriends.Size = new System.Drawing.Size(230, 108);
+            this.listBoxFriends.Size = new System.Drawing.Size(230, 94);
             this.listBoxFriends.TabIndex = 73;
             this.listBoxFriends.Visible = false;
             this.listBoxFriends.SelectedIndexChanged += new System.EventHandler(this.listBoxFriends_SelectedIndexChanged);
@@ -384,10 +384,10 @@
             // 
             this.listBoxPosts.DataSource = this.postBindingSource;
             this.listBoxPosts.FormattingEnabled = true;
-            this.listBoxPosts.ItemHeight = 26;
+            this.listBoxPosts.ItemHeight = 18;
             this.listBoxPosts.Location = new System.Drawing.Point(840, 205);
             this.listBoxPosts.Name = "listBoxPosts";
-            this.listBoxPosts.Size = new System.Drawing.Size(149, 160);
+            this.listBoxPosts.Size = new System.Drawing.Size(117, 148);
             this.listBoxPosts.TabIndex = 70;
             this.listBoxPosts.Visible = false;
             // 
@@ -407,7 +407,7 @@
             this.labelWelcome.AutoSize = true;
             this.labelWelcome.Location = new System.Drawing.Point(20, 10);
             this.labelWelcome.Name = "labelWelcome";
-            this.labelWelcome.Size = new System.Drawing.Size(350, 26);
+            this.labelWelcome.Size = new System.Drawing.Size(240, 18);
             this.labelWelcome.TabIndex = 65;
             this.labelWelcome.Text = "Welcome to our Facebook API app";
             // 
@@ -418,7 +418,7 @@
                 | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelDetailsHeadline.Location = new System.Drawing.Point(33, 346);
             this.labelDetailsHeadline.Name = "labelDetailsHeadline";
-            this.labelDetailsHeadline.Size = new System.Drawing.Size(154, 33);
+            this.labelDetailsHeadline.Size = new System.Drawing.Size(105, 24);
             this.labelDetailsHeadline.TabIndex = 61;
             this.labelDetailsHeadline.Text = "About you";
             this.labelDetailsHeadline.Visible = false;
@@ -428,10 +428,10 @@
             this.listBoxAlbums.DataSource = this.albumBindingSource;
             this.listBoxAlbums.DisplayMember = "Name";
             this.listBoxAlbums.FormattingEnabled = true;
-            this.listBoxAlbums.ItemHeight = 26;
+            this.listBoxAlbums.ItemHeight = 18;
             this.listBoxAlbums.Location = new System.Drawing.Point(381, 445);
             this.listBoxAlbums.Name = "listBoxAlbums";
-            this.listBoxAlbums.Size = new System.Drawing.Size(230, 108);
+            this.listBoxAlbums.Size = new System.Drawing.Size(230, 94);
             this.listBoxAlbums.TabIndex = 60;
             this.listBoxAlbums.Visible = false;
             // 
@@ -462,10 +462,10 @@
             this.listBoxLikedPages.DataSource = this.pageBindingSource;
             this.listBoxLikedPages.DisplayMember = "Name";
             this.listBoxLikedPages.FormattingEnabled = true;
-            this.listBoxLikedPages.ItemHeight = 26;
+            this.listBoxLikedPages.ItemHeight = 18;
             this.listBoxLikedPages.Location = new System.Drawing.Point(377, 205);
             this.listBoxLikedPages.Name = "listBoxLikedPages";
-            this.listBoxLikedPages.Size = new System.Drawing.Size(229, 108);
+            this.listBoxLikedPages.Size = new System.Drawing.Size(229, 94);
             this.listBoxLikedPages.TabIndex = 56;
             this.listBoxLikedPages.ValueMember = "AccessToken";
             this.listBoxLikedPages.Visible = false;
@@ -523,9 +523,9 @@
             this.tabPage2.Controls.Add(this.label2);
             this.tabPage2.Controls.Add(this.label1);
             this.tabPage2.Controls.Add(this.textBoxGuess);
-            this.tabPage2.Location = new System.Drawing.Point(4, 35);
+            this.tabPage2.Location = new System.Drawing.Point(4, 27);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(1349, 732);
+            this.tabPage2.Size = new System.Drawing.Size(1349, 740);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Guess The Page";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -536,7 +536,7 @@
             this.labelOutcome.Font = new System.Drawing.Font("Nirmala UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelOutcome.Location = new System.Drawing.Point(597, 397);
             this.labelOutcome.Name = "labelOutcome";
-            this.labelOutcome.Size = new System.Drawing.Size(169, 45);
+            this.labelOutcome.Size = new System.Drawing.Size(111, 30);
             this.labelOutcome.TabIndex = 84;
             this.labelOutcome.Text = "Let\'s Play!";
             this.labelOutcome.Visible = false;
@@ -569,7 +569,7 @@
             this.labelPage.AutoSize = true;
             this.labelPage.Location = new System.Drawing.Point(386, 243);
             this.labelPage.Name = "labelPage";
-            this.labelPage.Size = new System.Drawing.Size(75, 26);
+            this.labelPage.Size = new System.Drawing.Size(50, 18);
             this.labelPage.TabIndex = 70;
             this.labelPage.Text = "Page: ";
             // 
@@ -599,7 +599,7 @@
                 | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(464, 29);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(460, 64);
+            this.label1.Size = new System.Drawing.Size(314, 42);
             this.label1.TabIndex = 67;
             this.label1.Text = "Guess The Page";
             // 
@@ -608,7 +608,7 @@
             this.textBoxGuess.Enabled = false;
             this.textBoxGuess.Location = new System.Drawing.Point(547, 195);
             this.textBoxGuess.Name = "textBoxGuess";
-            this.textBoxGuess.Size = new System.Drawing.Size(231, 32);
+            this.textBoxGuess.Size = new System.Drawing.Size(231, 24);
             this.textBoxGuess.TabIndex = 66;
             this.textBoxGuess.Text = "You have to login in order to play";
             // 
@@ -639,7 +639,7 @@
             this.pageBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.pageBindingNavigator.Name = "pageBindingNavigator";
             this.pageBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.pageBindingNavigator.Size = new System.Drawing.Size(1357, 33);
+            this.pageBindingNavigator.Size = new System.Drawing.Size(1357, 31);
             this.pageBindingNavigator.TabIndex = 55;
             this.pageBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -649,13 +649,13 @@
             this.bindingNavigatorAddNewItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem.Image")));
             this.bindingNavigatorAddNewItem.Name = "bindingNavigatorAddNewItem";
             this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(34, 28);
+            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(28, 28);
             this.bindingNavigatorAddNewItem.Text = "Add new";
             // 
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(54, 28);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(35, 28);
             this.bindingNavigatorCountItem.Text = "of {0}";
             this.bindingNavigatorCountItem.ToolTipText = "Total number of items";
             // 
@@ -665,7 +665,7 @@
             this.bindingNavigatorDeleteItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorDeleteItem.Image")));
             this.bindingNavigatorDeleteItem.Name = "bindingNavigatorDeleteItem";
             this.bindingNavigatorDeleteItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(34, 28);
+            this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(28, 28);
             this.bindingNavigatorDeleteItem.Text = "Delete";
             // 
             // bindingNavigatorMoveFirstItem
@@ -674,7 +674,7 @@
             this.bindingNavigatorMoveFirstItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveFirstItem.Image")));
             this.bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
             this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(34, 28);
+            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(28, 28);
             this.bindingNavigatorMoveFirstItem.Text = "Move first";
             // 
             // bindingNavigatorMovePreviousItem
@@ -683,19 +683,18 @@
             this.bindingNavigatorMovePreviousItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMovePreviousItem.Image")));
             this.bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
             this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(34, 28);
+            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(28, 28);
             this.bindingNavigatorMovePreviousItem.Text = "Move previous";
             // 
             // bindingNavigatorSeparator
             // 
             this.bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
-            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 33);
+            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 31);
             // 
             // bindingNavigatorPositionItem
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "Position";
             this.bindingNavigatorPositionItem.AutoSize = false;
-            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -704,7 +703,7 @@
             // bindingNavigatorSeparator1
             // 
             this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
-            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 33);
+            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 31);
             // 
             // bindingNavigatorMoveNextItem
             // 
@@ -712,7 +711,7 @@
             this.bindingNavigatorMoveNextItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveNextItem.Image")));
             this.bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
             this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(34, 28);
+            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(28, 28);
             this.bindingNavigatorMoveNextItem.Text = "Move next";
             // 
             // bindingNavigatorMoveLastItem
@@ -721,13 +720,13 @@
             this.bindingNavigatorMoveLastItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveLastItem.Image")));
             this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
             this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(34, 28);
+            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(28, 28);
             this.bindingNavigatorMoveLastItem.Text = "Move last";
             // 
             // bindingNavigatorSeparator2
             // 
             this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
-            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 33);
+            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 31);
             // 
             // pageBindingNavigatorSaveItem
             // 
@@ -735,12 +734,12 @@
             this.pageBindingNavigatorSaveItem.Enabled = false;
             this.pageBindingNavigatorSaveItem.Image = ((System.Drawing.Image)(resources.GetObject("pageBindingNavigatorSaveItem.Image")));
             this.pageBindingNavigatorSaveItem.Name = "pageBindingNavigatorSaveItem";
-            this.pageBindingNavigatorSaveItem.Size = new System.Drawing.Size(34, 28);
+            this.pageBindingNavigatorSaveItem.Size = new System.Drawing.Size(28, 28);
             this.pageBindingNavigatorSaveItem.Text = "Save Data";
             // 
             // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 26F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1357, 771);
             this.Controls.Add(this.pageBindingNavigator);

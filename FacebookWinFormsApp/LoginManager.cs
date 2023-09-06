@@ -37,7 +37,7 @@ namespace BasicFacebookFeatures
 
         public bool Login()
         {
-            FacebookWrapper.FacebookService.s_CollectionLimit = 100;
+            FacebookWrapper.FacebookService.s_CollectionLimit = 30;
             bool loginRes = false;
             m_LoginResult = FacebookService.Login(
               k_AppId,
