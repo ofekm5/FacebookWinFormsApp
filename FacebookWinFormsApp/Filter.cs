@@ -28,9 +28,9 @@ namespace BasicFacebookFeatures
             }
         }
 
-        public List<Post> FilterPosts(FacebookObjectCollection<Post> i_ListOfPosts, int i_EarliestYear)
+        public List<Post> FilterPosts(FacebookObjectCollection<Post> i_ListOfPosts)
         {
-            List<Post> filteredPost = this.m_MyFilteredPostsStrategy.BringFilteredPosts(i_ListOfPosts, i_EarliestYear);
+            List<Post> filteredPost = this.m_MyFilteredPostsStrategy.BringFilteredPosts(i_ListOfPosts);
             return filteredPost;
         }
     }

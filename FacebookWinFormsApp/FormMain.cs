@@ -367,9 +367,7 @@ namespace BasicFacebookFeatures
             int randInd;
             Filter filter = new Filter(new OldPostsFilter());
 
-
-            earliestYear = findEarliestYear(i_ListOfPosts);
-            oldestPosts = filter.FilterPosts(i_ListOfPosts, earliestYear);
+            oldestPosts = filter.FilterPosts(i_ListOfPosts);
             randInd = random.Next(0, oldestPosts.Count - 1);
 
             return oldestPosts.ElementAt(randInd);
@@ -411,23 +409,6 @@ namespace BasicFacebookFeatures
 
             imagePopUpForm.Controls.Add(pictureBox);
             imagePopUpForm.ShowDialog();
-        }
-
-        private int findEarliestYear(FacebookObjectCollection<Post> i_Posts)
-        {
-            DateTime earliestDate = DateTime.Now;
-            int currentYear;
-
-            foreach (Post currentPost in i_Posts)
-            {
-                currentYear = ((DateTime)currentPost.CreatedTime).Year;
-                if (currentYear >= 2009 && currentPost.CreatedTime < earliestDate)
-                {
-                    earliestDate = (DateTime)currentPost.CreatedTime;
-                }
-            }
-
-            return earliestDate.Year;
         }
 
         private void buttonGuess_Click(object sender, EventArgs e)
