@@ -365,9 +365,11 @@ namespace BasicFacebookFeatures
             List<Post> oldestPosts;
             Random random = new Random();
             int randInd;
+            Filter filter = new Filter(new OldPostsFilter());
+
 
             earliestYear = findEarliestYear(i_ListOfPosts);
-            oldestPosts = i_ListOfPosts.Where(post => ((post.CreatedTime.Value.Year >= earliestYear) && (post.CreatedTime.Value.Year <= earliestYear + 5)) && ((post.Type == Post.eType.photo) || (post.Type == Post.eType.status)) && !post.Equals("")).ToList();
+            oldestPosts = filter.FilterPosts(i_ListOfPosts, earliestYear);
             randInd = random.Next(0, oldestPosts.Count - 1);
 
             return oldestPosts.ElementAt(randInd);
