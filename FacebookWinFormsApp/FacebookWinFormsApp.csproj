@@ -95,6 +95,8 @@
     <Compile Include="AppSettings.cs" />
     <Compile Include="FacebookDataFetcher.cs" />
     <Compile Include="FacebookDataProxy.cs" />
+    <Compile Include="Filter.cs" />
+    <Compile Include="IFilteredPostsStrategy.cs" />
     <Compile Include="FormGuessGame.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -112,6 +114,7 @@
     <Compile Include="IFacebookDataFetcher.cs" />
     <Compile Include="LoginManager.cs" />
     <Compile Include="PageLetters.cs" />
+    <Compile Include="OldPostsFilter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormGuessGame.resx">
