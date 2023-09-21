@@ -9,6 +9,6 @@ namespace BasicFacebookFeatures
 {
     public interface IFilteredPostsStrategy
     {
-        List<Post> BringFilteredPosts(FacebookObjectCollection<Post> i_ListOfPosts, int i_EarliestYear);
+        List<Post> BringFilteredPosts(FacebookObjectCollection<Post> i_ListOfPosts);
     }
 }
