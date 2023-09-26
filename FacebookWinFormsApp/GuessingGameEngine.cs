@@ -18,6 +18,17 @@ namespace BasicFacebookFeatures
         private SortedSet<char> m_CorrectLetters;
         private int m_LettersLeftToGuess;
         private const int k_MaxWrongGuesses = 5;
+        public event Action<List<int>, string> m_CorrectGuess;
+
+        private void GuessingGameEngine_CorrectGuess(List<int> i_Indices, string i_Text)
+        {
+            OnCorrectGuess(i_Indices, i_Text);
+        }
+
+        protected virtual void OnCorrectGuess(List<int> i_Indices, string i_Text)
+        {
+            m_CorrectGuess?.Invoke(i_Indices, i_Text);
+        }
 
         public PageLetters ChosenPageLetters
         {
@@ -93,7 +104,7 @@ namespace BasicFacebookFeatures
             m_LettersLeftToGuess = m_ChosenPageLetters.ActualLetters;
         }
 
-        public List<int> GuessLetter(string i_Guess)
+        public void GuessLetter(string i_Guess)
         {
             List<int> guessIndicesInPage = null;
 
@@ -117,10 +128,10 @@ namespace BasicFacebookFeatures
                 }
                 else if (m_ChosenPageLetters.PageLettersIndices.ContainsKey(i_Guess[0]))
                 {
-                    guessIndicesInPage = m_ChosenPageLetters.PageLettersIndices[i_Guess[0]];
                     m_CorrectLetters.Add(i_Guess[0]);
                     m_LettersLeftToGuess--;
                     m_Outcome = (m_LettersLeftToGuess == 0) ? "You won!" : "Good guess";
+                    GuessingGameEngine_CorrectGuess(m_ChosenPageLetters.PageLettersIndices[i_Guess[0]], i_Guess);
                 }
                 else
                 {
@@ -132,8 +143,6 @@ namespace BasicFacebookFeatures
             {
                 throw new Exception("Trying to guess a finished game");
             }
-
-            return guessIndicesInPage;
         }
     }
 }
