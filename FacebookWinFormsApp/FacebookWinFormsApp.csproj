@@ -115,6 +115,9 @@
     <Compile Include="ILabelsUpdater.cs" />
     <Compile Include="GameLettersLabels.cs" />
     <Compile Include="LoginManager.cs" />
+    <Compile Include="PageableListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="PageLetters.cs" />
     <Compile Include="OldPostsFilter.cs" />
     <Compile Include="Program.cs" />
