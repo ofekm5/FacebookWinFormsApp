@@ -35,9 +35,11 @@
             System.Windows.Forms.Label captionLabel;
             System.Windows.Forms.Label createdTimeLabel1;
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.buttonPrev = new System.Windows.Forms.Button();
+            this.buttonNext = new System.Windows.Forms.Button();
+            this.pageableListBox = new BasicFacebookFeatures.PageableListBox();
             this.panelPosts = new System.Windows.Forms.Panel();
             this.createdTimeDateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.postBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.captionTextBox = new System.Windows.Forms.TextBox();
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.panelAlbums = new System.Windows.Forms.Panel();
@@ -49,14 +51,13 @@
             this.pageBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.checkBoxRememberMe = new System.Windows.Forms.CheckBox();
             this.buttonPast = new System.Windows.Forms.Button();
-            this.buttonPost = new System.Windows.Forms.Button();
+            this.buttonPublishPost = new System.Windows.Forms.Button();
             this.textBoxPostStatus = new System.Windows.Forms.TextBox();
             this.labelWhatsOnYourMind = new System.Windows.Forms.Label();
             this.labelBasicDetails = new System.Windows.Forms.Label();
             this.pictureBoxFriends = new System.Windows.Forms.PictureBox();
             this.listBoxFriends = new System.Windows.Forms.ListBox();
             this.buttonFriends = new System.Windows.Forms.Button();
-            this.listBoxPosts = new System.Windows.Forms.ListBox();
             this.buttonPosts = new System.Windows.Forms.Button();
             this.labelWelcome = new System.Windows.Forms.Label();
             this.labelDetailsHeadline = new System.Windows.Forms.Label();
@@ -84,7 +85,6 @@
             createdTimeLabel1 = new System.Windows.Forms.Label();
             this.tabPage1.SuspendLayout();
             this.panelPosts.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.postBindingSource)).BeginInit();
             this.panelAlbums.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imageAlbumPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.albumBindingSource)).BeginInit();
@@ -145,19 +145,21 @@
             // tabPage1
             // 
             this.tabPage1.AutoScroll = true;
+            this.tabPage1.Controls.Add(this.buttonPrev);
+            this.tabPage1.Controls.Add(this.buttonNext);
+            this.tabPage1.Controls.Add(this.pageableListBox);
             this.tabPage1.Controls.Add(this.panelPosts);
             this.tabPage1.Controls.Add(this.panelAlbums);
             this.tabPage1.Controls.Add(this.panel1);
             this.tabPage1.Controls.Add(this.checkBoxRememberMe);
             this.tabPage1.Controls.Add(this.buttonPast);
-            this.tabPage1.Controls.Add(this.buttonPost);
+            this.tabPage1.Controls.Add(this.buttonPublishPost);
             this.tabPage1.Controls.Add(this.textBoxPostStatus);
             this.tabPage1.Controls.Add(this.labelWhatsOnYourMind);
             this.tabPage1.Controls.Add(this.labelBasicDetails);
             this.tabPage1.Controls.Add(this.pictureBoxFriends);
             this.tabPage1.Controls.Add(this.listBoxFriends);
             this.tabPage1.Controls.Add(this.buttonFriends);
-            this.tabPage1.Controls.Add(this.listBoxPosts);
             this.tabPage1.Controls.Add(this.buttonPosts);
             this.tabPage1.Controls.Add(this.labelWelcome);
             this.tabPage1.Controls.Add(this.labelDetailsHeadline);
@@ -176,6 +178,39 @@
             this.tabPage1.Text = "Basic features";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // buttonPrev
+            // 
+            this.buttonPrev.Enabled = false;
+            this.buttonPrev.Location = new System.Drawing.Point(871, 323);
+            this.buttonPrev.Name = "buttonPrev";
+            this.buttonPrev.Size = new System.Drawing.Size(32, 32);
+            this.buttonPrev.TabIndex = 87;
+            this.buttonPrev.Text = "<";
+            this.buttonPrev.UseVisualStyleBackColor = true;
+            this.buttonPrev.Visible = false;
+            this.buttonPrev.Click += new System.EventHandler(this.buttonPrev_Click);
+            // 
+            // buttonNext
+            // 
+            this.buttonNext.Enabled = false;
+            this.buttonNext.Location = new System.Drawing.Point(904, 323);
+            this.buttonNext.Name = "buttonNext";
+            this.buttonNext.Size = new System.Drawing.Size(32, 32);
+            this.buttonNext.TabIndex = 86;
+            this.buttonNext.Text = ">";
+            this.buttonNext.UseVisualStyleBackColor = true;
+            this.buttonNext.Visible = false;
+            this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
+            // 
+            // pageableListBox
+            // 
+            this.pageableListBox.FormattingEnabled = true;
+            this.pageableListBox.ItemHeight = 22;
+            this.pageableListBox.Location = new System.Drawing.Point(840, 203);
+            this.pageableListBox.Name = "pageableListBox";
+            this.pageableListBox.Size = new System.Drawing.Size(120, 114);
+            this.pageableListBox.TabIndex = 85;
+            // 
             // panelPosts
             // 
             this.panelPosts.Controls.Add(createdTimeLabel1);
@@ -192,19 +227,13 @@
             // 
             // createdTimeDateTimePicker1
             // 
-            this.createdTimeDateTimePicker1.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.postBindingSource, "CreatedTime", true));
             this.createdTimeDateTimePicker1.Location = new System.Drawing.Point(110, 72);
             this.createdTimeDateTimePicker1.Name = "createdTimeDateTimePicker1";
             this.createdTimeDateTimePicker1.Size = new System.Drawing.Size(200, 28);
             this.createdTimeDateTimePicker1.TabIndex = 5;
             // 
-            // postBindingSource
-            // 
-            this.postBindingSource.DataSource = typeof(FacebookWrapper.ObjectModel.Post);
-            // 
             // captionTextBox
             // 
-            this.captionTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.postBindingSource, "Caption", true));
             this.captionTextBox.Location = new System.Drawing.Point(72, 35);
             this.captionTextBox.Name = "captionTextBox";
             this.captionTextBox.Size = new System.Drawing.Size(303, 28);
@@ -212,7 +241,6 @@
             // 
             // nameTextBox
             // 
-            this.nameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.postBindingSource, "Name", true));
             this.nameTextBox.Location = new System.Drawing.Point(87, 5);
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(288, 28);
@@ -294,17 +322,17 @@
             this.buttonPast.Visible = false;
             this.buttonPast.Click += new System.EventHandler(this.buttonPast_Click);
             // 
-            // buttonPost
+            // buttonPublishPost
             // 
-            this.buttonPost.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonPost.Location = new System.Drawing.Point(871, 74);
-            this.buttonPost.Name = "buttonPost";
-            this.buttonPost.Size = new System.Drawing.Size(54, 32);
-            this.buttonPost.TabIndex = 78;
-            this.buttonPost.Text = "Post";
-            this.buttonPost.UseVisualStyleBackColor = true;
-            this.buttonPost.Visible = false;
-            this.buttonPost.Click += new System.EventHandler(this.buttonPost_Click);
+            this.buttonPublishPost.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonPublishPost.Location = new System.Drawing.Point(871, 74);
+            this.buttonPublishPost.Name = "buttonPublishPost";
+            this.buttonPublishPost.Size = new System.Drawing.Size(54, 32);
+            this.buttonPublishPost.TabIndex = 78;
+            this.buttonPublishPost.Text = "Post";
+            this.buttonPublishPost.UseVisualStyleBackColor = true;
+            this.buttonPublishPost.Visible = false;
+            this.buttonPublishPost.Click += new System.EventHandler(this.buttonPost_Click);
             // 
             // textBoxPostStatus
             // 
@@ -350,7 +378,7 @@
             this.listBoxFriends.ItemHeight = 22;
             this.listBoxFriends.Location = new System.Drawing.Point(950, 451);
             this.listBoxFriends.Name = "listBoxFriends";
-            this.listBoxFriends.Size = new System.Drawing.Size(230, 92);
+            this.listBoxFriends.Size = new System.Drawing.Size(230, 70);
             this.listBoxFriends.TabIndex = 73;
             this.listBoxFriends.Visible = false;
             this.listBoxFriends.SelectedIndexChanged += new System.EventHandler(this.listBoxFriends_SelectedIndexChanged);
@@ -365,17 +393,6 @@
             this.buttonFriends.UseVisualStyleBackColor = true;
             this.buttonFriends.Visible = false;
             this.buttonFriends.Click += new System.EventHandler(this.buttonFriends_Click);
-            // 
-            // listBoxPosts
-            // 
-            this.listBoxPosts.DataSource = this.postBindingSource;
-            this.listBoxPosts.FormattingEnabled = true;
-            this.listBoxPosts.ItemHeight = 22;
-            this.listBoxPosts.Location = new System.Drawing.Point(840, 205);
-            this.listBoxPosts.Name = "listBoxPosts";
-            this.listBoxPosts.Size = new System.Drawing.Size(117, 136);
-            this.listBoxPosts.TabIndex = 70;
-            this.listBoxPosts.Visible = false;
             // 
             // buttonPosts
             // 
@@ -417,7 +434,7 @@
             this.listBoxAlbums.ItemHeight = 22;
             this.listBoxAlbums.Location = new System.Drawing.Point(381, 445);
             this.listBoxAlbums.Name = "listBoxAlbums";
-            this.listBoxAlbums.Size = new System.Drawing.Size(230, 92);
+            this.listBoxAlbums.Size = new System.Drawing.Size(230, 70);
             this.listBoxAlbums.TabIndex = 60;
             this.listBoxAlbums.Visible = false;
             // 
@@ -445,11 +462,12 @@
             // 
             // listBoxLikedPages
             // 
+            this.listBoxLikedPages.DisplayMember = "AccessToken";
             this.listBoxLikedPages.FormattingEnabled = true;
             this.listBoxLikedPages.ItemHeight = 22;
             this.listBoxLikedPages.Location = new System.Drawing.Point(377, 205);
             this.listBoxLikedPages.Name = "listBoxLikedPages";
-            this.listBoxLikedPages.Size = new System.Drawing.Size(229, 92);
+            this.listBoxLikedPages.Size = new System.Drawing.Size(229, 70);
             this.listBoxLikedPages.TabIndex = 56;
             this.listBoxLikedPages.ValueMember = "AccessToken";
             this.listBoxLikedPages.Visible = false;
@@ -612,7 +630,6 @@
             this.tabPage1.PerformLayout();
             this.panelPosts.ResumeLayout(false);
             this.panelPosts.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.postBindingSource)).EndInit();
             this.panelAlbums.ResumeLayout(false);
             this.panelAlbums.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imageAlbumPictureBox)).EndInit();
@@ -641,7 +658,6 @@
         private System.Windows.Forms.Button buttonLogin;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.Label labelWelcome;
-        private System.Windows.Forms.ListBox listBoxPosts;
         private System.Windows.Forms.Button buttonPosts;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.PictureBox pictureBoxFriends;
@@ -653,7 +669,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxPostStatus;
         private System.Windows.Forms.Label labelWhatsOnYourMind;
-        private System.Windows.Forms.Button buttonPost;
+        private System.Windows.Forms.Button buttonPublishPost;
         private System.Windows.Forms.Label labelLetterGuess;
         private System.Windows.Forms.Button buttonPast;
         private System.Windows.Forms.Label labelPage;
@@ -671,9 +687,11 @@
         private System.Windows.Forms.DateTimePicker createdTimeDateTimePicker;
         private System.Windows.Forms.Panel panelPosts;
         private System.Windows.Forms.TextBox nameTextBox;
-        private System.Windows.Forms.BindingSource postBindingSource;
         private System.Windows.Forms.DateTimePicker createdTimeDateTimePicker1;
         private System.Windows.Forms.TextBox captionTextBox;
+        private PageableListBox pageableListBox;
+        private System.Windows.Forms.Button buttonNext;
+        private System.Windows.Forms.Button buttonPrev;
     }
 }
 

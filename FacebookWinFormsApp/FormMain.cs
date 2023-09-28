@@ -97,8 +97,6 @@ namespace BasicFacebookFeatures
             new Thread(()=>presentLikedPages()).Start();
         }
 
-        
-
         private void buttonAlbums_Click(object sender, EventArgs e)
         {
             new Thread(() => presentAllAlbums()).Start();
@@ -110,7 +108,7 @@ namespace BasicFacebookFeatures
             try
             {
                 albums = m_FacebookDataProxy.FetchAlbums();
-                listBoxPosts.Invoke(new Action(() => albumBindingSource.DataSource = albums));
+                listBoxAlbums.Invoke(new Action(() => albumBindingSource.DataSource = albums));
             }
             catch (Exception e)
             {
@@ -122,6 +120,8 @@ namespace BasicFacebookFeatures
         {
             panelAlbums.Visible = true;
             panelPosts.Visible = true;
+            buttonNext.Visible = true;
+            buttonPrev.Visible = true;
             buttonLogin.Enabled = false;
             buttonLogout.Enabled = true;
             buttonLikedPages.Visible = true;
@@ -140,24 +140,27 @@ namespace BasicFacebookFeatures
             labelWelcome.Visible = false;
             buttonPosts.Enabled = true;
             buttonPosts.Visible = true;
-            listBoxPosts.Visible = true;
+            pageableListBox.Visible = true;
             labelBasicDetails.Visible = true;
             labelWhatsOnYourMind.Visible = true;
             textBoxPostStatus.Visible = true;
             textBoxPostStatus.Enabled = true;
-            buttonPost.Visible = true;
-            buttonPost.Enabled = true;
+            buttonPublishPost.Visible = true;
+            buttonPublishPost.Enabled = true;
             buttonPast.Visible = true;
             buttonPast.Enabled = true;
             labelBasicDetails.Text = m_FacebookDataProxy.FetchBasicInfo();
             pictureBoxProfile.LoadAsync(m_FacebookDataProxy.FetchProfilePicURL());
             m_GuessingGameUI = new GuessingGameUI(m_FacebookDataProxy.FetchLikedPages().ToList(), textBoxGuess, buttonGuess, labelOutcome, buttonPlayAgain, labelPage);
-            tabPage2.Controls.AddRange(m_GuessingGameUI.LabelChars);
+            tabPage2.Controls.AddRange(m_GuessingGameUI.CharLabels);
+            pageableListBox.SetNextPrevButtons(buttonNext, buttonPrev);
         }
 
         private void handleAllToolsAfterLogout()
         {
             panelAlbums.Visible = false;
+            buttonNext.Visible = false;
+            buttonPrev.Visible = false;
             panelPosts.Visible = false;
             buttonLogin.Enabled = true;
             buttonLogout.Enabled = false;
@@ -174,20 +177,20 @@ namespace BasicFacebookFeatures
             labelWelcome.Visible = true;
             buttonPosts.Enabled = false;
             buttonPosts.Visible = false;
-            listBoxPosts.Visible = false;
+            pageableListBox.Visible = false;
             labelBasicDetails.Visible = false;
             labelWhatsOnYourMind.Visible = true;
             textBoxPostStatus.Visible = true;
             textBoxPostStatus.Enabled = true;
-            buttonPost.Visible = true;
-            buttonPost.Enabled = true;
+            buttonPublishPost.Visible = false;
+            buttonPublishPost.Enabled = false;
             buttonPast.Visible = true;
             buttonPast.Enabled = true;
             labelWhatsOnYourMind.Visible = false;
             textBoxPostStatus.Visible = false;
             textBoxPostStatus.Enabled = false;
-            buttonPost.Visible = false;
-            buttonPost.Enabled = false;
+            buttonPublishPost.Visible = false;
+            buttonPublishPost.Enabled = false;
             buttonPast.Visible = false;
             buttonPast.Enabled = false;
             pictureBoxFriends.Visible = false;
@@ -208,7 +211,8 @@ namespace BasicFacebookFeatures
             try
             {
                 posts = m_FacebookDataProxy.FetchPosts();
-                listBoxPosts.Invoke(new Action(()=>postBindingSource.DataSource = posts));
+                pageableListBox.StoreFetchedPosts(posts.ToList());
+                pageableListBox.Invoke(new Action(() => pageableListBox.PresentNextPage()));
             }
             catch(Exception e)
             {
@@ -418,18 +422,28 @@ namespace BasicFacebookFeatures
 
         private void buttonPlayAgain_Click(object sender, EventArgs e)
         {
-            foreach (Label labelChar in m_GuessingGameUI.LabelChars)
+            foreach (Label labelChar in m_GuessingGameUI.CharLabels)
             {
                 tabPage2.Controls.Remove(labelChar);
             }
 
             m_GuessingGameUI.Rematch();
-            tabPage2.Controls.AddRange(m_GuessingGameUI.LabelChars);
+            tabPage2.Controls.AddRange(m_GuessingGameUI.CharLabels);
         }
 
         private void listBoxLikedPages_SelectedIndexChanged(object sender, EventArgs e)
         {
             displaySelectedPage();
+        }
+
+        private void buttonNext_Click(object sender, EventArgs e)
+        {
+            pageableListBox.Invoke(new Action(() => pageableListBox.PresentNextPage()));
+        }
+
+        private void buttonPrev_Click(object sender, EventArgs e)
+        {
+            pageableListBox.Invoke(new Action(() => pageableListBox.PresentPrevPage()));
         }
     }
 }
