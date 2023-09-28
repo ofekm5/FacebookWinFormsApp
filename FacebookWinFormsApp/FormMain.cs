@@ -145,14 +145,14 @@ namespace BasicFacebookFeatures
             labelWhatsOnYourMind.Visible = true;
             textBoxPostStatus.Visible = true;
             textBoxPostStatus.Enabled = true;
-            buttonPost.Visible = true;
-            buttonPost.Enabled = true;
+            buttonPublishPost.Visible = true;
+            buttonPublishPost.Enabled = true;
             buttonPast.Visible = true;
             buttonPast.Enabled = true;
             labelBasicDetails.Text = m_FacebookDataProxy.FetchBasicInfo();
             pictureBoxProfile.LoadAsync(m_FacebookDataProxy.FetchProfilePicURL());
             m_GuessingGameUI = new GuessingGameUI(m_FacebookDataProxy.FetchLikedPages().ToList(), textBoxGuess, buttonGuess, labelOutcome, buttonPlayAgain, labelPage);
-            tabPage2.Controls.AddRange(m_GuessingGameUI.LabelChars);
+            tabPage2.Controls.AddRange(m_GuessingGameUI.CharLabels);
         }
 
         private void handleAllToolsAfterLogout()
@@ -179,15 +179,15 @@ namespace BasicFacebookFeatures
             labelWhatsOnYourMind.Visible = true;
             textBoxPostStatus.Visible = true;
             textBoxPostStatus.Enabled = true;
-            buttonPost.Visible = true;
-            buttonPost.Enabled = true;
+            buttonPublishPost.Visible = false;
+            buttonPublishPost.Enabled = false;
             buttonPast.Visible = true;
             buttonPast.Enabled = true;
             labelWhatsOnYourMind.Visible = false;
             textBoxPostStatus.Visible = false;
             textBoxPostStatus.Enabled = false;
-            buttonPost.Visible = false;
-            buttonPost.Enabled = false;
+            buttonPublishPost.Visible = false;
+            buttonPublishPost.Enabled = false;
             buttonPast.Visible = false;
             buttonPast.Enabled = false;
             pictureBoxFriends.Visible = false;
@@ -418,13 +418,13 @@ namespace BasicFacebookFeatures
 
         private void buttonPlayAgain_Click(object sender, EventArgs e)
         {
-            foreach (Label labelChar in m_GuessingGameUI.LabelChars)
+            foreach (Label labelChar in m_GuessingGameUI.CharLabels)
             {
                 tabPage2.Controls.Remove(labelChar);
             }
 
             m_GuessingGameUI.Rematch();
-            tabPage2.Controls.AddRange(m_GuessingGameUI.LabelChars);
+            tabPage2.Controls.AddRange(m_GuessingGameUI.CharLabels);
         }
 
         private void listBoxLikedPages_SelectedIndexChanged(object sender, EventArgs e)
