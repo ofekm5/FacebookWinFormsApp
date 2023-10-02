@@ -190,6 +190,7 @@
             this.panelPosts.Name = "panelPosts";
             this.panelPosts.Size = new System.Drawing.Size(369, 152);
             this.panelPosts.TabIndex = 88;
+            this.panelPosts.Visible = false;
             // 
             // nameTextBox
             // 
@@ -244,6 +245,7 @@
             this.pageableListBox.Name = "pageableListBox";
             this.pageableListBox.Size = new System.Drawing.Size(120, 112);
             this.pageableListBox.TabIndex = 85;
+            this.pageableListBox.Visible = false;
             this.pageableListBox.SelectedIndexChanged += new System.EventHandler(this.pageableListBox_SelectedIndexChanged);
             // 
             // panelAlbums
