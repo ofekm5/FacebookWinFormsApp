@@ -22,17 +22,16 @@ namespace BasicFacebookFeatures
 
         public static FacebookDataFetcher GetInstance(User i_LoggedInUser)
         {
-            if (m_Instance == null)
+            if (m_Instance == null || (m_Instance.m_LoggedInUser != i_LoggedInUser))
             {
                 lock (r_Lock)
                 {
-                    if (m_Instance == null)
+                    if (m_Instance == null || (m_Instance.m_LoggedInUser != i_LoggedInUser))
                     {
                         m_Instance = new FacebookDataFetcher(i_LoggedInUser);
                     }
                 }
             }
-
             return m_Instance;
         }
 

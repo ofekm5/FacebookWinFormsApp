@@ -172,8 +172,11 @@ namespace BasicFacebookFeatures
             buttonLikedPages.Enabled = false;
             listBoxLikedPages.Visible = false;
             listBoxLikedPages.Items.Clear();
+            albumBindingSource.Clear();
+            m_FacebookDataProxy.UserLogout();
+            //listBoxAlbums.Items.Clear();
+            listBoxAlbums.DataSource = null;
             listBoxAlbums.Visible = false;
-            listBoxAlbums.Items.Clear();
             buttonAlbums.Visible = false;
             buttonAlbums.Enabled = false;
             labelDetailsHeadline.Visible = false;

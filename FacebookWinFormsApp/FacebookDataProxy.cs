@@ -79,7 +79,7 @@ namespace BasicFacebookFeatures
                 insertCommandToTries(i_Command);
                 status = true;
             }
-            else if(getTotalTries(i_Command) == k_MaxTriesToUpdate)
+            else if (getTotalTries(i_Command) == k_MaxTriesToUpdate)
             {
                 status = true;
             }
@@ -201,6 +201,14 @@ namespace BasicFacebookFeatures
             }
 
             return Friends;
+        }
+
+        public void UserLogout()
+        {
+            lock (r_UpdateTriesLock)
+            {
+                m_UpdateTries.Clear();
+            }
         }
     }
 }
