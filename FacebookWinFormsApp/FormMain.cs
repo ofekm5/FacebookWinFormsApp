@@ -456,7 +456,7 @@ namespace BasicFacebookFeatures
 
         private void pageableListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            pageableListBox.displaySelectedPost();
+            pageableListBox.DisplaySelectedPost();
         }
     }
 }

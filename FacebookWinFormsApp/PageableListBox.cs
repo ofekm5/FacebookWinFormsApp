@@ -100,7 +100,7 @@ namespace BasicFacebookFeatures
             m_PrevPageButton.Enabled = (m_CurrPage <= 0) ? false : true;
         }
 
-        public void displaySelectedPost()
+        public void DisplaySelectedPost()
         {
             Post selectedPost = this.SelectedItem as Post;
             m_CreatedTimePosts.Value = (DateTime)selectedPost.CreatedTime;
