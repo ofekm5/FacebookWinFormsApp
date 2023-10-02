@@ -18,7 +18,8 @@ namespace BasicFacebookFeatures
         private LoginManager m_LoginManager;
         private AppSettings m_AppSettings;
         private FacebookDataProxy m_FacebookDataProxy;
-        
+        private bool m_FetchedPresentedPosts;
+
         public FormMain()
         {
             InitializeComponent();
@@ -120,6 +121,7 @@ namespace BasicFacebookFeatures
         {
             panelAlbums.Visible = true;
             panelPosts.Visible = true;
+            m_FetchedPresentedPosts = false;
             buttonNext.Visible = true;
             buttonPrev.Visible = true;
             buttonLogin.Enabled = false;
@@ -154,6 +156,8 @@ namespace BasicFacebookFeatures
             m_GuessingGameUI = new GuessingGameUI(m_FacebookDataProxy.FetchLikedPages().ToList(), textBoxGuess, buttonGuess, labelOutcome, buttonPlayAgain, labelPage);
             tabPage2.Controls.AddRange(m_GuessingGameUI.CharLabels);
             pageableListBox.SetNextPrevButtons(buttonNext, buttonPrev);
+            pageableListBox.setComponentsPagebleListBox(nameTextBox, captionTextBox, createdTimePosts);
+            
         }
 
         private void handleAllToolsAfterLogout()
@@ -210,14 +214,18 @@ namespace BasicFacebookFeatures
             FacebookObjectCollection<Post> posts;
             try
             {
-                posts = m_FacebookDataProxy.FetchPosts();
-                pageableListBox.StoreFetchedPosts(posts.ToList());
-                pageableListBox.Invoke(new Action(() => pageableListBox.PresentNextPage()));
+                if (!m_FetchedPresentedPosts)
+                {
+                    posts = m_FacebookDataProxy.FetchPosts();
+                    pageableListBox.StoreFetchedPosts(posts.ToList());
+                    pageableListBox.Invoke(new Action(() => pageableListBox.PresentNextPage()));
+                    m_FetchedPresentedPosts = true;
+                }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 MessageBox.Show(e.Message);
-            }      
+            }
         }
 
         private void presentLikedPages()
@@ -444,6 +452,11 @@ namespace BasicFacebookFeatures
         private void buttonPrev_Click(object sender, EventArgs e)
         {
             pageableListBox.Invoke(new Action(() => pageableListBox.PresentPrevPage()));
+        }
+
+        private void pageableListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            pageableListBox.displaySelectedPost();
         }
     }
 }

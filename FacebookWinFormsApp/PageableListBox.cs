@@ -15,6 +15,9 @@ namespace BasicFacebookFeatures
         private const int k_ItemsPerPage = 7;
         private Button m_NextPageButton, m_PrevPageButton;
         private int m_TotalPages;
+        private TextBox m_NameTextBox;
+        private TextBox m_CaptionTextBox;
+        private DateTimePicker m_CreatedTimePosts;
 
         public PageableListBox()
         {
@@ -26,6 +29,12 @@ namespace BasicFacebookFeatures
         {
             this.m_NextPageButton = i_BtnNext;
             this.m_PrevPageButton = i_BtnPrev;
+        }
+        public void setComponentsPagebleListBox(TextBox i_NameTextBox, TextBox i_CaptionTextBox, DateTimePicker i_CreatedTimePosts)
+        {
+            m_NameTextBox = i_NameTextBox;
+            m_CaptionTextBox = i_CaptionTextBox;
+            m_CreatedTimePosts = i_CreatedTimePosts;
         }
 
         public void StoreFetchedPosts(List<Post> i_PostsList)
@@ -90,5 +99,15 @@ namespace BasicFacebookFeatures
             m_NextPageButton.Enabled = (m_CurrPage < m_TotalPages - 1) ? true : false;
             m_PrevPageButton.Enabled = (m_CurrPage <= 0) ? false : true;
         }
+
+        public void displaySelectedPost()
+        {
+            Post selectedPost = this.SelectedItem as Post;
+            m_CreatedTimePosts.Value = (DateTime)selectedPost.CreatedTime;
+            m_CaptionTextBox.Text = selectedPost.Caption;
+            m_NameTextBox.Text = selectedPost.Name;
+        }
+
+        
     }
 }
